@@ -8,7 +8,7 @@
       "file_type": "code",
       "source_file": "client/eslint.config.js",
       "source_location": "L1",
-      "community": 14,
+      "community": 13,
       "norm_label": "eslint.config.js",
       "id": "client_eslint_config_js"
     },
@@ -17,25 +17,16 @@
       "file_type": "code",
       "source_file": "client/vite.config.js",
       "source_location": "L1",
-      "community": 15,
+      "community": 14,
       "norm_label": "vite.config.js",
       "id": "client_vite_config_js"
-    },
-    {
-      "label": "App.jsx",
-      "file_type": "code",
-      "source_file": "client/src/App.jsx",
-      "source_location": "L1",
-      "community": 5,
-      "norm_label": "app.jsx",
-      "id": "client_src_app_jsx"
     },
     {
       "label": "queryClient",
       "file_type": "code",
       "source_file": "client/src/App.jsx",
       "source_location": "L19",
-      "community": 5,
+      "community": 2,
       "norm_label": "queryclient",
       "id": "src_app_queryclient"
     },
@@ -44,7 +35,7 @@
       "file_type": "code",
       "source_file": "client/src/App.jsx",
       "source_location": "L29",
-      "community": 5,
+      "community": 2,
       "norm_label": "protectedroute()",
       "id": "src_app_protectedroute"
     },
@@ -53,7 +44,7 @@
       "file_type": "code",
       "source_file": "client/src/App.jsx",
       "source_location": "L44",
-      "community": 5,
+      "community": 2,
       "norm_label": "publicroute()",
       "id": "src_app_publicroute"
     },
@@ -71,7 +62,7 @@
       "file_type": "code",
       "source_file": "client/src/main.jsx",
       "source_location": "L1",
-      "community": 5,
+      "community": 2,
       "norm_label": "main.jsx",
       "id": "client_src_main_jsx"
     },
@@ -80,7 +71,7 @@
       "file_type": "code",
       "source_file": "client/src/components/auth/SocialAuth.jsx",
       "source_location": "L7",
-      "community": 5,
+      "community": 2,
       "norm_label": "socialauth()",
       "id": "auth_socialauth_socialauth"
     },
@@ -89,7 +80,7 @@
       "file_type": "code",
       "source_file": "client/src/components/layout/AppLayout.jsx",
       "source_location": "L14",
-      "community": 5,
+      "community": 2,
       "norm_label": "applayout()",
       "id": "layout_applayout_applayout"
     },
@@ -98,7 +89,7 @@
       "file_type": "code",
       "source_file": "client/src/components/shared/EmptyState.jsx",
       "source_location": "L1",
-      "community": 13,
+      "community": 12,
       "norm_label": "emptystate.jsx",
       "id": "client_src_components_shared_emptystate_jsx"
     },
@@ -107,25 +98,16 @@
       "file_type": "code",
       "source_file": "client/src/components/shared/EmptyState.jsx",
       "source_location": "L3",
-      "community": 13,
+      "community": 12,
       "norm_label": "emptystate()",
       "id": "shared_emptystate_emptystate"
-    },
-    {
-      "label": "LoadingSkeleton.jsx",
-      "file_type": "code",
-      "source_file": "client/src/components/shared/LoadingSkeleton.jsx",
-      "source_location": "L1",
-      "community": 10,
-      "norm_label": "loadingskeleton.jsx",
-      "id": "client_src_components_shared_loadingskeleton_jsx"
     },
     {
       "label": "CardSkeleton()",
       "file_type": "code",
       "source_file": "client/src/components/shared/LoadingSkeleton.jsx",
       "source_location": "L3",
-      "community": 10,
+      "community": 9,
       "norm_label": "cardskeleton()",
       "id": "shared_loadingskeleton_cardskeleton"
     },
@@ -134,7 +116,7 @@
       "file_type": "code",
       "source_file": "client/src/components/shared/LoadingSkeleton.jsx",
       "source_location": "L13",
-      "community": 10,
+      "community": 9,
       "norm_label": "listskeleton()",
       "id": "shared_loadingskeleton_listskeleton"
     },
@@ -143,18 +125,9 @@
       "file_type": "code",
       "source_file": "client/src/components/shared/LoadingSkeleton.jsx",
       "source_location": "L30",
-      "community": 10,
+      "community": 9,
       "norm_label": "statsskeleton()",
       "id": "shared_loadingskeleton_statsskeleton"
-    },
-    {
-      "label": "TaskCard.jsx",
-      "file_type": "code",
-      "source_file": "client/src/components/tasks/TaskCard.jsx",
-      "source_location": "L1",
-      "community": 1,
-      "norm_label": "taskcard.jsx",
-      "id": "client_src_components_tasks_taskcard_jsx"
     },
     {
       "label": "TaskCard()",
@@ -236,15 +209,6 @@
       "community": 1,
       "norm_label": "button()",
       "id": "ui_button_button"
-    },
-    {
-      "label": "card.jsx",
-      "file_type": "code",
-      "source_file": "client/src/components/ui/card.jsx",
-      "source_location": "L1",
-      "community": 1,
-      "norm_label": "card.jsx",
-      "id": "client_src_components_ui_card_jsx"
     },
     {
       "label": "Card()",
@@ -332,7 +296,7 @@
       "file_type": "code",
       "source_file": "client/src/context/AuthContext.jsx",
       "source_location": "L1",
-      "community": 5,
+      "community": 2,
       "norm_label": "authcontext.jsx",
       "id": "client_src_context_authcontext_jsx"
     },
@@ -341,7 +305,7 @@
       "file_type": "code",
       "source_file": "client/src/context/AuthContext.jsx",
       "source_location": "L5",
-      "community": 5,
+      "community": 2,
       "norm_label": "authcontext",
       "id": "context_authcontext_authcontext"
     },
@@ -350,7 +314,7 @@
       "file_type": "code",
       "source_file": "client/src/context/AuthContext.jsx",
       "source_location": "L7",
-      "community": 5,
+      "community": 2,
       "norm_label": "authprovider()",
       "id": "context_authcontext_authprovider"
     },
@@ -359,7 +323,7 @@
       "file_type": "code",
       "source_file": "client/src/context/AuthContext.jsx",
       "source_location": "L71",
-      "community": 5,
+      "community": 2,
       "norm_label": "useauth()",
       "id": "context_authcontext_useauth"
     },
@@ -431,7 +395,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useDashboard.js",
       "source_location": "L1",
-      "community": 7,
+      "community": 2,
       "norm_label": "usedashboard.js",
       "id": "client_src_hooks_usedashboard_js"
     },
@@ -440,7 +404,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useDashboard.js",
       "source_location": "L4",
-      "community": 7,
+      "community": 2,
       "norm_label": "usedashboardstats()",
       "id": "hooks_usedashboard_usedashboardstats"
     },
@@ -449,7 +413,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useDashboard.js",
       "source_location": "L11",
-      "community": 7,
+      "community": 2,
       "norm_label": "userecenttasks()",
       "id": "hooks_usedashboard_userecenttasks"
     },
@@ -458,7 +422,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useOrganizations.js",
       "source_location": "L1",
-      "community": 7,
+      "community": 2,
       "norm_label": "useorganizations.js",
       "id": "client_src_hooks_useorganizations_js"
     },
@@ -467,7 +431,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useOrganizations.js",
       "source_location": "L19",
-      "community": 7,
+      "community": 2,
       "norm_label": "useorgmembers()",
       "id": "hooks_useorganizations_useorgmembers"
     },
@@ -476,7 +440,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useOrganizations.js",
       "source_location": "L27",
-      "community": 7,
+      "community": 2,
       "norm_label": "usecreateorg()",
       "id": "hooks_useorganizations_usecreateorg"
     },
@@ -485,7 +449,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useOrganizations.js",
       "source_location": "L35",
-      "community": 7,
+      "community": 2,
       "norm_label": "useaddmember()",
       "id": "hooks_useorganizations_useaddmember"
     },
@@ -494,7 +458,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useOrganizations.js",
       "source_location": "L43",
-      "community": 7,
+      "community": 2,
       "norm_label": "useremovemember()",
       "id": "hooks_useorganizations_useremovemember"
     },
@@ -503,7 +467,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useOrganizations.js",
       "source_location": "L51",
-      "community": 7,
+      "community": 2,
       "norm_label": "useupdateorg()",
       "id": "hooks_useorganizations_useupdateorg"
     },
@@ -512,7 +476,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useOrganizations.js",
       "source_location": "L62",
-      "community": 7,
+      "community": 2,
       "norm_label": "usedeleteorg()",
       "id": "hooks_useorganizations_usedeleteorg"
     },
@@ -521,7 +485,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useProfile.js",
       "source_location": "L1",
-      "community": 5,
+      "community": 2,
       "norm_label": "useprofile.js",
       "id": "client_src_hooks_useprofile_js"
     },
@@ -530,7 +494,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useProfile.js",
       "source_location": "L4",
-      "community": 5,
+      "community": 2,
       "norm_label": "useprofile()",
       "id": "hooks_useprofile_useprofile"
     },
@@ -539,7 +503,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useProfile.js",
       "source_location": "L15",
-      "community": 5,
+      "community": 2,
       "norm_label": "useupdateprofile()",
       "id": "hooks_useprofile_useupdateprofile"
     },
@@ -548,7 +512,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useProjects.js",
       "source_location": "L12",
-      "community": 7,
+      "community": 2,
       "norm_label": "useproject()",
       "id": "hooks_useprojects_useproject"
     },
@@ -557,7 +521,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useProjects.js",
       "source_location": "L20",
-      "community": 7,
+      "community": 2,
       "norm_label": "usecreateproject()",
       "id": "hooks_useprojects_usecreateproject"
     },
@@ -566,7 +530,7 @@
       "file_type": "code",
       "source_file": "client/src/hooks/useProjects.js",
       "source_location": "L28",
-      "community": 7,
+      "community": 2,
       "norm_label": "usedeleteproject()",
       "id": "hooks_useprojects_usedeleteproject"
     },
@@ -647,7 +611,7 @@
       "file_type": "code",
       "source_file": "client/src/lib/api.js",
       "source_location": "L1",
-      "community": 9,
+      "community": 8,
       "norm_label": "api.js",
       "id": "client_src_lib_api_js"
     },
@@ -656,7 +620,7 @@
       "file_type": "code",
       "source_file": "client/src/lib/api.js",
       "source_location": "L3",
-      "community": 9,
+      "community": 8,
       "norm_label": "api",
       "id": "lib_api_api"
     },
@@ -665,7 +629,7 @@
       "file_type": "code",
       "source_file": "client/src/lib/api.js",
       "source_location": "L10",
-      "community": 9,
+      "community": 8,
       "norm_label": "gettoken()",
       "id": "lib_api_gettoken"
     },
@@ -674,7 +638,7 @@
       "file_type": "code",
       "source_file": "client/src/lib/api.js",
       "source_location": "L12",
-      "community": 9,
+      "community": 8,
       "norm_label": "settokengetter()",
       "id": "lib_api_settokengetter"
     },
@@ -683,7 +647,7 @@
       "file_type": "code",
       "source_file": "client/src/lib/api.js",
       "source_location": "L17",
-      "community": 9,
+      "community": 8,
       "norm_label": "token",
       "id": "lib_api_token"
     },
@@ -692,7 +656,7 @@
       "file_type": "code",
       "source_file": "client/src/lib/supabase.js",
       "source_location": "L10",
-      "community": 8,
+      "community": 5,
       "norm_label": "supabase",
       "id": "lib_supabase_supabase"
     },
@@ -782,7 +746,7 @@
       "file_type": "code",
       "source_file": "client/src/pages/auth/AuthCallback.jsx",
       "source_location": "L1",
-      "community": 12,
+      "community": 10,
       "norm_label": "authcallback.jsx",
       "id": "client_src_pages_auth_authcallback_jsx"
     },
@@ -791,61 +755,34 @@
       "file_type": "code",
       "source_file": "client/src/pages/auth/AuthCallback.jsx",
       "source_location": "L6",
-      "community": 12,
+      "community": 10,
       "norm_label": "authcallback()",
       "id": "auth_authcallback_authcallback"
-    },
-    {
-      "label": "LoginPage.jsx",
-      "file_type": "code",
-      "source_file": "client/src/pages/auth/LoginPage.jsx",
-      "source_location": "L1",
-      "community": 5,
-      "norm_label": "loginpage.jsx",
-      "id": "client_src_pages_auth_loginpage_jsx"
     },
     {
       "label": "LoginPage()",
       "file_type": "code",
       "source_file": "client/src/pages/auth/LoginPage.jsx",
       "source_location": "L12",
-      "community": 5,
+      "community": 2,
       "norm_label": "loginpage()",
       "id": "auth_loginpage_loginpage"
-    },
-    {
-      "label": "SignupPage()",
-      "file_type": "code",
-      "source_file": "client/src/pages/auth/SignupPage.jsx",
-      "source_location": "L12",
-      "community": 5,
-      "norm_label": "signuppage()",
-      "id": "auth_signuppage_signuppage"
     },
     {
       "label": "SignupSuccessPage()",
       "file_type": "code",
       "source_file": "client/src/pages/auth/SignupSuccessPage.jsx",
       "source_location": "L6",
-      "community": 16,
+      "community": 15,
       "norm_label": "signupsuccesspage()",
       "id": "auth_signupsuccesspage_signupsuccesspage"
-    },
-    {
-      "label": "DashboardPage()",
-      "file_type": "code",
-      "source_file": "client/src/pages/dashboard/DashboardPage.jsx",
-      "source_location": "L14",
-      "community": 7,
-      "norm_label": "dashboardpage()",
-      "id": "dashboard_dashboardpage_dashboardpage"
     },
     {
       "label": "MembersPage()",
       "file_type": "code",
       "source_file": "client/src/pages/organizations/MembersPage.jsx",
       "source_location": "L16",
-      "community": 7,
+      "community": 2,
       "norm_label": "memberspage()",
       "id": "organizations_memberspage_memberspage"
     },
@@ -854,7 +791,7 @@
       "file_type": "code",
       "source_file": "client/src/pages/organizations/NewOrgPage.jsx",
       "source_location": "L1",
-      "community": 7,
+      "community": 2,
       "norm_label": "neworgpage.jsx",
       "id": "client_src_pages_organizations_neworgpage_jsx"
     },
@@ -863,27 +800,9 @@
       "file_type": "code",
       "source_file": "client/src/pages/organizations/NewOrgPage.jsx",
       "source_location": "L10",
-      "community": 7,
+      "community": 2,
       "norm_label": "neworgpage()",
       "id": "organizations_neworgpage_neworgpage"
-    },
-    {
-      "label": "OrganizationPage()",
-      "file_type": "code",
-      "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
-      "source_location": "L18",
-      "community": 7,
-      "norm_label": "organizationpage()",
-      "id": "organizations_organizationpage_organizationpage"
-    },
-    {
-      "label": "ProfilePage()",
-      "file_type": "code",
-      "source_file": "client/src/pages/profile/ProfilePage.jsx",
-      "source_location": "L12",
-      "community": 5,
-      "norm_label": "profilepage()",
-      "id": "profile_profilepage_profilepage"
     },
     {
       "label": "TaskFilters()",
@@ -904,29 +823,11 @@
       "id": "projects_projectpage_kanbancolumn"
     },
     {
-      "label": "ProjectPage()",
-      "file_type": "code",
-      "source_file": "client/src/pages/projects/ProjectPage.jsx",
-      "source_location": "L61",
-      "community": 1,
-      "norm_label": "projectpage()",
-      "id": "projects_projectpage_projectpage"
-    },
-    {
-      "label": "TaskDetailPage()",
-      "file_type": "code",
-      "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
-      "source_location": "L24",
-      "community": 1,
-      "norm_label": "taskdetailpage()",
-      "id": "tasks_taskdetailpage_taskdetailpage"
-    },
-    {
       "label": "setup_avatars.js",
       "file_type": "code",
       "source_file": "scripts/setup_avatars.js",
       "source_location": "L1",
-      "community": 8,
+      "community": 5,
       "norm_label": "setup_avatars.js",
       "id": "scripts_setup_avatars_js"
     },
@@ -935,7 +836,7 @@
       "file_type": "code",
       "source_file": "scripts/setup_avatars.js",
       "source_location": "L9",
-      "community": 8,
+      "community": 5,
       "norm_label": "setup()",
       "id": "scripts_setup_avatars_setup"
     },
@@ -944,7 +845,7 @@
       "file_type": "code",
       "source_file": "scripts/setup_storage_policies.js",
       "source_location": "L1",
-      "community": 8,
+      "community": 5,
       "norm_label": "setup_storage_policies.js",
       "id": "scripts_setup_storage_policies_js"
     },
@@ -953,7 +854,7 @@
       "file_type": "code",
       "source_file": "src/app.js",
       "source_location": "L1",
-      "community": 6,
+      "community": 5,
       "norm_label": "app.js",
       "id": "src_app_js"
     },
@@ -962,7 +863,7 @@
       "file_type": "code",
       "source_file": "src/app.js",
       "source_location": "L6",
-      "community": 2,
+      "community": 3,
       "norm_label": "express",
       "id": "src_app_express"
     },
@@ -971,7 +872,7 @@
       "file_type": "code",
       "source_file": "src/app.js",
       "source_location": "L7",
-      "community": 6,
+      "community": 5,
       "norm_label": "helmet",
       "id": "src_app_helmet"
     },
@@ -980,7 +881,7 @@
       "file_type": "code",
       "source_file": "src/app.js",
       "source_location": "L8",
-      "community": 6,
+      "community": 5,
       "norm_label": "corsmiddleware",
       "id": "src_app_corsmiddleware"
     },
@@ -989,7 +890,7 @@
       "file_type": "code",
       "source_file": "src/app.js",
       "source_location": "L9",
-      "community": 6,
+      "community": 5,
       "norm_label": "{ globallimiter }",
       "id": "src_app_globallimiter"
     },
@@ -998,7 +899,7 @@
       "file_type": "code",
       "source_file": "src/app.js",
       "source_location": "L10",
-      "community": 6,
+      "community": 5,
       "norm_label": "{ requestlogger }",
       "id": "src_app_requestlogger"
     },
@@ -1016,7 +917,7 @@
       "file_type": "code",
       "source_file": "src/app.js",
       "source_location": "L12",
-      "community": 6,
+      "community": 5,
       "norm_label": "routes",
       "id": "src_app_routes"
     },
@@ -1025,7 +926,7 @@
       "file_type": "code",
       "source_file": "src/index.js",
       "source_location": "L1",
-      "community": 2,
+      "community": 3,
       "norm_label": "index.js",
       "id": "src_index_js"
     },
@@ -1034,7 +935,7 @@
       "file_type": "code",
       "source_file": "src/index.js",
       "source_location": "L5",
-      "community": 6,
+      "community": 5,
       "norm_label": "config",
       "id": "src_index_config"
     },
@@ -1043,7 +944,7 @@
       "file_type": "code",
       "source_file": "src/index.js",
       "source_location": "L8",
-      "community": 2,
+      "community": 3,
       "norm_label": "server",
       "id": "src_index_server"
     },
@@ -1052,7 +953,7 @@
       "file_type": "code",
       "source_file": "src/index.js",
       "source_location": "L23",
-      "community": 2,
+      "community": 3,
       "norm_label": "shutdown()",
       "id": "src_index_shutdown"
     },
@@ -1061,7 +962,7 @@
       "file_type": "code",
       "source_file": "src/config/cors.js",
       "source_location": "L1",
-      "community": 6,
+      "community": 5,
       "norm_label": "cors.js",
       "id": "src_config_cors_js"
     },
@@ -1070,7 +971,7 @@
       "file_type": "code",
       "source_file": "src/config/cors.js",
       "source_location": "L5",
-      "community": 6,
+      "community": 5,
       "norm_label": "cors",
       "id": "config_cors_cors"
     },
@@ -1079,7 +980,7 @@
       "file_type": "code",
       "source_file": "src/config/cors.js",
       "source_location": "L8",
-      "community": 6,
+      "community": 5,
       "norm_label": "corsoptions",
       "id": "config_cors_corsoptions"
     },
@@ -1088,7 +989,7 @@
       "file_type": "code",
       "source_file": "src/config/env.js",
       "source_location": "L1",
-      "community": 6,
+      "community": 5,
       "norm_label": "env.js",
       "id": "src_config_env_js"
     },
@@ -1097,7 +998,7 @@
       "file_type": "code",
       "source_file": "src/config/env.js",
       "source_location": "L6",
-      "community": 6,
+      "community": 5,
       "norm_label": "dotenv",
       "id": "config_env_dotenv"
     },
@@ -1106,7 +1007,7 @@
       "file_type": "code",
       "source_file": "src/config/env.js",
       "source_location": "L7",
-      "community": 6,
+      "community": 5,
       "norm_label": "path",
       "id": "config_env_path"
     },
@@ -1115,7 +1016,7 @@
       "file_type": "code",
       "source_file": "src/config/env.js",
       "source_location": "L12",
-      "community": 6,
+      "community": 5,
       "norm_label": "required",
       "id": "config_env_required"
     },
@@ -1124,7 +1025,7 @@
       "file_type": "code",
       "source_file": "src/config/env.js",
       "source_location": "L18",
-      "community": 6,
+      "community": 5,
       "norm_label": "missing",
       "id": "config_env_missing"
     },
@@ -1133,7 +1034,7 @@
       "file_type": "code",
       "source_file": "src/config/supabase.js",
       "source_location": "L8",
-      "community": 8,
+      "community": 5,
       "norm_label": "{ createclient }",
       "id": "config_supabase_createclient"
     },
@@ -1142,7 +1043,7 @@
       "file_type": "code",
       "source_file": "src/config/supabase.js",
       "source_location": "L12",
-      "community": 8,
+      "community": 6,
       "norm_label": "adminclient",
       "id": "config_supabase_adminclient"
     },
@@ -1151,7 +1052,7 @@
       "file_type": "code",
       "source_file": "src/config/supabase.js",
       "source_location": "L20",
-      "community": 2,
+      "community": 3,
       "norm_label": "createuserclient()",
       "id": "config_supabase_createuserclient"
     },
@@ -1160,7 +1061,7 @@
       "file_type": "code",
       "source_file": "src/controllers/attachments.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 6,
       "norm_label": "attachments.controller.js",
       "id": "src_controllers_attachments_controller_js"
     },
@@ -1169,7 +1070,7 @@
       "file_type": "code",
       "source_file": "src/controllers/auth.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "auth.controller.js",
       "id": "src_controllers_auth_controller_js"
     },
@@ -1178,7 +1079,7 @@
       "file_type": "code",
       "source_file": "src/controllers/auth.controller.js",
       "source_location": "L2",
-      "community": 4,
+      "community": 6,
       "norm_label": "{ success, created }",
       "id": "controllers_auth_controller_success_created"
     },
@@ -1187,7 +1088,7 @@
       "file_type": "code",
       "source_file": "src/controllers/comments.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "comments.controller.js",
       "id": "src_controllers_comments_controller_js"
     },
@@ -1196,7 +1097,7 @@
       "file_type": "code",
       "source_file": "src/controllers/dashboard.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "dashboard.controller.js",
       "id": "src_controllers_dashboard_controller_js"
     },
@@ -1205,7 +1106,7 @@
       "file_type": "code",
       "source_file": "src/controllers/organizations.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "organizations.controller.js",
       "id": "src_controllers_organizations_controller_js"
     },
@@ -1214,7 +1115,7 @@
       "file_type": "code",
       "source_file": "src/controllers/organizations.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "orgservice",
       "id": "controllers_organizations_controller_orgservice"
     },
@@ -1223,7 +1124,7 @@
       "file_type": "code",
       "source_file": "src/controllers/projects.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "projects.controller.js",
       "id": "src_controllers_projects_controller_js"
     },
@@ -1232,7 +1133,7 @@
       "file_type": "code",
       "source_file": "src/controllers/projects.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "projectservice",
       "id": "controllers_projects_controller_projectservice"
     },
@@ -1241,7 +1142,7 @@
       "file_type": "code",
       "source_file": "src/controllers/tasks.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "tasks.controller.js",
       "id": "src_controllers_tasks_controller_js"
     },
@@ -1250,7 +1151,7 @@
       "file_type": "code",
       "source_file": "src/controllers/tasks.controller.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "taskservice",
       "id": "controllers_tasks_controller_taskservice"
     },
@@ -1259,7 +1160,7 @@
       "file_type": "code",
       "source_file": "src/controllers/tasks.controller.js",
       "source_location": "L2",
-      "community": 4,
+      "community": 7,
       "norm_label": "{ success, created, nocontent }",
       "id": "controllers_tasks_controller_success_created_nocontent"
     },
@@ -1268,7 +1169,7 @@
       "file_type": "code",
       "source_file": "src/middleware/auth.js",
       "source_location": "L1",
-      "community": 2,
+      "community": 3,
       "norm_label": "auth.js",
       "id": "src_middleware_auth_js"
     },
@@ -1277,7 +1178,7 @@
       "file_type": "code",
       "source_file": "src/middleware/auth.js",
       "source_location": "L8",
-      "community": 2,
+      "community": 3,
       "norm_label": "{ adminclient, createuserclient }",
       "id": "middleware_auth_adminclient_createuserclient"
     },
@@ -1286,7 +1187,7 @@
       "file_type": "code",
       "source_file": "src/middleware/auth.js",
       "source_location": "L11",
-      "community": 2,
+      "community": 3,
       "norm_label": "authenticate()",
       "id": "middleware_auth_authenticate"
     },
@@ -1295,7 +1196,7 @@
       "file_type": "code",
       "source_file": "src/middleware/rateLimiter.js",
       "source_location": "L1",
-      "community": 6,
+      "community": 5,
       "norm_label": "ratelimiter.js",
       "id": "src_middleware_ratelimiter_js"
     },
@@ -1304,7 +1205,7 @@
       "file_type": "code",
       "source_file": "src/middleware/rateLimiter.js",
       "source_location": "L8",
-      "community": 6,
+      "community": 5,
       "norm_label": "ratelimit",
       "id": "middleware_ratelimiter_ratelimit"
     },
@@ -1313,7 +1214,7 @@
       "file_type": "code",
       "source_file": "src/middleware/requestLogger.js",
       "source_location": "L8",
-      "community": 6,
+      "community": 5,
       "norm_label": "morgan",
       "id": "middleware_requestlogger_morgan"
     },
@@ -1322,7 +1223,7 @@
       "file_type": "code",
       "source_file": "src/middleware/validate.js",
       "source_location": "L1",
-      "community": 2,
+      "community": 3,
       "norm_label": "validate.js",
       "id": "src_middleware_validate_js"
     },
@@ -1331,7 +1232,7 @@
       "file_type": "code",
       "source_file": "src/routes/auth.routes.js",
       "source_location": "L2",
-      "community": 2,
+      "community": 3,
       "norm_label": "joi",
       "id": "routes_auth_routes_joi"
     },
@@ -1340,7 +1241,7 @@
       "file_type": "code",
       "source_file": "src/routes/auth.routes.js",
       "source_location": "L3",
-      "community": 2,
+      "community": 3,
       "norm_label": "ctrl",
       "id": "routes_auth_routes_ctrl"
     },
@@ -1349,7 +1250,7 @@
       "file_type": "code",
       "source_file": "src/routes/auth.routes.js",
       "source_location": "L5",
-      "community": 6,
+      "community": 5,
       "norm_label": "{ authlimiter }",
       "id": "routes_auth_routes_authlimiter"
     },
@@ -1358,7 +1259,7 @@
       "file_type": "code",
       "source_file": "src/routes/auth.routes.js",
       "source_location": "L10",
-      "community": 2,
+      "community": 3,
       "norm_label": "signupschema",
       "id": "routes_auth_routes_signupschema"
     },
@@ -1367,7 +1268,7 @@
       "file_type": "code",
       "source_file": "src/routes/auth.routes.js",
       "source_location": "L19",
-      "community": 2,
+      "community": 3,
       "norm_label": "signinschema",
       "id": "routes_auth_routes_signinschema"
     },
@@ -1376,7 +1277,7 @@
       "file_type": "code",
       "source_file": "src/routes/auth.routes.js",
       "source_location": "L26",
-      "community": 2,
+      "community": 3,
       "norm_label": "updateprofileschema",
       "id": "routes_auth_routes_updateprofileschema"
     },
@@ -1385,7 +1286,7 @@
       "file_type": "code",
       "source_file": "src/routes/comments.routes.js",
       "source_location": "L16",
-      "community": 2,
+      "community": 3,
       "norm_label": "deleteschema",
       "id": "routes_comments_routes_deleteschema"
     },
@@ -1394,7 +1295,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L4",
-      "community": 2,
+      "community": 3,
       "norm_label": "{ router }",
       "id": "routes_index_router"
     },
@@ -1403,7 +1304,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L6",
-      "community": 2,
+      "community": 3,
       "norm_label": "authroutes",
       "id": "routes_index_authroutes"
     },
@@ -1412,7 +1313,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L7",
-      "community": 2,
+      "community": 3,
       "norm_label": "organizationsroutes",
       "id": "routes_index_organizationsroutes"
     },
@@ -1421,7 +1322,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L8",
-      "community": 2,
+      "community": 3,
       "norm_label": "projectsroutes",
       "id": "routes_index_projectsroutes"
     },
@@ -1430,7 +1331,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L9",
-      "community": 2,
+      "community": 3,
       "norm_label": "tasksroutes",
       "id": "routes_index_tasksroutes"
     },
@@ -1439,7 +1340,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L10",
-      "community": 2,
+      "community": 3,
       "norm_label": "commentsroutes",
       "id": "routes_index_commentsroutes"
     },
@@ -1448,7 +1349,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L11",
-      "community": 2,
+      "community": 3,
       "norm_label": "dashboardroutes",
       "id": "routes_index_dashboardroutes"
     },
@@ -1457,7 +1358,7 @@
       "file_type": "code",
       "source_file": "src/routes/index.js",
       "source_location": "L12",
-      "community": 2,
+      "community": 3,
       "norm_label": "attachmentsroutes",
       "id": "routes_index_attachmentsroutes"
     },
@@ -1466,7 +1367,7 @@
       "file_type": "code",
       "source_file": "src/routes/organizations.routes.js",
       "source_location": "L9",
-      "community": 2,
+      "community": 3,
       "norm_label": "uuidparam",
       "id": "routes_organizations_routes_uuidparam"
     },
@@ -1475,7 +1376,7 @@
       "file_type": "code",
       "source_file": "src/routes/organizations.routes.js",
       "source_location": "L26",
-      "community": 2,
+      "community": 3,
       "norm_label": "addmemberschema",
       "id": "routes_organizations_routes_addmemberschema"
     },
@@ -1484,7 +1385,7 @@
       "file_type": "code",
       "source_file": "src/routes/organizations.routes.js",
       "source_location": "L34",
-      "community": 2,
+      "community": 3,
       "norm_label": "updatememberschema",
       "id": "routes_organizations_routes_updatememberschema"
     },
@@ -1493,7 +1394,7 @@
       "file_type": "code",
       "source_file": "src/routes/organizations.routes.js",
       "source_location": "L44",
-      "community": 2,
+      "community": 3,
       "norm_label": "memberparam",
       "id": "routes_organizations_routes_memberparam"
     },
@@ -1502,7 +1403,7 @@
       "file_type": "code",
       "source_file": "src/routes/projects.routes.js",
       "source_location": "L17",
-      "community": 2,
+      "community": 3,
       "norm_label": "detailparam",
       "id": "routes_projects_routes_detailparam"
     },
@@ -1511,7 +1412,7 @@
       "file_type": "code",
       "source_file": "src/routes/tasks.routes.js",
       "source_location": "L9",
-      "community": 2,
+      "community": 3,
       "norm_label": "createschema",
       "id": "routes_tasks_routes_createschema"
     },
@@ -1520,7 +1421,7 @@
       "file_type": "code",
       "source_file": "src/routes/tasks.routes.js",
       "source_location": "L20",
-      "community": 2,
+      "community": 3,
       "norm_label": "listschema",
       "id": "routes_tasks_routes_listschema"
     },
@@ -1529,7 +1430,7 @@
       "file_type": "code",
       "source_file": "src/routes/tasks.routes.js",
       "source_location": "L29",
-      "community": 2,
+      "community": 3,
       "norm_label": "taskparam",
       "id": "routes_tasks_routes_taskparam"
     },
@@ -1538,7 +1439,7 @@
       "file_type": "code",
       "source_file": "src/routes/tasks.routes.js",
       "source_location": "L36",
-      "community": 2,
+      "community": 3,
       "norm_label": "updateschema",
       "id": "routes_tasks_routes_updateschema"
     },
@@ -1547,7 +1448,7 @@
       "file_type": "code",
       "source_file": "src/routes/tasks.routes.js",
       "source_location": "L48",
-      "community": 2,
+      "community": 3,
       "norm_label": "assignschema",
       "id": "routes_tasks_routes_assignschema"
     },
@@ -1556,7 +1457,7 @@
       "file_type": "code",
       "source_file": "src/routes/tasks.routes.js",
       "source_location": "L61",
-      "community": 2,
+      "community": 3,
       "norm_label": "unassignschema",
       "id": "routes_tasks_routes_unassignschema"
     },
@@ -1565,7 +1466,7 @@
       "file_type": "code",
       "source_file": "src/services/attachments.service.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 6,
       "norm_label": "attachments.service.js",
       "id": "src_services_attachments_service_js"
     },
@@ -1574,7 +1475,7 @@
       "file_type": "code",
       "source_file": "src/services/attachments.service.js",
       "source_location": "L12",
-      "community": 4,
+      "community": 6,
       "norm_label": "uploadattachment()",
       "id": "services_attachments_service_uploadattachment"
     },
@@ -1583,7 +1484,7 @@
       "file_type": "code",
       "source_file": "src/services/attachments.service.js",
       "source_location": "L56",
-      "community": 4,
+      "community": 6,
       "norm_label": "gettaskattachments()",
       "id": "services_attachments_service_gettaskattachments"
     },
@@ -1592,7 +1493,7 @@
       "file_type": "code",
       "source_file": "src/services/attachments.service.js",
       "source_location": "L100",
-      "community": 4,
+      "community": 6,
       "norm_label": "deleteattachment()",
       "id": "services_attachments_service_deleteattachment"
     },
@@ -1601,7 +1502,7 @@
       "file_type": "code",
       "source_file": "src/services/attachments.service.js",
       "source_location": "L164",
-      "community": 4,
+      "community": 6,
       "norm_label": "getdownloadurl()",
       "id": "services_attachments_service_getdownloadurl"
     },
@@ -1610,7 +1511,7 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L1",
-      "community": 8,
+      "community": 0,
       "norm_label": "auth.service.js",
       "id": "src_services_auth_service_js"
     },
@@ -1619,7 +1520,7 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L6",
-      "community": 8,
+      "community": 0,
       "norm_label": "{ apperror, notfounderror }",
       "id": "services_auth_service_apperror_notfounderror"
     },
@@ -1628,7 +1529,7 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L11",
-      "community": 8,
+      "community": 0,
       "norm_label": "signup()",
       "id": "services_auth_service_signup"
     },
@@ -1637,7 +1538,7 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L36",
-      "community": 8,
+      "community": 0,
       "norm_label": "signin()",
       "id": "services_auth_service_signin"
     },
@@ -1646,7 +1547,7 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L55",
-      "community": 8,
+      "community": 0,
       "norm_label": "signout()",
       "id": "services_auth_service_signout"
     },
@@ -1655,7 +1556,7 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L65",
-      "community": 8,
+      "community": 0,
       "norm_label": "getprofile()",
       "id": "services_auth_service_getprofile"
     },
@@ -1664,7 +1565,7 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L86",
-      "community": 8,
+      "community": 0,
       "norm_label": "updateprofile()",
       "id": "services_auth_service_updateprofile"
     },
@@ -1673,7 +1574,7 @@
       "file_type": "code",
       "source_file": "src/services/comments.service.js",
       "source_location": "L1",
-      "community": 0,
+      "community": 6,
       "norm_label": "comments.service.js",
       "id": "src_services_comments_service_js"
     },
@@ -1682,7 +1583,7 @@
       "file_type": "code",
       "source_file": "src/services/comments.service.js",
       "source_location": "L6",
-      "community": 0,
+      "community": 6,
       "norm_label": "{ verifytaskaccess, verifycommentauthor }",
       "id": "services_comments_service_verifytaskaccess_verifycommentauthor"
     },
@@ -1691,7 +1592,7 @@
       "file_type": "code",
       "source_file": "src/services/comments.service.js",
       "source_location": "L10",
-      "community": 0,
+      "community": 6,
       "norm_label": "addcomment()",
       "id": "services_comments_service_addcomment"
     },
@@ -1700,7 +1601,7 @@
       "file_type": "code",
       "source_file": "src/services/comments.service.js",
       "source_location": "L39",
-      "community": 0,
+      "community": 6,
       "norm_label": "gettaskcomments()",
       "id": "services_comments_service_gettaskcomments"
     },
@@ -1709,7 +1610,7 @@
       "file_type": "code",
       "source_file": "src/services/comments.service.js",
       "source_location": "L79",
-      "community": 0,
+      "community": 6,
       "norm_label": "deletecomment()",
       "id": "services_comments_service_deletecomment"
     },
@@ -1952,7 +1853,7 @@
       "file_type": "code",
       "source_file": "src/services/tasks.service.js",
       "source_location": "L156",
-      "community": 0,
+      "community": 6,
       "norm_label": "gettaskdetails()",
       "id": "services_tasks_service_gettaskdetails"
     },
@@ -2132,7 +2033,7 @@
       "file_type": "code",
       "source_file": "src/utils/permissions.js",
       "source_location": "L89",
-      "community": 0,
+      "community": 6,
       "norm_label": "verifytaskaccess()",
       "id": "utils_permissions_verifytaskaccess"
     },
@@ -2150,7 +2051,7 @@
       "file_type": "code",
       "source_file": "src/utils/permissions.js",
       "source_location": "L123",
-      "community": 0,
+      "community": 6,
       "norm_label": "verifycommentauthor()",
       "id": "utils_permissions_verifycommentauthor"
     },
@@ -2168,7 +2069,7 @@
       "file_type": "code",
       "source_file": "src/utils/privacy.js",
       "source_location": "L1",
-      "community": 0,
+      "community": 6,
       "norm_label": "privacy.js",
       "id": "src_utils_privacy_js"
     },
@@ -2177,7 +2078,7 @@
       "file_type": "code",
       "source_file": "src/utils/privacy.js",
       "source_location": "L13",
-      "community": 0,
+      "community": 6,
       "norm_label": "anonymizeprofile()",
       "id": "utils_privacy_anonymizeprofile"
     },
@@ -2186,7 +2087,7 @@
       "file_type": "code",
       "source_file": "src/utils/response.js",
       "source_location": "L1",
-      "community": 4,
+      "community": 7,
       "norm_label": "response.js",
       "id": "src_utils_response_js"
     },
@@ -2195,7 +2096,7 @@
       "file_type": "code",
       "source_file": "src/utils/response.js",
       "source_location": "L5",
-      "community": 4,
+      "community": 7,
       "norm_label": "success()",
       "id": "utils_response_success"
     },
@@ -2204,7 +2105,7 @@
       "file_type": "code",
       "source_file": "src/utils/response.js",
       "source_location": "L11",
-      "community": 4,
+      "community": 7,
       "norm_label": "created()",
       "id": "utils_response_created"
     },
@@ -2213,7 +2114,7 @@
       "file_type": "code",
       "source_file": "src/utils/response.js",
       "source_location": "L15",
-      "community": 4,
+      "community": 7,
       "norm_label": "nocontent()",
       "id": "utils_response_nocontent"
     },
@@ -2222,7 +2123,7 @@
       "file_type": "code",
       "source_file": "src/utils/response.js",
       "source_location": "L19",
-      "community": 4,
+      "community": 7,
       "norm_label": "paginated()",
       "id": "utils_response_paginated"
     },
@@ -2231,7 +2132,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L1",
-      "community": 3,
+      "community": 4,
       "norm_label": "features.md",
       "id": "features_md"
     },
@@ -2240,7 +2141,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L1",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\ude80 project features & roadmap",
       "id": "test_features_project_features_roadmap"
     },
@@ -2249,7 +2150,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L7",
-      "community": 3,
+      "community": 4,
       "norm_label": "\u2705 current features",
       "id": "test_features_current_features"
     },
@@ -2258,7 +2159,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L9",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\udd10 authentication & access",
       "id": "test_features_authentication_access"
     },
@@ -2267,7 +2168,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L14",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\udccb task management",
       "id": "test_features_task_management"
     },
@@ -2276,7 +2177,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L19",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\udcce collaborative tools",
       "id": "test_features_collaborative_tools"
     },
@@ -2285,7 +2186,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L26",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\uddfa\ufe0f future roadmap (extra features)",
       "id": "test_features_future_roadmap_extra_features"
     },
@@ -2294,7 +2195,7 @@
       "file_type": "document",
       "source_file": "FEATURES.md",
       "source_location": "L90",
-      "community": 3,
+      "community": 4,
       "norm_label": "\u2728 planned ui/ux enhancements",
       "id": "test_features_planned_ui_ux_enhancements"
     },
@@ -2303,7 +2204,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
-      "community": 3,
+      "community": 4,
       "norm_label": "readme.md",
       "id": "readme_md"
     },
@@ -2312,7 +2213,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
-      "community": 3,
+      "community": 4,
       "norm_label": "taskmanager \ud83d\udccb",
       "id": "test_readme_taskmanager"
     },
@@ -2321,7 +2222,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L7",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83c\udf1f key features",
       "id": "test_readme_key_features"
     },
@@ -2330,7 +2231,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L9",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83c\udfe2 organizations & projects",
       "id": "test_readme_organizations_projects"
     },
@@ -2339,7 +2240,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L20",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\udcac collaboration & real-time sync",
       "id": "test_readme_collaboration_real_time_sync"
     },
@@ -2348,7 +2249,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L25",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\udee0\ufe0f technology stack",
       "id": "test_readme_technology_stack"
     },
@@ -2357,7 +2258,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L40",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\ude80 getting started",
       "id": "test_readme_getting_started"
     },
@@ -2366,7 +2267,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L42",
-      "community": 3,
+      "community": 4,
       "norm_label": "prerequisites",
       "id": "test_readme_prerequisites"
     },
@@ -2375,7 +2276,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L47",
-      "community": 3,
+      "community": 4,
       "norm_label": "1. environment setup",
       "id": "test_readme_1_environment_setup"
     },
@@ -2384,7 +2285,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L51",
-      "community": 3,
+      "community": 4,
       "norm_label": "code:env (port=4000)",
       "id": "test_readme_codeblock_1"
     },
@@ -2393,7 +2294,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L63",
-      "community": 3,
+      "community": 4,
       "norm_label": "code:env (vite_api_url=http://localhost:4000/api)",
       "id": "test_readme_codeblock_2"
     },
@@ -2402,7 +2303,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L69",
-      "community": 3,
+      "community": 4,
       "norm_label": "2. installation",
       "id": "test_readme_2_installation"
     },
@@ -2411,7 +2312,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L73",
-      "community": 3,
+      "community": 4,
       "norm_label": "code:bash (# install backend dependencies)",
       "id": "test_readme_codeblock_3"
     },
@@ -2420,7 +2321,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L82",
-      "community": 3,
+      "community": 4,
       "norm_label": "3. running the application",
       "id": "test_readme_3_running_the_application"
     },
@@ -2429,7 +2330,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L86",
-      "community": 3,
+      "community": 4,
       "norm_label": "code:bash (# terminal 1: start the backend server (root directory))",
       "id": "test_readme_codeblock_4"
     },
@@ -2438,7 +2339,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L97",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83d\udd12 security & privacy features",
       "id": "test_readme_security_privacy_features"
     },
@@ -2447,7 +2348,7 @@
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L102",
-      "community": 3,
+      "community": 4,
       "norm_label": "\ud83e\udd1d roadmap & future enhancements",
       "id": "test_readme_roadmap_future_enhancements"
     },
@@ -2456,7 +2357,7 @@
       "file_type": "document",
       "source_file": "client/README.md",
       "source_location": "L1",
-      "community": 3,
+      "community": 4,
       "norm_label": "taskmanager client",
       "id": "client_readme_taskmanager_client"
     },
@@ -2465,7 +2366,7 @@
       "file_type": "document",
       "source_file": "client/README.md",
       "source_location": "L7",
-      "community": 3,
+      "community": 4,
       "norm_label": "expanding the eslint configuration",
       "id": "client_readme_expanding_the_eslint_configuration"
     },
@@ -2474,62 +2375,139 @@
       "file_type": "code",
       "source_file": "src/services/auth.service.js",
       "source_location": "L117",
-      "community": 8,
+      "community": 0,
       "norm_label": "syncgoogleprofile()",
       "id": "services_auth_service_syncgoogleprofile"
+    },
+    {
+      "label": "App.jsx",
+      "file_type": "code",
+      "source_file": "App.jsx",
+      "source_location": "L1",
+      "community": 2,
+      "norm_label": "app.jsx",
+      "id": "app_jsx"
+    },
+    {
+      "label": "LoadingSkeleton.jsx",
+      "file_type": "code",
+      "source_file": "components/shared/LoadingSkeleton.jsx",
+      "source_location": "L1",
+      "community": 9,
+      "norm_label": "loadingskeleton.jsx",
+      "id": "components_shared_loadingskeleton_jsx"
+    },
+    {
+      "label": "TaskCard.jsx",
+      "file_type": "code",
+      "source_file": "components/tasks/TaskCard.jsx",
+      "source_location": "L1",
+      "community": 1,
+      "norm_label": "taskcard.jsx",
+      "id": "components_tasks_taskcard_jsx"
+    },
+    {
+      "label": "card.jsx",
+      "file_type": "code",
+      "source_file": "components/ui/card.jsx",
+      "source_location": "L1",
+      "community": 1,
+      "norm_label": "card.jsx",
+      "id": "components_ui_card_jsx"
+    },
+    {
+      "label": "LandingPage.jsx",
+      "file_type": "code",
+      "source_file": "pages/LandingPage.jsx",
+      "source_location": "L1",
+      "community": 16,
+      "norm_label": "landingpage.jsx",
+      "id": "pages_landingpage_jsx"
+    },
+    {
+      "label": "LoginPage.jsx",
+      "file_type": "code",
+      "source_file": "pages/auth/LoginPage.jsx",
+      "source_location": "L1",
+      "community": 2,
+      "norm_label": "loginpage.jsx",
+      "id": "pages_auth_loginpage_jsx"
+    },
+    {
+      "label": "SignupPage.jsx",
+      "file_type": "code",
+      "source_file": "pages/auth/SignupPage.jsx",
+      "source_location": "L1",
+      "community": 2,
+      "norm_label": "signuppage.jsx",
+      "id": "pages_auth_signuppage_jsx"
+    },
+    {
+      "label": "DashboardPage.jsx",
+      "file_type": "code",
+      "source_file": "pages/dashboard/DashboardPage.jsx",
+      "source_location": "L1",
+      "community": 2,
+      "norm_label": "dashboardpage.jsx",
+      "id": "pages_dashboard_dashboardpage_jsx"
+    },
+    {
+      "label": "OrganizationPage.jsx",
+      "file_type": "code",
+      "source_file": "pages/organizations/OrganizationPage.jsx",
+      "source_location": "L1",
+      "community": 2,
+      "norm_label": "organizationpage.jsx",
+      "id": "pages_organizations_organizationpage_jsx"
+    },
+    {
+      "label": "ProfilePage.jsx",
+      "file_type": "code",
+      "source_file": "pages/profile/ProfilePage.jsx",
+      "source_location": "L1",
+      "community": 2,
+      "norm_label": "profilepage.jsx",
+      "id": "pages_profile_profilepage_jsx"
+    },
+    {
+      "label": "ProjectPage.jsx",
+      "file_type": "code",
+      "source_file": "pages/projects/ProjectPage.jsx",
+      "source_location": "L1",
+      "community": 1,
+      "norm_label": "projectpage.jsx",
+      "id": "pages_projects_projectpage_jsx"
+    },
+    {
+      "label": "TaskDetailPage.jsx",
+      "file_type": "code",
+      "source_file": "pages/tasks/TaskDetailPage.jsx",
+      "source_location": "L1",
+      "community": 1,
+      "norm_label": "taskdetailpage.jsx",
+      "id": "pages_tasks_taskdetailpage_jsx"
     }
   ],
   "links": [
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/App.jsx",
-      "source_location": "L19",
+      "source_file": "App.jsx",
+      "source_location": "L20",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_app_jsx",
+      "source": "app_jsx",
       "target": "src_app_queryclient"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/App.jsx",
-      "source_location": "L29",
+      "source_file": "App.jsx",
+      "source_location": "L30",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_app_jsx",
+      "source": "app_jsx",
       "target": "src_app_protectedroute"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "client/src/App.jsx",
-      "source_location": "L44",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "client_src_app_jsx",
-      "target": "src_app_publicroute"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "client/src/App.jsx",
-      "source_location": "L50",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "client_src_app_jsx",
-      "target": "src_app_app"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "client/src/main.jsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "client_src_main_jsx",
-      "target": "client_src_app_jsx"
     },
     {
       "relation": "calls",
@@ -2543,6 +2521,16 @@
       "target": "context_authcontext_useauth"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "App.jsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_jsx",
+      "target": "src_app_publicroute"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
@@ -2552,6 +2540,16 @@
       "weight": 1.0,
       "source": "src_app_publicroute",
       "target": "context_authcontext_useauth"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "App.jsx",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_jsx",
+      "target": "src_app_app"
     },
     {
       "relation": "contains",
@@ -2572,6 +2570,17 @@
       "confidence_score": 1.0,
       "source": "src_index_js",
       "target": "src_app_app"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/main.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "client_src_main_jsx",
+      "target": "app_jsx"
     },
     {
       "relation": "calls",
@@ -2641,41 +2650,41 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/components/shared/LoadingSkeleton.jsx",
+      "source_file": "components/shared/LoadingSkeleton.jsx",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_components_shared_loadingskeleton_jsx",
+      "source": "components_shared_loadingskeleton_jsx",
       "target": "shared_loadingskeleton_cardskeleton"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/components/shared/LoadingSkeleton.jsx",
+      "source_file": "components/shared/LoadingSkeleton.jsx",
       "source_location": "L13",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_components_shared_loadingskeleton_jsx",
+      "source": "components_shared_loadingskeleton_jsx",
       "target": "shared_loadingskeleton_listskeleton"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/components/shared/LoadingSkeleton.jsx",
+      "source_file": "components/shared/LoadingSkeleton.jsx",
       "source_location": "L30",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_components_shared_loadingskeleton_jsx",
+      "source": "components_shared_loadingskeleton_jsx",
       "target": "shared_loadingskeleton_statsskeleton"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/components/tasks/TaskCard.jsx",
+      "source_file": "components/tasks/TaskCard.jsx",
       "source_location": "L8",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_components_tasks_taskcard_jsx",
+      "source": "components_tasks_taskcard_jsx",
       "target": "tasks_taskcard_taskcard"
     },
     {
@@ -2841,52 +2850,12 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/components/ui/card.jsx",
+      "source_file": "components/ui/card.jsx",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_components_ui_card_jsx",
+      "source": "components_ui_card_jsx",
       "target": "ui_card_card"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "client/src/components/ui/card.jsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "client_src_components_ui_card_jsx",
-      "target": "ui_card_cardheader"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "client/src/components/ui/card.jsx",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "client_src_components_ui_card_jsx",
-      "target": "ui_card_cardtitle"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "client/src/components/ui/card.jsx",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "client_src_components_ui_card_jsx",
-      "target": "ui_card_carddescription"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "client/src/components/ui/card.jsx",
-      "source_location": "L19",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "client_src_components_ui_card_jsx",
-      "target": "ui_card_cardcontent"
     },
     {
       "relation": "calls",
@@ -2900,6 +2869,16 @@
       "target": "lib_utils_cn"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/card.jsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_ui_card_jsx",
+      "target": "ui_card_cardheader"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
@@ -2909,6 +2888,16 @@
       "weight": 1.0,
       "source": "ui_card_cardheader",
       "target": "lib_utils_cn"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/card.jsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_ui_card_jsx",
+      "target": "ui_card_cardtitle"
     },
     {
       "relation": "calls",
@@ -2922,6 +2911,16 @@
       "target": "lib_utils_cn"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/card.jsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_ui_card_jsx",
+      "target": "ui_card_carddescription"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
@@ -2931,6 +2930,16 @@
       "weight": 1.0,
       "source": "ui_card_carddescription",
       "target": "lib_utils_cn"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/ui/card.jsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_ui_card_jsx",
+      "target": "ui_card_cardcontent"
     },
     {
       "relation": "calls",
@@ -3023,7 +3032,7 @@
       "source_file": "client/src/pages/auth/SignupPage.jsx",
       "source_location": "L13",
       "weight": 1.0,
-      "source": "auth_signuppage_signuppage",
+      "source": "pages_auth_signuppage_jsx",
       "target": "context_authcontext_useauth"
     },
     {
@@ -3034,7 +3043,7 @@
       "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
       "source_location": "L20",
       "weight": 1.0,
-      "source": "organizations_organizationpage_organizationpage",
+      "source": "pages_organizations_organizationpage_jsx",
       "target": "context_authcontext_useauth"
     },
     {
@@ -3045,7 +3054,7 @@
       "source_file": "client/src/pages/profile/ProfilePage.jsx",
       "source_location": "L13",
       "weight": 1.0,
-      "source": "profile_profilepage_profilepage",
+      "source": "pages_profile_profilepage_jsx",
       "target": "context_authcontext_useauth"
     },
     {
@@ -3056,7 +3065,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L30",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "context_authcontext_useauth"
     },
     {
@@ -3097,7 +3106,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L40",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_useattachments_usetaskattachments"
     },
     {
@@ -3108,7 +3117,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L41",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_useattachments_useuploadattachment"
     },
     {
@@ -3119,7 +3128,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L42",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_useattachments_usedeleteattachment"
     },
     {
@@ -3150,7 +3159,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L35",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usecomments_usecomments"
     },
     {
@@ -3161,7 +3170,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L36",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usecomments_useaddcomment"
     },
     {
@@ -3172,7 +3181,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L37",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usecomments_usedeletecomment"
     },
     {
@@ -3203,7 +3212,7 @@
       "source_file": "client/src/pages/dashboard/DashboardPage.jsx",
       "source_location": "L15",
       "weight": 1.0,
-      "source": "dashboard_dashboardpage_dashboardpage",
+      "source": "pages_dashboard_dashboardpage_jsx",
       "target": "hooks_usedashboard_usedashboardstats"
     },
     {
@@ -3214,7 +3223,7 @@
       "source_file": "client/src/pages/dashboard/DashboardPage.jsx",
       "source_location": "L16",
       "weight": 1.0,
-      "source": "dashboard_dashboardpage_dashboardpage",
+      "source": "pages_dashboard_dashboardpage_jsx",
       "target": "hooks_usedashboard_userecenttasks"
     },
     {
@@ -3285,7 +3294,7 @@
       "source_file": "client/src/pages/dashboard/DashboardPage.jsx",
       "source_location": "L17",
       "weight": 1.0,
-      "source": "dashboard_dashboardpage_dashboardpage",
+      "source": "pages_dashboard_dashboardpage_jsx",
       "target": "client_src_hooks_useorganizations_js"
     },
     {
@@ -3296,7 +3305,7 @@
       "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
       "source_location": "L22",
       "weight": 1.0,
-      "source": "organizations_organizationpage_organizationpage",
+      "source": "pages_organizations_organizationpage_jsx",
       "target": "client_src_hooks_useorganizations_js"
     },
     {
@@ -3329,7 +3338,7 @@
       "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
       "source_location": "L23",
       "weight": 1.0,
-      "source": "organizations_organizationpage_organizationpage",
+      "source": "pages_organizations_organizationpage_jsx",
       "target": "hooks_useorganizations_useorgmembers"
     },
     {
@@ -3340,7 +3349,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L48",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_useorganizations_useorgmembers"
     },
     {
@@ -3384,7 +3393,7 @@
       "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
       "source_location": "L22",
       "weight": 1.0,
-      "source": "organizations_organizationpage_organizationpage",
+      "source": "pages_organizations_organizationpage_jsx",
       "target": "hooks_useorganizations_useupdateorg"
     },
     {
@@ -3395,7 +3404,7 @@
       "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
       "source_location": "L23",
       "weight": 1.0,
-      "source": "organizations_organizationpage_organizationpage",
+      "source": "pages_organizations_organizationpage_jsx",
       "target": "hooks_useorganizations_usedeleteorg"
     },
     {
@@ -3426,7 +3435,7 @@
       "source_file": "client/src/pages/profile/ProfilePage.jsx",
       "source_location": "L14",
       "weight": 1.0,
-      "source": "profile_profilepage_profilepage",
+      "source": "pages_profile_profilepage_jsx",
       "target": "hooks_useprofile_useprofile"
     },
     {
@@ -3437,7 +3446,7 @@
       "source_file": "client/src/pages/profile/ProfilePage.jsx",
       "source_location": "L15",
       "weight": 1.0,
-      "source": "profile_profilepage_profilepage",
+      "source": "pages_profile_profilepage_jsx",
       "target": "hooks_useprofile_useupdateprofile"
     },
     {
@@ -3468,7 +3477,7 @@
       "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
       "source_location": "L19",
       "weight": 1.0,
-      "source": "organizations_organizationpage_organizationpage",
+      "source": "pages_organizations_organizationpage_jsx",
       "target": "hooks_useprojects_useproject"
     },
     {
@@ -3479,7 +3488,7 @@
       "source_file": "client/src/pages/organizations/OrganizationPage.jsx",
       "source_location": "L21",
       "weight": 1.0,
-      "source": "organizations_organizationpage_organizationpage",
+      "source": "pages_organizations_organizationpage_jsx",
       "target": "hooks_useprojects_usecreateproject"
     },
     {
@@ -3560,7 +3569,7 @@
       "source_file": "client/src/pages/projects/ProjectPage.jsx",
       "source_location": "L75",
       "weight": 1.0,
-      "source": "projects_projectpage_projectpage",
+      "source": "pages_projects_projectpage_jsx",
       "target": "hooks_usetasks_usetasks"
     },
     {
@@ -3571,7 +3580,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L32",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usetasks_usetask"
     },
     {
@@ -3582,7 +3591,7 @@
       "source_file": "client/src/pages/projects/ProjectPage.jsx",
       "source_location": "L76",
       "weight": 1.0,
-      "source": "projects_projectpage_projectpage",
+      "source": "pages_projects_projectpage_jsx",
       "target": "hooks_usetasks_usecreatetask"
     },
     {
@@ -3593,7 +3602,7 @@
       "source_file": "client/src/pages/projects/ProjectPage.jsx",
       "source_location": "L77",
       "weight": 1.0,
-      "source": "projects_projectpage_projectpage",
+      "source": "pages_projects_projectpage_jsx",
       "target": "hooks_usetasks_useupdatetask"
     },
     {
@@ -3604,7 +3613,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L33",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usetasks_useupdatetask"
     },
     {
@@ -3615,7 +3624,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L34",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usetasks_usedeletetask"
     },
     {
@@ -3626,7 +3635,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L49",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usetasks_useassignuser"
     },
     {
@@ -3637,7 +3646,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L50",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "hooks_usetasks_useunassignuser"
     },
     {
@@ -3905,7 +3914,7 @@
       "source_file": "client/src/pages/projects/ProjectPage.jsx",
       "source_location": "L122",
       "weight": 1.0,
-      "source": "projects_projectpage_projectpage",
+      "source": "pages_projects_projectpage_jsx",
       "target": "lib_utils_cn"
     },
     {
@@ -3916,7 +3925,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L318",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "lib_utils_cn"
     },
     {
@@ -3927,7 +3936,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L319",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "lib_utils_formatdate"
     },
     {
@@ -3938,7 +3947,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L327",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "lib_utils_formatrelative"
     },
     {
@@ -3949,7 +3958,7 @@
       "source_file": "client/src/pages/tasks/TaskDetailPage.jsx",
       "source_location": "L318",
       "weight": 1.0,
-      "source": "tasks_taskdetailpage_taskdetailpage",
+      "source": "pages_tasks_taskdetailpage_jsx",
       "target": "lib_utils_isoverdue"
     },
     {
@@ -3965,11 +3974,11 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/pages/auth/LoginPage.jsx",
-      "source_location": "L12",
+      "source_file": "pages/auth/LoginPage.jsx",
+      "source_location": "L9",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "client_src_pages_auth_loginpage_jsx",
+      "source": "pages_auth_loginpage_jsx",
       "target": "auth_loginpage_loginpage"
     },
     {
@@ -3985,21 +3994,21 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/pages/projects/ProjectPage.jsx",
+      "source_file": "pages/projects/ProjectPage.jsx",
       "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "projects_projectpage_projectpage",
+      "source": "pages_projects_projectpage_jsx",
       "target": "projects_projectpage_taskfilters"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "client/src/pages/projects/ProjectPage.jsx",
+      "source_file": "pages/projects/ProjectPage.jsx",
       "source_location": "L39",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "projects_projectpage_projectpage",
+      "source": "pages_projects_projectpage_jsx",
       "target": "projects_projectpage_kanbancolumn"
     },
     {
@@ -7689,5 +7698,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c311d9e4c6f1b6e10a22b2482e50d4ca07495935"
+  "built_at_commit": "6a5b4ed1575393d6194aa5611afe74d34336c271"
 }

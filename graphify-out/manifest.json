@@ -8,32 +8,32 @@
     "hash": "84bde8bf051795c5092ffbb1eb525f33"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\App.jsx": {
-    "mtime": 1778698082.848546,
-    "hash": "53a7eb723700ac2ea04158bef1d112c9"
+    "mtime": 1778933272.7011116,
+    "hash": "15dc464d81fc0e8b61bb4806d9e92180"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\main.jsx": {
     "mtime": 1778607694.9526181,
     "hash": "0cee70ab9e946a12611722ddfbe1749b"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\auth\\SocialAuth.jsx": {
-    "mtime": 1778671639.0262558,
-    "hash": "5d7958a2c7a6a3fac53c1844365aa1bd"
+    "mtime": 1778944325.4817977,
+    "hash": "f92cd2822a14471125345c5963b03c97"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\layout\\AppLayout.jsx": {
-    "mtime": 1778749042.7797847,
-    "hash": "c6a2861a07051438ef95267cbb2066c4"
+    "mtime": 1778953868.338173,
+    "hash": "81b3c6785476abab9b5bd6a679dee0f1"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\shared\\EmptyState.jsx": {
     "mtime": 1778591428.3968923,
     "hash": "6118ab953f5652264f5ee645f53e6b48"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\shared\\LoadingSkeleton.jsx": {
-    "mtime": 1778591448.2732213,
-    "hash": "88f136f8cdd9bbc9db8020b5e62f3ced"
+    "mtime": 1778956727.2941997,
+    "hash": "494b47d6891d7fc98ee72b3f60b7f6a5"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\tasks\\TaskCard.jsx": {
-    "mtime": 1778705667.0032766,
-    "hash": "269213a9f6df2b62f2ab08071f72be82"
+    "mtime": 1778957223.6509652,
+    "hash": "66580b8e58b8c7581f4a8bf556bfd47a"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\avatar.jsx": {
     "mtime": 1778655716.3998454,
@@ -48,8 +48,8 @@
     "hash": "be1697ce98955d681ab4b8625e4187eb"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\card.jsx": {
-    "mtime": 1778591398.4439602,
-    "hash": "2a56d17f57d2f3c8253f73f5e235ec22"
+    "mtime": 1778955646.6731274,
+    "hash": "28a7d6ea3c65f0f842d9fd48550e1191"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\input.jsx": {
     "mtime": 1778591401.5813012,
@@ -103,25 +103,29 @@
     "mtime": 1778668466.4605415,
     "hash": "28b5ce1e9cd9ec1da04f9d5b8ccef97f"
   },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\LandingPage.jsx": {
+    "mtime": 1778939533.4542906,
+    "hash": "0fca9d39f308545a4bb61dfd29ef24b6"
+  },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\AuthCallback.jsx": {
-    "mtime": 1778754573.9932015,
+    "mtime": 1778948320.274675,
     "hash": "4349b11af59f6471fd2ae7bfcd6f9927"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\LoginPage.jsx": {
-    "mtime": 1778698616.474405,
-    "hash": "f3415b4f4a52da4fa8c8032bc22acbea"
+    "mtime": 1778950621.2371342,
+    "hash": "001c0066c46ec1fdf9f2d6f9ce0082b6"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\SignupPage.jsx": {
-    "mtime": 1778700962.9422107,
-    "hash": "d5009a2a835d15b2f50835c6674498eb"
+    "mtime": 1778950623.482631,
+    "hash": "37193d4b15e58d6d6c928e4b48aa1f7f"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\SignupSuccessPage.jsx": {
     "mtime": 1778591486.6979628,
     "hash": "f189782df6dedb2e4d7429e048d04794"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\dashboard\\DashboardPage.jsx": {
-    "mtime": 1778607557.1188824,
-    "hash": "cf2ba5dcf9e8359223cdcb0954e65fdf"
+    "mtime": 1778955676.7734804,
+    "hash": "cd3a558eef40f7a6039c8f3183b365f3"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\organizations\\MembersPage.jsx": {
     "mtime": 1778749456.2615864,
@@ -132,20 +136,20 @@
     "hash": "6f62c685705f581e9285a9546b0dc9ae"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\organizations\\OrganizationPage.jsx": {
-    "mtime": 1778752244.7885416,
-    "hash": "1bf52db73a8fbfe6ce452f79d7bb1dee"
+    "mtime": 1778956771.3712325,
+    "hash": "c5f64648043391307a41251350cd35ba"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\profile\\ProfilePage.jsx": {
-    "mtime": 1778655911.622831,
-    "hash": "c25962a57841724ea3ede15792c532f0"
+    "mtime": 1778944325.5030332,
+    "hash": "bd8f28ee9e9571d21f81bf1afb3659b2"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\projects\\ProjectPage.jsx": {
-    "mtime": 1778668520.9621058,
-    "hash": "8969dafdb9583f484e6965179db919af"
+    "mtime": 1778957210.9346907,
+    "hash": "f231a7bb1754ccf6249e79cded73bb6e"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\tasks\\TaskDetailPage.jsx": {
-    "mtime": 1778706759.5442734,
-    "hash": "c82d2899f47eb45446c93152abfe33b3"
+    "mtime": 1778956753.3290236,
+    "hash": "ad66ee48ca9137f82ff2705b42c8018f"
   },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\services\\attachments.service.js": {
     "mtime": 1778703590.5508,
@@ -335,6 +339,10 @@
     "mtime": 1778585111.5723238,
     "hash": "8b1fd522cfc1e61b3fcc1ce6d1ef40a7"
   },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\COMPARE.md": {
+    "mtime": 1778772637.6882782,
+    "hash": "7de4cf0bc06a7479078349b477c3db99"
+  },
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\FEATURES.md": {
     "mtime": 1778707231.2491639,
     "hash": "6ab2d4ecd77123a9261b67ed2256bbc7"
@@ -358,5 +366,17 @@
   "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\public\\icons.svg": {
     "mtime": 1778591206.2349555,
     "hash": "3b4fcfcf393eca4d264dca4a4663bc37"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\assets\\dbg3.png": {
+    "mtime": 1778869120.0199597,
+    "hash": "7c0d89a4f0fda15d78f8d20f8594800f"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\assets\\hero-landscape.jpg": {
+    "mtime": 1778925529.681664,
+    "hash": "c73095be19ae36dfe2d7aa5b6378e840"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\assets\\dbgg.mp4": {
+    "mtime": 1778949016.8237026,
+    "hash": "e515ce34405c1113f10d89800c3e51d8"
   }
 }
