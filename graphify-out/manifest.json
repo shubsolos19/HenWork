@@ -1,0 +1,362 @@
+{
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\eslint.config.js": {
+    "mtime": 1778591205.8956835,
+    "hash": "3aa4b57d7f08181d86bde52a4dcb7f22"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\vite.config.js": {
+    "mtime": 1778591314.864854,
+    "hash": "84bde8bf051795c5092ffbb1eb525f33"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\App.jsx": {
+    "mtime": 1778698082.848546,
+    "hash": "53a7eb723700ac2ea04158bef1d112c9"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\main.jsx": {
+    "mtime": 1778607694.9526181,
+    "hash": "0cee70ab9e946a12611722ddfbe1749b"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\auth\\SocialAuth.jsx": {
+    "mtime": 1778671639.0262558,
+    "hash": "5d7958a2c7a6a3fac53c1844365aa1bd"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\layout\\AppLayout.jsx": {
+    "mtime": 1778749042.7797847,
+    "hash": "c6a2861a07051438ef95267cbb2066c4"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\shared\\EmptyState.jsx": {
+    "mtime": 1778591428.3968923,
+    "hash": "6118ab953f5652264f5ee645f53e6b48"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\shared\\LoadingSkeleton.jsx": {
+    "mtime": 1778591448.2732213,
+    "hash": "88f136f8cdd9bbc9db8020b5e62f3ced"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\tasks\\TaskCard.jsx": {
+    "mtime": 1778705667.0032766,
+    "hash": "269213a9f6df2b62f2ab08071f72be82"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\avatar.jsx": {
+    "mtime": 1778655716.3998454,
+    "hash": "a44636093cecc91aae7e91397de80ecf"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\badge.jsx": {
+    "mtime": 1778591405.1741927,
+    "hash": "50b059ddabc07250f0d84bad8f955e29"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\button.jsx": {
+    "mtime": 1778591395.737833,
+    "hash": "be1697ce98955d681ab4b8625e4187eb"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\card.jsx": {
+    "mtime": 1778591398.4439602,
+    "hash": "2a56d17f57d2f3c8253f73f5e235ec22"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\input.jsx": {
+    "mtime": 1778591401.5813012,
+    "hash": "63c802b035856566ecbcaede4c253aaa"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\components\\ui\\skeleton.jsx": {
+    "mtime": 1778591410.3382413,
+    "hash": "b999ed09d90b267a18769c7cd924ce89"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\context\\AuthContext.jsx": {
+    "mtime": 1778698089.1775959,
+    "hash": "d3e92ffa718ae88f9310563e9f3ba67d"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\hooks\\useAttachments.js": {
+    "mtime": 1778703599.9736207,
+    "hash": "55d1022dd908f5350642ec27fe49e75c"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\hooks\\useComments.js": {
+    "mtime": 1778591379.3911052,
+    "hash": "aa41416db6b0041172f19436b177e9b2"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\hooks\\useDashboard.js": {
+    "mtime": 1778591361.6486151,
+    "hash": "145d24f8bde398b59f6e910c65315a3d"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\hooks\\useOrganizations.js": {
+    "mtime": 1778618595.7264009,
+    "hash": "6809602f70a021838e4c8f36b587548a"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\hooks\\useProfile.js": {
+    "mtime": 1778669740.7053754,
+    "hash": "0d769346fe7e7f7952f90344ed1c3d56"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\hooks\\useProjects.js": {
+    "mtime": 1778591371.4186342,
+    "hash": "690128e3698b42efe52177ffd2546604"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\hooks\\useTasks.js": {
+    "mtime": 1778705625.2479508,
+    "hash": "9d54a73a82cf5e99326f93bed6b74c93"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\lib\\api.js": {
+    "mtime": 1778591339.6931229,
+    "hash": "028ba657e1bf7a6eee6d1dbbb4f55d90"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\lib\\supabase.js": {
+    "mtime": 1778591337.6648471,
+    "hash": "108670343750e7fb01bd7cba24a99809"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\lib\\utils.js": {
+    "mtime": 1778668466.4605415,
+    "hash": "28b5ce1e9cd9ec1da04f9d5b8ccef97f"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\AuthCallback.jsx": {
+    "mtime": 1778754573.9932015,
+    "hash": "4349b11af59f6471fd2ae7bfcd6f9927"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\LoginPage.jsx": {
+    "mtime": 1778698616.474405,
+    "hash": "f3415b4f4a52da4fa8c8032bc22acbea"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\SignupPage.jsx": {
+    "mtime": 1778700962.9422107,
+    "hash": "d5009a2a835d15b2f50835c6674498eb"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\auth\\SignupSuccessPage.jsx": {
+    "mtime": 1778591486.6979628,
+    "hash": "f189782df6dedb2e4d7429e048d04794"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\dashboard\\DashboardPage.jsx": {
+    "mtime": 1778607557.1188824,
+    "hash": "cf2ba5dcf9e8359223cdcb0954e65fdf"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\organizations\\MembersPage.jsx": {
+    "mtime": 1778749456.2615864,
+    "hash": "4191d883c14079498022daa94210012d"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\organizations\\NewOrgPage.jsx": {
+    "mtime": 1778654689.8682115,
+    "hash": "6f62c685705f581e9285a9546b0dc9ae"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\organizations\\OrganizationPage.jsx": {
+    "mtime": 1778752244.7885416,
+    "hash": "1bf52db73a8fbfe6ce452f79d7bb1dee"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\profile\\ProfilePage.jsx": {
+    "mtime": 1778655911.622831,
+    "hash": "c25962a57841724ea3ede15792c532f0"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\projects\\ProjectPage.jsx": {
+    "mtime": 1778668520.9621058,
+    "hash": "8969dafdb9583f484e6965179db919af"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\pages\\tasks\\TaskDetailPage.jsx": {
+    "mtime": 1778706759.5442734,
+    "hash": "c82d2899f47eb45446c93152abfe33b3"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\src\\services\\attachments.service.js": {
+    "mtime": 1778703590.5508,
+    "hash": "2cae007d5556abc5db70927df40b5ba6"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\001_create_profiles.sql": {
+    "mtime": 1778585343.2801802,
+    "hash": "94504685a4cdbe90ad81e4938bf9388a"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\002_create_organizations.sql": {
+    "mtime": 1778585345.3665617,
+    "hash": "f8ba84a99e9369b18e916eefb8d6ef84"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\003_create_organization_members.sql": {
+    "mtime": 1778585347.4257336,
+    "hash": "b56039e954f01367025185601c833ddd"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\004_create_projects.sql": {
+    "mtime": 1778585349.461687,
+    "hash": "4b2fef9f1770f3a2a8e7710d1c7f72f6"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\005_create_tasks.sql": {
+    "mtime": 1778585360.875258,
+    "hash": "c1c461dba2ac08cab7e910adafc8e468"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\006_create_task_comments.sql": {
+    "mtime": 1778585377.4994423,
+    "hash": "2e178f0aa4bfcecf0f217ad36946c2b5"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\007_create_rls_policies.sql": {
+    "mtime": 1778585383.826142,
+    "hash": "a5b1ef99a26cb20ba477b79a69e6943e"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\database\\migrations\\008_create_triggers.sql": {
+    "mtime": 1778585385.850396,
+    "hash": "9a71b3924701efcbeba1c001e17c3629"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\scripts\\setup_avatars.js": {
+    "mtime": 1778655616.1475139,
+    "hash": "bfc76726d1b7585ffca6c1e15b484a61"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\scripts\\setup_storage_policies.js": {
+    "mtime": 1778655863.4279356,
+    "hash": "ed3d027061d499f13a47a7a32f489d09"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\app.js": {
+    "mtime": 1778617239.0851345,
+    "hash": "62a4e7221573a62d0b2a7da773a47ba3"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\index.js": {
+    "mtime": 1778585331.1037993,
+    "hash": "f48a4cc0a349d02f398e819610396ee1"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\config\\cors.js": {
+    "mtime": 1778585050.2514608,
+    "hash": "b00335b53afd9164d359e65b91af9e5b"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\config\\env.js": {
+    "mtime": 1778585045.9132552,
+    "hash": "c666b7f4300388c4f6bc9114c8b7d7fa"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\config\\supabase.js": {
+    "mtime": 1778585048.0407634,
+    "hash": "f6df92bb6bbb20fb79fd3931c596b4c4"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\controllers\\attachments.controller.js": {
+    "mtime": 1778704121.6212344,
+    "hash": "a2b6ba3294cd64b0e4aa0671c6abe22b"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\controllers\\auth.controller.js": {
+    "mtime": 1778754467.856178,
+    "hash": "fc1877ff3c708771073bf817c20caa84"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\controllers\\comments.controller.js": {
+    "mtime": 1778585262.4385984,
+    "hash": "17e664b02e8cf3a43301bc3416003cba"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\controllers\\dashboard.controller.js": {
+    "mtime": 1778585264.4605525,
+    "hash": "862796d564d0f5e615d3ca7ed8afd638"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\controllers\\organizations.controller.js": {
+    "mtime": 1778585245.3171563,
+    "hash": "25a53086b6c9db0e02a8040799fa20dd"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\controllers\\projects.controller.js": {
+    "mtime": 1778585247.340153,
+    "hash": "8e84805fc044a9647ac7064fd3e02977"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\controllers\\tasks.controller.js": {
+    "mtime": 1778705569.5150683,
+    "hash": "03aa926561a59081c65a4a7a6d053efb"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\middleware\\auth.js": {
+    "mtime": 1778754845.855137,
+    "hash": "96a9b6279153d2436d75e7156b7310c8"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\middleware\\errorHandler.js": {
+    "mtime": 1778585074.0651693,
+    "hash": "26cf6edd16d280a3300cf871735caf9d"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\middleware\\rateLimiter.js": {
+    "mtime": 1778585077.1676495,
+    "hash": "85411d3bf5e0e192670188a348e37a57"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\middleware\\requestLogger.js": {
+    "mtime": 1778585081.7830474,
+    "hash": "5650eb6e90faa72a76b74326f0563392"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\middleware\\validate.js": {
+    "mtime": 1778585083.8010488,
+    "hash": "ceb86788985c3b5e7f33c81cbc4fc41b"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\attachments.routes.js": {
+    "mtime": 1778703564.7823632,
+    "hash": "472ee51e66578db37063fde25e1ea327"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\auth.routes.js": {
+    "mtime": 1778754479.0890105,
+    "hash": "4bee3f457b50ee8be85dba18ab1d1e7f"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\comments.routes.js": {
+    "mtime": 1778585306.2492335,
+    "hash": "adce1a68fa938ef29a58314b90f671ad"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\dashboard.routes.js": {
+    "mtime": 1778585308.4891708,
+    "hash": "81b00b8cd4e14e747de666c5a6f24617"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\index.js": {
+    "mtime": 1778703579.9034562,
+    "hash": "71fe26c46cea049bbc69bf2d802761fc"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\organizations.routes.js": {
+    "mtime": 1778585286.2812467,
+    "hash": "1b4d659790556befb1e94ebd6135d842"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\projects.routes.js": {
+    "mtime": 1778585288.312168,
+    "hash": "d3192ac56dcf14993462373c2cbb76cd"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\routes\\tasks.routes.js": {
+    "mtime": 1778706749.0095832,
+    "hash": "43aa632ec1747e0adedfc40bbe98a359"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\services\\attachments.service.js": {
+    "mtime": 1778706255.1034489,
+    "hash": "f078532f30a6e398abdcfe96bcff2808"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\services\\auth.service.js": {
+    "mtime": 1778754856.7517066,
+    "hash": "1fbe042cde2d8c06cc91abd925319b0b"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\services\\comments.service.js": {
+    "mtime": 1778706209.8867612,
+    "hash": "35822faeae7ae672b27ffbb3c29fd654"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\services\\dashboard.service.js": {
+    "mtime": 1778585223.800373,
+    "hash": "2097d9d8466a289dfdcc1219aabac076"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\services\\organizations.service.js": {
+    "mtime": 1778706727.931448,
+    "hash": "ba6fc90189bafca45df8121ccf5a1e15"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\services\\projects.service.js": {
+    "mtime": 1778585179.6843514,
+    "hash": "cd5502a87ce80f375a9d68f892085efb"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\services\\tasks.service.js": {
+    "mtime": 1778706098.4628012,
+    "hash": "5d9bd6324fb6581e60da735978b58318"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\utils\\errors.js": {
+    "mtime": 1778585098.2973855,
+    "hash": "b09aeb031043ec406aa9a429e811ffd7"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\utils\\permissions.js": {
+    "mtime": 1778705535.960069,
+    "hash": "fded2f823bd49bb1cf7617c538cb8d6f"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\utils\\privacy.js": {
+    "mtime": 1778706228.054273,
+    "hash": "bab6a0294ec428875f27ceea70d078f7"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\src\\utils\\response.js": {
+    "mtime": 1778585111.5723238,
+    "hash": "8b1fd522cfc1e61b3fcc1ce6d1ef40a7"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\FEATURES.md": {
+    "mtime": 1778707231.2491639,
+    "hash": "6ab2d4ecd77123a9261b67ed2256bbc7"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\README.md": {
+    "mtime": 1778752666.557603,
+    "hash": "54a8a7b22fd5a9d9b3bd379852046d88"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\index.html": {
+    "mtime": 1778607696.989303,
+    "hash": "e893b13b80994e8daef8e383bc832e6a"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\README.md": {
+    "mtime": 1778752679.503768,
+    "hash": "66854235e802614bd16d9c29b57fe50c"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\public\\favicon.svg": {
+    "mtime": 1778607724.3162093,
+    "hash": "d715fcd216f60dd506297cf5a6257053"
+  },
+  "C:\\Users\\shubx\\OneDrive\\Desktop\\test\\client\\public\\icons.svg": {
+    "mtime": 1778591206.2349555,
+    "hash": "3b4fcfcf393eca4d264dca4a4663bc37"
+  }
+}

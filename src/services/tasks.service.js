@@ -8,6 +8,8 @@ const {
   verifyProjectAccess,
   verifyTaskAccess,
   verifyTaskCreator,
+  verifyTaskAssignmentManager,
+  verifyOrgMembership,
 } = require('../utils/permissions');
 
 /**
@@ -64,11 +66,15 @@ async function createTask(supabase, userId, projectId, {
   return data;
 }
 
+const { anonymizeProfile } = require('../utils/privacy');
+
 /**
  * Get tasks in a project with optional filtering.
  */
 async function getProjectTasks(supabase, userId, projectId, filters = {}) {
-  await verifyProjectAccess(supabase, userId, projectId);
+  const { membership, project } = await verifyProjectAccess(supabase, userId, projectId);
+  const isAdmin = membership.role === 'admin';
+  const orgId = project.organization_id;
 
   let query = supabase
     .from('tasks')
@@ -96,25 +102,48 @@ async function getProjectTasks(supabase, userId, projectId, filters = {}) {
   // Enrich tasks with assignee profile info
   const enriched = await Promise.all(
     (data || []).map(async (task) => {
-      let assignee = null;
-      if (task.assigned_to_id) {
-        const { data: profile } = await adminClient
-          .from('profiles')
-          .select('first_name, last_name, avatar_url')
-          .eq('id', task.assigned_to_id)
-          .single();
-        assignee = profile || null;
-      }
+      // Get all assignments for this task
+      const { data: assignments } = await supabase
+        .from('task_assignments')
+        .select('user_id')
+        .eq('task_id', task.id);
 
-      let creator = null;
+      const assignees = await Promise.all(
+        (assignments || []).map(async (asgn) => {
+          const { data: memberData } = await supabase
+            .from('organization_members')
+            .select('role')
+            .eq('organization_id', orgId)
+            .eq('user_id', asgn.user_id)
+            .single();
+
+          const { data: profile } = await adminClient
+            .from('profiles')
+            .select('id, first_name, last_name, avatar_url')
+            .eq('id', asgn.user_id)
+            .single();
+
+          return anonymizeProfile(profile, memberData?.role, isAdmin, asgn.user_id === userId);
+        })
+      );
+
+      // Enrich creator
+      const { data: creatorMember } = await supabase
+        .from('organization_members')
+        .select('role')
+        .eq('organization_id', orgId)
+        .eq('user_id', task.created_by_id)
+        .single();
+
       const { data: creatorProfile } = await adminClient
         .from('profiles')
-        .select('first_name, last_name')
+        .select('id, first_name, last_name, avatar_url')
         .eq('id', task.created_by_id)
         .single();
-      creator = creatorProfile || null;
+      
+      const creator = anonymizeProfile(creatorProfile, creatorMember?.role, isAdmin, task.created_by_id === userId);
 
-      return { ...task, assignee, creator };
+      return { ...task, assignees, creator };
     })
   );
 
@@ -125,25 +154,53 @@ async function getProjectTasks(supabase, userId, projectId, filters = {}) {
  * Get task details with comments and assignee info.
  */
 async function getTaskDetails(supabase, userId, taskId) {
-  const { task } = await verifyTaskAccess(supabase, userId, taskId);
+  const { task, membership, project } = await verifyTaskAccess(supabase, userId, taskId);
+  const isAdmin = membership.role === 'admin';
+  const orgId = project.organization_id;
 
-  // Get assignee profile
-  let assignee = null;
-  if (task.assigned_to_id) {
-    const { data: profile } = await adminClient
-      .from('profiles')
-      .select('id, first_name, last_name, avatar_url')
-      .eq('id', task.assigned_to_id)
-      .single();
-    assignee = profile || null;
-  }
+  // Get assignments
+  const { data: assignments } = await supabase
+    .from('task_assignments')
+    .select('user_id, assigned_by, assigned_at')
+    .eq('task_id', taskId);
+
+  const enrichedAssignees = await Promise.all(
+    (assignments || []).map(async (asgn) => {
+      const { data: memberData } = await supabase
+        .from('organization_members')
+        .select('role')
+        .eq('organization_id', orgId)
+        .eq('user_id', asgn.user_id)
+        .single();
+
+      const { data: profile } = await adminClient
+        .from('profiles')
+        .select('id, first_name, last_name, avatar_url')
+        .eq('id', asgn.user_id)
+        .single();
+      
+      return { 
+        ...asgn, 
+        profile: anonymizeProfile(profile, memberData?.role, isAdmin, asgn.user_id === userId) 
+      };
+    })
+  );
 
   // Get creator profile
-  const { data: creator } = await adminClient
+  const { data: creatorMember } = await supabase
+    .from('organization_members')
+    .select('role')
+    .eq('organization_id', orgId)
+    .eq('user_id', task.created_by_id)
+    .single();
+
+  const { data: creatorProfile } = await adminClient
     .from('profiles')
     .select('id, first_name, last_name, avatar_url')
     .eq('id', task.created_by_id)
     .single();
+
+  const creator = anonymizeProfile(creatorProfile, creatorMember?.role, isAdmin, task.created_by_id === userId);
 
   // Get comments
   const { data: comments } = await supabase
@@ -155,20 +212,30 @@ async function getTaskDetails(supabase, userId, taskId) {
   // Enrich comments with author info
   const enrichedComments = await Promise.all(
     (comments || []).map(async (comment) => {
-      const { data: author } = await adminClient
+      const { data: authorMember } = await supabase
+        .from('organization_members')
+        .select('role')
+        .eq('organization_id', orgId)
+        .eq('user_id', comment.user_id)
+        .single();
+
+      const { data: authorProfile } = await adminClient
         .from('profiles')
-        .select('first_name, last_name, avatar_url')
+        .select('id, first_name, last_name, avatar_url')
         .eq('id', comment.user_id)
         .single();
 
-      return { ...comment, author: author || null };
+      return { 
+        ...comment, 
+        author: anonymizeProfile(authorProfile, authorMember?.role, isAdmin, comment.user_id === userId) 
+      };
     })
   );
 
   return {
     ...task,
-    assignee,
-    creator: creator || null,
+    assignees: enrichedAssignees,
+    creator,
     comments: enrichedComments,
   };
 }
@@ -225,4 +292,93 @@ module.exports = {
   getTaskDetails,
   updateTask,
   deleteTask,
+  assignUser,
+  unassignUser,
+  getTaskAssignments,
 };
+
+/**
+ * Assign a user to a task.
+ */
+async function assignUser(supabase, userId, taskId, targetUserId) {
+  const { project } = await verifyTaskAssignmentManager(supabase, userId, taskId);
+
+  // Verify target user is in the organization
+  await verifyOrgMembership(supabase, targetUserId, project.organization_id);
+
+  const { data, error } = await supabase
+    .from('task_assignments')
+    .upsert({
+      task_id: taskId,
+      user_id: targetUserId,
+      assigned_by: userId
+    }, { onConflict: 'task_id, user_id' })
+    .select()
+    .single();
+
+  if (error) {
+    throw new AppError(error.message, 400);
+  }
+
+  return data;
+}
+
+/**
+ * Unassign a user from a task.
+ */
+async function unassignUser(supabase, userId, taskId, targetUserId) {
+  await verifyTaskAssignmentManager(supabase, userId, taskId);
+
+  const { error } = await supabase
+    .from('task_assignments')
+    .delete()
+    .eq('task_id', taskId)
+    .eq('user_id', targetUserId);
+
+  if (error) {
+    throw new AppError(error.message, 400);
+  }
+}
+
+/**
+ * Get all assignees for a task.
+ */
+async function getTaskAssignments(supabase, userId, taskId) {
+  const { task, membership, project } = await verifyTaskAccess(supabase, userId, taskId);
+  const isAdmin = membership.role === 'admin';
+  const orgId = project.organization_id;
+
+  const { data, error } = await supabase
+    .from('task_assignments')
+    .select('*')
+    .eq('task_id', taskId);
+
+  if (error) {
+    throw new AppError(error.message, 400);
+  }
+
+  // Enrich with profile info
+  const enriched = await Promise.all(
+    (data || []).map(async (asgn) => {
+      const { data: memberData } = await supabase
+        .from('organization_members')
+        .select('role')
+        .eq('organization_id', orgId)
+        .eq('user_id', asgn.user_id)
+        .single();
+
+      const { data: profile } = await adminClient
+        .from('profiles')
+        .select('id, first_name, last_name, avatar_url')
+        .eq('id', asgn.user_id)
+        .single();
+      
+      return { 
+        ...asgn, 
+        profile: anonymizeProfile(profile, memberData?.role, isAdmin, asgn.user_id === userId) 
+      };
+    })
+  );
+
+  return enriched;
+}

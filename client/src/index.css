@@ -1,0 +1,136 @@
+/* ── Google Font ───────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ── Design Tokens via Tailwind v4 @theme ──────── */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: hsl(224, 71%, 4%);
+  --color-surface: hsl(222, 47%, 11%);
+  --color-surface-hover: hsl(222, 47%, 15%);
+  --color-border: hsl(217, 33%, 17%);
+  --color-border-bright: hsl(217, 33%, 25%);
+
+  --color-primary: hsl(217, 91%, 60%);
+  --color-primary-hover: hsl(217, 91%, 55%);
+  --color-primary-muted: hsl(217, 91%, 60% / 0.15);
+
+  --color-accent: hsl(280, 85%, 65%);
+  --color-accent-hover: hsl(280, 85%, 58%);
+
+  --color-success: hsl(142, 71%, 45%);
+  --color-success-muted: hsl(142, 71%, 45% / 0.15);
+  --color-warning: hsl(38, 92%, 50%);
+  --color-warning-muted: hsl(38, 92%, 50% / 0.15);
+  --color-destructive: hsl(0, 84%, 60%);
+  --color-destructive-muted: hsl(0, 84%, 60% / 0.15);
+
+  --color-text: hsl(210, 40%, 98%);
+  --color-text-secondary: hsl(215, 20%, 65%);
+  --color-text-muted: hsl(215, 16%, 47%);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/* ── Base Styles ───────────────────────────────── */
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: transparent;
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar Styling ─────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(217, 33%, 25%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(217, 33%, 35%);
+}
+
+/* ── Glass Card Utility ────────────────────────── */
+.glass {
+  backdrop-filter: blur(9px) saturate(200%);
+  -webkit-backdrop-filter: blur(9px) saturate(200%);
+  background-color: rgba(17, 25, 40, 0.56);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+/* ── Gradient Text ─────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Animations ────────────────────────────────── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-subtle {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 1.5s ease-in-out infinite;
+}

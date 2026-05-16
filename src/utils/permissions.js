@@ -138,6 +138,22 @@ async function verifyCommentAuthor(supabase, userId, commentId) {
   return comment;
 }
 
+/**
+ * Verify user can manage task assignments (creator or org admin).
+ */
+async function verifyTaskAssignmentManager(supabase, userId, taskId) {
+  const { task, project, membership } = await verifyTaskAccess(supabase, userId, taskId);
+
+  const isCreator = task.created_by_id === userId;
+  const isAdmin = membership.role === 'admin';
+
+  if (!isCreator && !isAdmin) {
+    throw new ForbiddenError('Only the task creator or an organization admin can manage assignments');
+  }
+
+  return { task, project, membership };
+}
+
 module.exports = {
   verifyOrgMembership,
   verifyOrgAdmin,
@@ -145,5 +161,6 @@ module.exports = {
   verifyProjectAccess,
   verifyTaskAccess,
   verifyTaskCreator,
+  verifyTaskAssignmentManager,
   verifyCommentAuthor,
 };

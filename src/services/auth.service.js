@@ -73,17 +73,28 @@ async function getProfile(supabase, userId) {
     throw new NotFoundError('Profile');
   }
 
-  return data;
+  // Map avatar_url to profile_picture_url for frontend
+  return {
+    ...data,
+    profile_picture_url: data.avatar_url,
+  };
 }
 
 /**
  * Update current user's profile.
  */
 async function updateProfile(supabase, userId, updates) {
+  // Map profile_picture_url to avatar_url if provided
+  const dbUpdates = { ...updates };
+  if ('profile_picture_url' in dbUpdates) {
+    dbUpdates.avatar_url = dbUpdates.profile_picture_url;
+    delete dbUpdates.profile_picture_url;
+  }
+
   const { data, error } = await supabase
     .from('profiles')
     .update({
-      ...updates,
+      ...dbUpdates,
       updated_at: new Date().toISOString(),
     })
     .eq('id', userId)
@@ -94,7 +105,53 @@ async function updateProfile(supabase, userId, updates) {
     throw new AppError(error.message, 400);
   }
 
-  return data;
+  return {
+    ...data,
+    profile_picture_url: data.avatar_url,
+  };
 }
 
-module.exports = { signUp, signIn, signOut, getProfile, updateProfile };
+/**
+ * Sync Google profile picture after OAuth.
+ */
+async function syncGoogleProfile(user) {
+  const metadata = user.user_metadata || {};
+  const googlePic = metadata.picture || metadata.avatar_url;
+  
+  if (!googlePic) {
+    return; // No google picture to sync
+  }
+
+  // Try to get existing profile
+  const { data: profile } = await adminClient
+    .from('profiles')
+    .select('id, avatar_url')
+    .eq('id', user.id)
+    .single();
+
+  const fullName = metadata.full_name || metadata.name || '';
+  const firstName = metadata.first_name || fullName.split(' ')[0] || 'Member';
+  const lastName = metadata.last_name || fullName.split(' ').slice(1).join(' ') || '';
+
+  if (!profile) {
+    // New user profile creation using adminClient
+    await adminClient.from('profiles').insert({
+      id: user.id,
+      first_name: firstName,
+      last_name: lastName,
+      avatar_url: googlePic,
+      updated_at: new Date().toISOString()
+    });
+  } else {
+    // Existing user
+    if (profile.avatar_url !== googlePic) {
+      // Update avatar_url if it changed
+      await adminClient.from('profiles').update({
+        avatar_url: googlePic,
+        updated_at: new Date().toISOString()
+      }).eq('id', user.id);
+    }
+  }
+}
+
+module.exports = { signUp, signIn, signOut, getProfile, updateProfile, syncGoogleProfile };

@@ -28,7 +28,7 @@ const listSchema = {
 
 const taskParam = {
   params: Joi.object({
-    projectId: Joi.string().uuid().required(),
+    projectId: Joi.string().uuid(),
     taskId: Joi.string().uuid().required(),
   }),
 };
@@ -45,10 +45,30 @@ const updateSchema = {
   }).min(1),
 };
 
+const assignSchema = {
+  ...taskParam,
+  body: Joi.object({
+    userId: Joi.string().uuid().required(),
+  }),
+};
+
 router.post('/', authenticate, validate(createSchema), ctrl.create);
 router.get('/', authenticate, validate(listSchema), ctrl.list);
 router.get('/:taskId', authenticate, validate(taskParam), ctrl.getDetails);
 router.patch('/:taskId', authenticate, validate(updateSchema), ctrl.update);
 router.delete('/:taskId', authenticate, validate(taskParam), ctrl.remove);
+
+const unassignSchema = {
+  params: Joi.object({
+    projectId: Joi.string().uuid(),
+    taskId: Joi.string().uuid().required(),
+    userId: Joi.string().uuid().required(),
+  }),
+};
+
+// Assignments
+router.post('/:taskId/assign', authenticate, validate(assignSchema), ctrl.assign);
+router.delete('/:taskId/assign/:userId', authenticate, validate(unassignSchema), ctrl.unassign);
+router.get('/:taskId/assignments', authenticate, validate(taskParam), ctrl.getAssignments);
 
 module.exports = router;

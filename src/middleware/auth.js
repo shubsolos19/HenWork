@@ -34,6 +34,7 @@ async function authenticate(req, _res, next) {
       email: user.email,
       firstName: user.user_metadata?.first_name || null,
       lastName: user.user_metadata?.last_name || null,
+      user_metadata: user.user_metadata || {},
     };
     req.token = token;
     req.supabase = createUserClient(token);

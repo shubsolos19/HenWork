@@ -35,3 +35,11 @@ exports.updateMe = async (req, res, next) => {
     return success(res, profile);
   } catch (err) { next(err); }
 };
+
+exports.syncProfile = async (req, res, next) => {
+  try {
+    // Sync Google profile logic utilizing adminClient
+    await authService.syncGoogleProfile(req.user);
+    return success(res, { message: 'Profile synced' });
+  } catch (err) { next(err); }
+};

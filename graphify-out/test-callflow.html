@@ -1,0 +1,3304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>test — Complete Call Flow &amp; Architecture Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+  --warn: #fbbf24; --err: #f87171; --ok: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.4rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 1.7rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+h4 { font-size: 1.05rem; margin: 20px 0 8px; color: var(--warn); }
+p { margin: 8px 0; color: var(--muted); }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+.mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; overflow-x: auto; position: relative; }
+.mermaid.is-enhanced { padding: 0; overflow: hidden; min-height: 260px; }
+.mermaid-viewport { padding: 54px 24px 24px; overflow: hidden; cursor: grab; touch-action: none; min-height: 260px; }
+.mermaid-viewport.is-dragging { cursor: grabbing; }
+.mermaid-viewport svg { max-width: none !important; height: auto; transform-origin: 0 0; transition: transform 120ms ease; }
+.mermaid-toolbar { position: absolute; top: 10px; right: 10px; z-index: 3; display: flex; align-items: center; gap: 6px; padding: 6px; background: rgba(15,23,42,0.92); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+.mermaid-toolbar button, .mermaid-toolbar .zoom-level { height: 28px; min-width: 32px; border: 1px solid var(--border); border-radius: 6px; background: #1e293b; color: var(--text); font: 600 0.78rem system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; }
+.mermaid-toolbar button { cursor: pointer; }
+.mermaid-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.mermaid-toolbar .zoom-level { min-width: 52px; color: var(--muted); background: transparent; }
+.call-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+.call-table th { background: #1a2744; color: var(--accent); text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.call-table td { padding: 8px 14px; border: 1px solid var(--border); vertical-align: top; }
+.call-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.tag-async { background: #7c3aed33; color: #a78bfa; }
+.tag-class { background: #05966933; color: var(--ok); }
+.tag-func { background: #2563eb33; color: var(--accent); }
+.tag-cmd { background: #d9770633; color: var(--warn); }
+.tag-endpoint { background: #dc262633; color: var(--err); }
+.tag-hook { background: #db277733; color: #f472b6; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin: 16px 0; }
+.arrow-chain { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent); padding: 10px; background: rgba(56,189,248,0.06); border-radius: 6px; }
+code { font-family: 'Fira Code', 'Cascadia Code', monospace; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-size: 0.88em; }
+ul, ol { margin: 8px 0 8px 24px; color: var(--muted); }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.nav { position: sticky; top: 0; background: var(--bg); z-index: 10; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+@media (max-width: 768px) { .container { padding: 16px; } h1 { font-size: 1.8rem; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>test — Complete Call Flow &amp; Architecture Documentation</h1>
+<p class="subtitle">Generated from graphify knowledge graph: 390 nodes, 697 edges, 20 communities. Commit: c311d9e</p>
+
+<div class="nav">
+    <a href="#overview">Architecture Overview</a>
+    <a href="#analysis-clustering">Analysis &amp; Clustering</a>
+    <a href="#cli-skills">CLI &amp; Skill Installers</a>
+    <a href="#serve-api">Serving API</a>
+    <a href="#community-0">Community 0</a>
+    <a href="#community-3">Community 3</a>
+    <a href="#community-7">Community 7</a>
+    <a href="#community-8">Community 8</a>
+    <a href="#community-17">Community 17</a>
+    <a href="#community-10">Community 10</a>
+    <a href="#community-18">Community 18</a>
+    <a href="#community-11">Community 11</a>
+    <a href="#community-12">Community 12</a>
+    <a href="#community-13">Community 13</a>
+    <a href="#community-16">Community 16</a>
+    <a href="#other">Other</a>
+</div>
+
+<!-- ====== Architecture Overview ====== -->
+<h2 id="overview">1. Architecture Overview</h2>
+
+<div class="mermaid">
+
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>37 nodes</small>")
+    class ANALYSIS_CLUSTERING_C79796DA module;
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>21 nodes</small>")
+    class CLI_SKILLS_9964CBB8 module;
+    SERVE_API_35EC8E86("Serving API<br/><small>134 nodes</small>")
+    class SERVE_API_35EC8E86 module;
+    COMMUNITY_0_B056AD3D("Community 0<br/><small>73 nodes</small>")
+    class COMMUNITY_0_B056AD3D module;
+    COMMUNITY_3_D8DFCEA7("Community 3<br/><small>49 nodes</small>")
+    class COMMUNITY_3_D8DFCEA7 module;
+    COMMUNITY_7_989501FC("Community 7<br/><small>27 nodes</small>")
+    class COMMUNITY_7_989501FC module;
+    COMMUNITY_8_9FC4FAC0("Community 8<br/><small>22 nodes</small>")
+    class COMMUNITY_8_9FC4FAC0 module;
+    COMMUNITY_17_648F8D7C("Community 17<br/><small>8 nodes</small>")
+    class COMMUNITY_17_648F8D7C module;
+    COMMUNITY_10_48432F59("Community 10<br/><small>4 nodes</small>")
+    class COMMUNITY_10_48432F59 module;
+    COMMUNITY_18_A335126F("Community 18<br/><small>3 nodes</small>")
+    class COMMUNITY_18_A335126F module;
+    COMMUNITY_11_DE018FC2("Community 11<br/><small>2 nodes</small>")
+    class COMMUNITY_11_DE018FC2 module;
+    COMMUNITY_12_82F13F05("Community 12<br/><small>2 nodes</small>")
+    class COMMUNITY_12_82F13F05 module;
+    COMMUNITY_13_E329587C("Community 13<br/><small>2 nodes</small>")
+    class COMMUNITY_13_E329587C module;
+    COMMUNITY_16_BD3EE841("Community 16<br/><small>2 nodes</small>")
+    class COMMUNITY_16_BD3EE841 module;
+    OTHER_D0941E68("Other<br/><small>4 nodes</small>")
+    class OTHER_D0941E68 module;
+    SERVE_API_35EC8E86 -->|imports x17| COMMUNITY_0_B056AD3D
+    COMMUNITY_8_9FC4FAC0 -->|imports x13| COMMUNITY_0_B056AD3D
+    ANALYSIS_CLUSTERING_C79796DA -->|contains x11| SERVE_API_35EC8E86
+    COMMUNITY_8_9FC4FAC0 -->|imports x8| SERVE_API_35EC8E86
+    SERVE_API_35EC8E86 -->|imports x7| ANALYSIS_CLUSTERING_C79796DA
+    ANALYSIS_CLUSTERING_C79796DA -->|contains x3| COMMUNITY_0_B056AD3D
+    COMMUNITY_8_9FC4FAC0 -->|imports x2| ANALYSIS_CLUSTERING_C79796DA
+    COMMUNITY_0_B056AD3D -->|imports x2| ANALYSIS_CLUSTERING_C79796DA
+    CLI_SKILLS_9964CBB8 -->|contains| ANALYSIS_CLUSTERING_C79796DA
+    CLI_SKILLS_9964CBB8 -->|contains| SERVE_API_35EC8E86
+    ANALYSIS_CLUSTERING_C79796DA -->|imports| COMMUNITY_8_9FC4FAC0
+    SERVE_API_35EC8E86 -->|contains| COMMUNITY_8_9FC4FAC0
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h4>Architecture Layers</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
+      <tr><td>Analysis &amp; Clustering</td><td>37</td><td><code>6</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>21</td><td><code>4</code></td></tr><tr><td>Serving API</td><td>134</td><td><code>1, 2, 5, 9</code></td></tr><tr><td>Community 0</td><td>73</td><td><code>0</code></td></tr><tr><td>Community 3</td><td>49</td><td><code>3</code></td></tr><tr><td>Community 7</td><td>27</td><td><code>7</code></td></tr><tr><td>Community 8</td><td>22</td><td><code>8</code></td></tr><tr><td>Community 17</td><td>8</td><td><code>17</code></td></tr><tr><td>Community 10</td><td>4</td><td><code>10</code></td></tr><tr><td>Community 18</td><td>3</td><td><code>18</code></td></tr><tr><td>Community 11</td><td>2</td><td><code>11</code></td></tr><tr><td>Community 12</td><td>2</td><td><code>12</code></td></tr><tr><td>Community 13</td><td>2</td><td><code>13</code></td></tr><tr><td>Community 16</td><td>2</td><td><code>16</code></td></tr><tr><td>Other</td><td>4</td><td><code>19, 14, 15</code></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Core Flow</h4>
+    <div class="arrow-chain">CLI &amp; Skill Installers -&gt; Serving API -&gt; Community 0 -&gt; Analysis &amp; Clustering -&gt; Community 8 -&gt; Community 3 -&gt; Community 7</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h4>Graph Report Highlights</h4>
+    <ul>
+      <li>390 nodes · 697 edges · 20 communities (16 shown, 4 thin omitted)</li>
+      <li>Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 66 edges (avg confidence: 0.8)</li>
+      <li>Token cost: 0 input · 0 output</li>
+      <li>1. `TaskDetailPage()` - 18 edges</li>
+      <li>2. `authenticate()` - 16 edges</li>
+      <li>3. `verifyTaskAccess()` - 16 edges</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<!-- ====== 2. Analysis & Clustering ====== -->
+<h2 id="analysis-clustering">2. Analysis &amp; Clustering</h2>
+<p>Analysis &amp; Clustering groups implementation around config, middleware, routes, authroutesjs, mostly in src/routes/auth.routes.js, src/app.js, src/config/env.js. This section covers 37 nodes and 48 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Analysis &amp; Clustering (37 nodes, 48 edges)
+    subgraph analysis_clustering_src_app_js_71d5fe1e["src/app.js"]
+        src_app_js_18d0b563("app.js")
+        src_app_requestlogger_7c07acf8("requestLogger<br/><small>src/app.js</small>")
+        src_app_corsmiddleware_26d0e0c8("corsMiddleware<br/><small>src/app.js</small>")
+        src_app_express_14ec104a("express<br/><small>src/app.js</small>")
+        src_app_helmet_c02c462b("helmet<br/><small>src/app.js</small>")
+        src_app_routes_771eb062("routes<br/><small>src/app.js</small>")
+        src_app_globallimiter_77c7806a("globalLimiter<br/><small>src/app.js</small>")
+    end
+    subgraph analysis_clustering_src_config_cors_js_0fdb3558["src/config/cors.js"]
+        src_config_cors_js_11864828("cors.js")
+        config_cors_config_3a6652ad("config<br/><small>src/config/cors.js</small>")
+        config_cors_cors_05e3bad1("cors<br/><small>src/config/cors.js</small>")
+    end
+    subgraph analysis_clustering_src_middleware_rateLimiter_j_d89a82a0["src/middleware/rateLimiter.js"]
+        middleware_ratelimiter_authlimiter_7e518bb2("authLimiter<br/><small>src/middleware/rateLimiter.js</small>")
+        src_middleware_ratelimiter_js_f8056bb4("rateLimiter.js")
+        middleware_ratelimiter_globallimiter_924b9d0c("globalLimiter<br/><small>src/middleware/rateLimiter.js</small>")
+    end
+    subgraph analysis_clustering_src_middleware_errorHandler_567f5afd["src/middleware/errorHandler.js"]
+        src_middleware_errorhandler_js_5b366234("errorHandler.js")
+        middleware_errorhandler_errorhandler_bd8ed9e7("errorHandler()<br/><small>src/middleware/errorHandler.js</small>")
+    end
+    src_config_env_js_0f1d69be("env.js")
+    src_middleware_requestlogger_js_bc57dfa8("requestLogger.js")
+    src_routes_auth_routes_js_38215547("auth.routes.js")
+    src_app_js_18d0b563 -->|imports| src_config_cors_js_11864828
+    src_app_js_18d0b563 -->|imports| src_middleware_ratelimiter_js_f8056bb4
+    src_app_js_18d0b563 -->|imports| middleware_ratelimiter_globallimiter_924b9d0c
+    src_app_js_18d0b563 -->|imports| src_middleware_requestlogger_js_bc57dfa8
+    src_app_js_18d0b563 -->|imports| src_middleware_errorhandler_js_5b366234
+    src_app_js_18d0b563 -->|imports| middleware_errorhandler_errorhandler_bd8ed9e7
+    src_app_requestlogger_7c07acf8 -->|imports| src_config_env_js_0f1d69be
+    src_config_cors_js_11864828 -->|imports| src_config_env_js_0f1d69be
+    src_config_env_js_0f1d69be -->|imports| src_middleware_errorhandler_js_5b366234
+    src_config_env_js_0f1d69be -->|imports| src_middleware_ratelimiter_js_f8056bb4
+    src_config_env_js_0f1d69be -->|imports| src_middleware_requestlogger_js_bc57dfa8
+    src_middleware_ratelimiter_js_f8056bb4 -->|imports| src_routes_auth_routes_js_38215547
+    middleware_ratelimiter_authlimiter_7e518bb2 -->|imports| src_routes_auth_routes_js_38215547
+    %% Omitted for readability: 19 nodes, 0 edges
+    class src_app_js_18d0b563 module;
+    class src_app_requestlogger_7c07acf8 function;
+    class src_app_corsmiddleware_26d0e0c8 function;
+    class src_app_express_14ec104a function;
+    class src_app_helmet_c02c462b function;
+    class src_app_routes_771eb062 api;
+    class src_app_globallimiter_77c7806a function;
+    class src_config_cors_js_11864828 module;
+    class config_cors_config_3a6652ad function;
+    class config_cors_cors_05e3bad1 function;
+    class middleware_ratelimiter_authlimiter_7e518bb2 function;
+    class src_middleware_ratelimiter_js_f8056bb4 module;
+    class middleware_ratelimiter_globallimiter_924b9d0c function;
+    class src_middleware_errorhandler_js_5b366234 module;
+    class middleware_errorhandler_errorhandler_bd8ed9e7 function;
+    class src_config_env_js_0f1d69be module;
+    class src_middleware_requestlogger_js_bc57dfa8 module;
+    class src_routes_auth_routes_js_38215547 api;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cors.js</code><br><small style="color:var(--muted)">src/config/cors.js</small><br><code>errorHandler()</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small><br><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small><br>+3 more</td>
+  <td>app.js node in src/app.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>express</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>express node in src/app.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>helmet</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>helmet node in src/app.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>corsMiddleware</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>corsMiddleware node in src/app.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>{ globalLimiter }</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ globalLimiter } node in src/app.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>{ requestLogger }</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td>{ requestLogger } node in src/app.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>routes</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>routes node in src/app.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>config</code><br><small style="color:var(--muted)">src/index.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>cors.js</code><br><small style="color:var(--muted)">src/config/cors.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td>cors.js node in src/config/cors.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>cors</code><br><small style="color:var(--muted)">src/config/cors.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>cors node in src/config/cors.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>config</code><br><small style="color:var(--muted)">src/config/cors.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>corsOptions</code><br><small style="color:var(--muted)">src/config/cors.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>corsOptions node in src/config/cors.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>cors.js</code><br><small style="color:var(--muted)">src/config/cors.js</small><br><code>{ requestLogger }</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small><br><code>rateLimiter.js</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small><br><code>requestLogger.js</code><br><small style="color:var(--muted)">src/middleware/requestLogger.js</small></td>
+  <td>env.js node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>dotenv</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>dotenv node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>path</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>path node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>required</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>required node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>missing</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>missing node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">src/app.js</small><br><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>errorHandler.js node in src/middleware/errorHandler.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>config</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>{ AppError }</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ AppError } node in src/middleware/errorHandler.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>errorHandler()</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>errorHandler() node in src/middleware/errorHandler.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>rateLimiter.js</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">src/app.js</small><br><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td>rateLimiter.js node in src/middleware/rateLimiter.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>rateLimit</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>rateLimit node in src/middleware/rateLimiter.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>config</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>globalLimiter</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>globalLimiter node in src/middleware/rateLimiter.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>authLimiter</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td>authLimiter node in src/middleware/rateLimiter.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>requestLogger.js</code><br><small style="color:var(--muted)">src/middleware/requestLogger.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">src/app.js</small><br><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>requestLogger.js node in src/middleware/requestLogger.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>morgan</code><br><small style="color:var(--muted)">src/middleware/requestLogger.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>morgan node in src/middleware/requestLogger.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>config</code><br><small style="color:var(--muted)">src/middleware/requestLogger.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>authLimiter</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small><br><code>rateLimiter.js</code><br><small style="color:var(--muted)">src/middleware/rateLimiter.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>auth.routes.js node in src/routes/auth.routes.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/routes/auth.routes.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>src/app.js</code></td><td>7 nodes</td></tr>
+<tr><td><code>src/config/env.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/middleware/rateLimiter.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/config/cors.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/middleware/errorHandler.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/middleware/requestLogger.js</code></td><td>3 nodes</td></tr>
+<tr><td><code>src/index.js</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x35, imports x10, imports x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 3. CLI & Skill Installers ====== -->
+<h2 id="cli-skills">3. CLI &amp; Skill Installers</h2>
+<p>CLI &amp; Skill Installers groups implementation around client, auth, pages, appjsx, mostly in client/src/App.jsx, src/context/AuthContext.jsx, src/hooks/useProfile.js. This section covers 21 nodes and 22 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: CLI &amp; Skill Installers (21 nodes, 22 edges)
+    subgraph cli_skills_client_src_App_jsx_5231cf04["client/src/App.jsx"]
+        client_src_app_jsx_ef8aad67("App.jsx")
+        src_app_protectedroute_be9c1fb6("ProtectedRoute()<br/><small>client/src/App.jsx</small>")
+        src_app_publicroute_dbf360d8("PublicRoute()<br/><small>client/src/App.jsx</small>")
+        src_app_queryclient_251eda14("queryClient<br/><small>client/src/App.jsx</small>")
+    end
+    subgraph cli_skills_src_context_AuthContext_jsx_0d8d8e33["src/context/AuthContext.jsx"]
+        context_authcontext_authcontext_ea9c76e5("AuthContext<br/><small>src/context/AuthContext.jsx</small>")
+        client_src_context_authcontext_jsx_a54480d2("AuthContext.jsx")
+        context_authcontext_authprovider_b1c8f442("AuthProvider()<br/><small>src/context/AuthContext.jsx</small>")
+        context_authcontext_useauth_2a79aa5d("useAuth()<br/><small>src/context/AuthContext.jsx</small>")
+    end
+    subgraph cli_skills_components_auth_SocialAuth_jsx_e4250bc1["components/auth/SocialAuth.jsx"]
+        auth_socialauth_socialauth_779a132e("SocialAuth()<br/><small>components/auth/SocialAuth.jsx</small>")
+        client_src_components_auth_socialauth_jsx_49b968be("SocialAuth.jsx")
+    end
+    subgraph cli_skills_pages_auth_LoginPage_jsx_87b2e51b["pages/auth/LoginPage.jsx"]
+        auth_loginpage_loginpage_e8aa7e8e("LoginPage()<br/><small>pages/auth/LoginPage.jsx</small>")
+        client_src_pages_auth_loginpage_jsx_f70f432d("LoginPage.jsx")
+    end
+    subgraph cli_skills_pages_auth_SignupPage_jsx_7c1b1f97["pages/auth/SignupPage.jsx"]
+        auth_signuppage_signuppage_a44439db("SignupPage()<br/><small>pages/auth/SignupPage.jsx</small>")
+        client_src_pages_auth_signuppage_jsx_cea3038e("SignupPage.jsx")
+    end
+    subgraph cli_skills_pages_profile_ProfilePage_jsx_529422e6["pages/profile/ProfilePage.jsx"]
+        profile_profilepage_profilepage_c13ef15c("ProfilePage()<br/><small>pages/profile/ProfilePage.jsx</small>")
+        client_src_pages_profile_profilepage_jsx_ace1e2d2("ProfilePage.jsx")
+    end
+    client_src_main_jsx_83b11cff("main.jsx")
+    src_app_app_f316b20d("app<br/><small>src/app.js</small>")
+    client_src_app_jsx_ef8aad67 -->|imports| client_src_main_jsx_83b11cff
+    %% Omitted for readability: 3 nodes, 0 edges
+    class client_src_app_jsx_ef8aad67 ui;
+    class src_app_protectedroute_be9c1fb6 api;
+    class src_app_publicroute_dbf360d8 api;
+    class src_app_queryclient_251eda14 entry;
+    class context_authcontext_authcontext_ea9c76e5 ui;
+    class client_src_context_authcontext_jsx_a54480d2 ui;
+    class context_authcontext_authprovider_b1c8f442 ui;
+    class context_authcontext_useauth_2a79aa5d ui;
+    class auth_socialauth_socialauth_779a132e ui;
+    class client_src_components_auth_socialauth_jsx_49b968be ui;
+    class auth_loginpage_loginpage_e8aa7e8e ui;
+    class client_src_pages_auth_loginpage_jsx_f70f432d ui;
+    class auth_signuppage_signuppage_a44439db ui;
+    class client_src_pages_auth_signuppage_jsx_cea3038e ui;
+    class profile_profilepage_profilepage_c13ef15c ui;
+    class client_src_pages_profile_profilepage_jsx_ace1e2d2 ui;
+    class client_src_main_jsx_83b11cff ui;
+    class src_app_app_f316b20d function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>App.jsx</code><br><small style="color:var(--muted)">client/src/App.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>main.jsx</code><br><small style="color:var(--muted)">client/src/main.jsx</small></td>
+  <td>App.jsx node in client/src/App.jsx.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>queryClient</code><br><small style="color:var(--muted)">client/src/App.jsx</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>queryClient node in client/src/App.jsx.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>ProtectedRoute()</code><br><small style="color:var(--muted)">client/src/App.jsx</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>useAuth()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td>ProtectedRoute() node in client/src/App.jsx.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>PublicRoute()</code><br><small style="color:var(--muted)">client/src/App.jsx</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>useAuth()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td>PublicRoute() node in client/src/App.jsx.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>app</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>app node in src/app.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>main.jsx</code><br><small style="color:var(--muted)">client/src/main.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>App.jsx</code><br><small style="color:var(--muted)">client/src/App.jsx</small></td>
+  <td>No direct outbound edge</td>
+  <td>main.jsx node in client/src/main.jsx.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>SocialAuth.jsx</code><br><small style="color:var(--muted)">components/auth/SocialAuth.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>SocialAuth.jsx node in components/auth/SocialAuth.jsx.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>SocialAuth()</code><br><small style="color:var(--muted)">components/auth/SocialAuth.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>useAuth()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td>SocialAuth() node in components/auth/SocialAuth.jsx.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>AuthContext.jsx</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>AuthContext.jsx node in src/context/AuthContext.jsx.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>AuthContext</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>AuthContext node in src/context/AuthContext.jsx.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>AuthProvider()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>AuthProvider() node in src/context/AuthContext.jsx.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>useAuth()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>ProtectedRoute()</code><br><small style="color:var(--muted)">client/src/App.jsx</small><br><code>PublicRoute()</code><br><small style="color:var(--muted)">client/src/App.jsx</small><br><code>SocialAuth()</code><br><small style="color:var(--muted)">components/auth/SocialAuth.jsx</small></td>
+  <td><code>LoginPage()</code><br><small style="color:var(--muted)">pages/auth/LoginPage.jsx</small><br><code>ProfilePage()</code><br><small style="color:var(--muted)">pages/profile/ProfilePage.jsx</small><br><code>SignupPage()</code><br><small style="color:var(--muted)">pages/auth/SignupPage.jsx</small></td>
+  <td>useAuth() node in src/context/AuthContext.jsx.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>useProfile.js</code><br><small style="color:var(--muted)">src/hooks/useProfile.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>useProfile.js node in src/hooks/useProfile.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>useProfile()</code><br><small style="color:var(--muted)">src/hooks/useProfile.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ProfilePage()</code><br><small style="color:var(--muted)">pages/profile/ProfilePage.jsx</small></td>
+  <td>useProfile() node in src/hooks/useProfile.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>useUpdateProfile()</code><br><small style="color:var(--muted)">src/hooks/useProfile.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ProfilePage()</code><br><small style="color:var(--muted)">pages/profile/ProfilePage.jsx</small></td>
+  <td>useUpdateProfile() node in src/hooks/useProfile.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>LoginPage.jsx</code><br><small style="color:var(--muted)">pages/auth/LoginPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>LoginPage()</code><br><small style="color:var(--muted)">pages/auth/LoginPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>useAuth()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>SignupPage.jsx</code><br><small style="color:var(--muted)">pages/auth/SignupPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>SignupPage()</code><br><small style="color:var(--muted)">pages/auth/SignupPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>useAuth()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small></td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>ProfilePage.jsx</code><br><small style="color:var(--muted)">pages/profile/ProfilePage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>ProfilePage()</code><br><small style="color:var(--muted)">pages/profile/ProfilePage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>useAuth()</code><br><small style="color:var(--muted)">src/context/AuthContext.jsx</small><br><code>useProfile()</code><br><small style="color:var(--muted)">src/hooks/useProfile.js</small><br><code>useUpdateProfile()</code><br><small style="color:var(--muted)">src/hooks/useProfile.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>client/src/App.jsx</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/context/AuthContext.jsx</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/hooks/useProfile.js</code></td><td>3 nodes</td></tr>
+<tr><td><code>components/auth/SocialAuth.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>pages/auth/LoginPage.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>pages/auth/SignupPage.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>pages/profile/ProfilePage.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>client/src/main.jsx</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x13, imports x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. Serving API ====== -->
+<h2 id="serve-api">4. Serving API</h2>
+<p>Serving API groups implementation around routes, controllers, readmemd, indexjs, mostly in README.md, src/routes/organizations.routes.js, src/routes/tasks.routes.js. This section covers 134 nodes and 256 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Serving API (134 nodes, 256 edges)
+    subgraph serve_api_src_controllers_attachments_controller_3275a32a["src/controllers/attachments.controller.js"]
+        controllers_attachments_controller_uploadattachm_e72a7301("uploadAttachment()<br/><small>src/controllers/attachments.controller.js</small>")
+        controllers_attachments_controller_gettaskattach_7aa7f430("getTaskAttachments()<br/><small>src/controllers/attachments.controller.js</small>")
+        controllers_attachments_controller_deleteattachm_e8009846("deleteAttachment()<br/><small>src/controllers/attachments.controller.js</small>")
+        controllers_attachments_controller_getdownloadur_f875780e("getDownloadUrl()<br/><small>src/controllers/attachments.controller.js</small>")
+    end
+    subgraph serve_api_src_services_attachments_service_js_9bcc7cde["src/services/attachments.service.js"]
+        services_attachments_service_uploadattachment_47c32ec3("uploadAttachment()<br/><small>src/services/attachments.service.js</small>")
+        services_attachments_service_gettaskattachments_0344dd3c("getTaskAttachments()<br/><small>src/services/attachments.service.js</small>")
+        services_attachments_service_deleteattachment_03976d67("deleteAttachment()<br/><small>src/services/attachments.service.js</small>")
+        services_attachments_service_getdownloadurl_24f57534("getDownloadUrl()<br/><small>src/services/attachments.service.js</small>")
+    end
+    subgraph serve_api_src_utils_response_js_eb291b8e["src/utils/response.js"]
+        utils_response_created_23625d9e("created()<br/><small>src/utils/response.js</small>")
+        utils_response_success_9179b615("success()<br/><small>src/utils/response.js</small>")
+        utils_response_paginated_c4e93a26("paginated()<br/><small>src/utils/response.js</small>")
+    end
+    subgraph serve_api_src_middleware_auth_js_3c2393e4["src/middleware/auth.js"]
+        src_middleware_auth_js_73844881("auth.js")
+        middleware_auth_authenticate_9fbc748a("authenticate()<br/><small>src/middleware/auth.js</small>")
+    end
+    config_supabase_createuserclient_cf971697("createUserClient()<br/><small>src/config/supabase.js</small>")
+    src_controllers_comments_controller_js_00c0c2ae("comments.controller.js")
+    src_controllers_organizations_controller_js_410d4c67("organizations.controller.js")
+    src_controllers_projects_controller_js_c5a62634("projects.controller.js")
+    src_controllers_tasks_controller_js_8689efe4("tasks.controller.js")
+    config_supabase_createuserclient_cf971697 -->|calls| middleware_auth_authenticate_9fbc748a
+    controllers_attachments_controller_uploadattachm_e72a7301 -->|calls| utils_response_created_23625d9e
+    controllers_attachments_controller_gettaskattach_7aa7f430 -->|calls| utils_response_success_9179b615
+    controllers_attachments_controller_deleteattachm_e8009846 -->|calls| utils_response_success_9179b615
+    controllers_attachments_controller_getdownloadur_f875780e -->|calls| utils_response_success_9179b615
+    services_attachments_service_uploadattachment_47c32ec3 -->|calls| utils_response_created_23625d9e
+    services_attachments_service_gettaskattachments_0344dd3c -->|calls| utils_response_success_9179b615
+    services_attachments_service_deleteattachment_03976d67 -->|calls| utils_response_success_9179b615
+    services_attachments_service_getdownloadurl_24f57534 -->|calls| utils_response_success_9179b615
+    utils_response_success_9179b615 -->|calls| utils_response_created_23625d9e
+    utils_response_success_9179b615 -->|calls| utils_response_paginated_c4e93a26
+    config_supabase_createuserclient_cf971697 -->|imports| src_middleware_auth_js_73844881
+    src_controllers_comments_controller_js_00c0c2ae -->|imports| utils_response_success_9179b615
+    src_controllers_comments_controller_js_00c0c2ae -->|imports| utils_response_created_23625d9e
+    src_controllers_organizations_controller_js_410d4c67 -->|imports| utils_response_success_9179b615
+    src_controllers_organizations_controller_js_410d4c67 -->|imports| utils_response_created_23625d9e
+    src_controllers_projects_controller_js_c5a62634 -->|imports| utils_response_success_9179b615
+    src_controllers_projects_controller_js_c5a62634 -->|imports| utils_response_created_23625d9e
+    src_controllers_tasks_controller_js_8689efe4 -->|imports| utils_response_success_9179b615
+    src_controllers_tasks_controller_js_8689efe4 -->|imports| utils_response_created_23625d9e
+    %% Omitted for readability: 116 nodes, 0 edges
+    class controllers_attachments_controller_uploadattachm_e72a7301 function;
+    class controllers_attachments_controller_gettaskattach_7aa7f430 function;
+    class controllers_attachments_controller_deleteattachm_e8009846 function;
+    class controllers_attachments_controller_getdownloadur_f875780e function;
+    class services_attachments_service_uploadattachment_47c32ec3 function;
+    class services_attachments_service_gettaskattachments_0344dd3c function;
+    class services_attachments_service_deleteattachment_03976d67 function;
+    class services_attachments_service_getdownloadurl_24f57534 function;
+    class utils_response_created_23625d9e function;
+    class utils_response_success_9179b615 function;
+    class utils_response_paginated_c4e93a26 function;
+    class src_middleware_auth_js_73844881 module;
+    class middleware_auth_authenticate_9fbc748a function;
+    class config_supabase_createuserclient_cf971697 entry;
+    class src_controllers_comments_controller_js_00c0c2ae module;
+    class src_controllers_organizations_controller_js_410d4c67 module;
+    class src_controllers_projects_controller_js_c5a62634 module;
+    class src_controllers_tasks_controller_js_8689efe4 module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>index.js</code><br><small style="color:var(--muted)">src/index.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>index.js node in src/index.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>app</code><br><small style="color:var(--muted)">src/index.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>app node in src/index.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>server</code><br><small style="color:var(--muted)">src/index.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>server node in src/index.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>shutdown()</code><br><small style="color:var(--muted)">src/index.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>shutdown() node in src/index.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>createUserClient()</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>auth.js</code><br><small style="color:var(--muted)">src/middleware/auth.js</small><br><code>authenticate()</code><br><small style="color:var(--muted)">src/middleware/auth.js</small></td>
+  <td>createUserClient() node in src/config/supabase.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>auth.js</code><br><small style="color:var(--muted)">src/middleware/auth.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>createUserClient()</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td><code>attachments.routes.js</code><br><small style="color:var(--muted)">src/routes/attachments.routes.js</small><br><code>attachmentsRoutes</code><br><small style="color:var(--muted)">src/routes/index.js</small><br><code>authRoutes</code><br><small style="color:var(--muted)">src/routes/index.js</small><br>+10 more</td>
+  <td>auth.js node in src/middleware/auth.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>{ adminClient, createUserClient }</code><br><small style="color:var(--muted)">src/middleware/auth.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ adminClient, createUserClient } node in src/middleware/auth.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>{ AppError }</code><br><small style="color:var(--muted)">src/middleware/auth.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ AppError } node in src/middleware/auth.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>authenticate()</code><br><small style="color:var(--muted)">src/middleware/auth.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>createUserClient()</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td><code>attachments.routes.js</code><br><small style="color:var(--muted)">src/routes/attachments.routes.js</small><br><code>comments.routes.js</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small><br><code>dashboard.routes.js</code><br><small style="color:var(--muted)">src/routes/dashboard.routes.js</small><br>+3 more</td>
+  <td>authenticate() node in src/middleware/auth.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>validate.js</code><br><small style="color:var(--muted)">src/middleware/validate.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>comments.routes.js</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small><br><code>organizations.routes.js</code><br><small style="color:var(--muted)">src/routes/organizations.routes.js</small><br><code>projects.routes.js</code><br><small style="color:var(--muted)">src/routes/projects.routes.js</small><br>+1 more</td>
+  <td>validate.js node in src/middleware/validate.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>validate()</code><br><small style="color:var(--muted)">src/middleware/validate.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>comments.routes.js</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small><br><code>organizations.routes.js</code><br><small style="color:var(--muted)">src/routes/organizations.routes.js</small><br><code>projects.routes.js</code><br><small style="color:var(--muted)">src/routes/projects.routes.js</small><br>+1 more</td>
+  <td>validate() node in src/middleware/validate.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>attachments.routes.js</code><br><small style="color:var(--muted)">src/routes/attachments.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>attachments.controller.js</code><br><small style="color:var(--muted)">src/controllers/attachments.controller.js</small><br><code>auth.js</code><br><small style="color:var(--muted)">src/middleware/auth.js</small><br><code>authenticate()</code><br><small style="color:var(--muted)">src/middleware/auth.js</small></td>
+  <td><code>index.js</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
+  <td>attachments.routes.js node in src/routes/attachments.routes.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>express</code><br><small style="color:var(--muted)">src/routes/attachments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>express node in src/routes/attachments.routes.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>router</code><br><small style="color:var(--muted)">src/routes/attachments.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>router node in src/routes/attachments.routes.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>attachmentController</code><br><small style="color:var(--muted)">src/routes/attachments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>attachmentController node in src/routes/attachments.routes.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>{ authenticate }</code><br><small style="color:var(--muted)">src/routes/attachments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ authenticate } node in src/routes/attachments.routes.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Joi</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Joi node in src/routes/auth.routes.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>ctrl</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ctrl node in src/routes/auth.routes.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>comments.routes.js</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>auth.js</code><br><small style="color:var(--muted)">src/middleware/auth.js</small><br><code>authenticate()</code><br><small style="color:var(--muted)">src/middleware/auth.js</small><br><code>comments.controller.js</code><br><small style="color:var(--muted)">src/controllers/comments.controller.js</small><br>+2 more</td>
+  <td><code>index.js</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
+  <td>comments.routes.js node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>{ Router }</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ Router } node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Joi</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Joi node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>ctrl</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ctrl node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>{ authenticate }</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ authenticate } node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>{ validate }</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ validate } node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>createSchema</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>createSchema node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>deleteSchema</code><br><small style="color:var(--muted)">src/routes/comments.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>deleteSchema node in src/routes/comments.routes.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>dashboard.routes.js</code><br><small style="color:var(--muted)">src/routes/dashboard.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>auth.js</code><br><small style="color:var(--muted)">src/middleware/auth.js</small><br><code>authenticate()</code><br><small style="color:var(--muted)">src/middleware/auth.js</small><br><code>dashboard.controller.js</code><br><small style="color:var(--muted)">src/controllers/dashboard.controller.js</small></td>
+  <td><code>index.js</code><br><small style="color:var(--muted)">src/routes/index.js</small></td>
+  <td>dashboard.routes.js node in src/routes/dashboard.routes.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>{ Router }</code><br><small style="color:var(--muted)">src/routes/dashboard.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ Router } node in src/routes/dashboard.routes.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>ctrl</code><br><small style="color:var(--muted)">src/routes/dashboard.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ctrl node in src/routes/dashboard.routes.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>{ authenticate }</code><br><small style="color:var(--muted)">src/routes/dashboard.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ authenticate } node in src/routes/dashboard.routes.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>README.md</code></td><td>18 nodes</td></tr>
+<tr><td><code>src/routes/organizations.routes.js</code></td><td>12 nodes</td></tr>
+<tr><td><code>src/routes/tasks.routes.js</code></td><td>12 nodes</td></tr>
+<tr><td><code>src/routes/index.js</code></td><td>9 nodes</td></tr>
+<tr><td><code>src/routes/projects.routes.js</code></td><td>9 nodes</td></tr>
+<tr><td><code>src/services/attachments.service.js</code></td><td>9 nodes</td></tr>
+<tr><td><code>src/routes/comments.routes.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>src/controllers/attachments.controller.js</code></td><td>7 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x176, imports x42, imports x27, calls x11. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Community 0 ====== -->
+<h2 id="community-0">5. Community 0</h2>
+<p>Community 0 groups implementation around services, utils, organizationsservicejs, tasksservicejs, mostly in src/services/organizations.service.js, src/services/tasks.service.js, src/utils/errors.js. This section covers 73 nodes and 138 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 0 (73 nodes, 138 edges)
+    subgraph community_0_src_services_organizations_service_j_08950108["src/services/organizations.service.js"]
+        src_services_organizations_service_js_2f1679eb("organizations.service.js")
+        services_organizations_service_getorganizationde_b4fd1a6c("getOrganizationDetails()<br/><small>src/services/organizations.service.js</small>")
+        services_organizations_service_updateorganizatio_80ac0e11("updateOrganization()<br/><small>src/services/organizations.service.js</small>")
+        services_organizations_service_getorganizationme_dec67dbc("getOrganizationMembers()<br/><small>src/services/organizations.service.js</small>")
+        services_organizations_service_addmember_7905761e("addMember()<br/><small>src/services/organizations.service.js</small>")
+        services_organizations_service_updatememberrole_75448596("updateMemberRole()<br/><small>src/services/organizations.service.js</small>")
+    end
+    subgraph community_0_src_services_comments_service_js_b3000e8b["src/services/comments.service.js"]
+        src_services_comments_service_js_9a7e5dbc("comments.service.js")
+        services_comments_service_addcomment_dfb473d7("addComment()<br/><small>src/services/comments.service.js</small>")
+        services_comments_service_gettaskcomments_298cc3fb("getTaskComments()<br/><small>src/services/comments.service.js</small>")
+        services_comments_service_deletecomment_4fa852c4("deleteComment()<br/><small>src/services/comments.service.js</small>")
+    end
+    subgraph community_0_src_utils_permissions_js_66c09d14["src/utils/permissions.js"]
+        utils_permissions_verifytaskaccess_f8f60600("verifyTaskAccess()<br/><small>src/utils/permissions.js</small>")
+        utils_permissions_verifycommentauthor_bc02cf64("verifyCommentAuthor()<br/><small>src/utils/permissions.js</small>")
+        utils_permissions_verifyorgmembership_1426a3b8("verifyOrgMembership()<br/><small>src/utils/permissions.js</small>")
+        utils_permissions_verifyorgadmin_932c50ce("verifyOrgAdmin()<br/><small>src/utils/permissions.js</small>")
+    end
+    src_services_projects_service_js_0377a90a("projects.service.js")
+    src_services_tasks_service_js_716bf5c5("tasks.service.js")
+    utils_errors_apperror_constructor_86761659("constructor()<br/><small>src/utils/errors.js</small>")
+    utils_privacy_anonymizeprofile_17357ade("anonymizeProfile()<br/><small>src/utils/privacy.js</small>")
+    services_comments_service_addcomment_dfb473d7 -->|calls| utils_permissions_verifytaskaccess_f8f60600
+    services_comments_service_addcomment_dfb473d7 -->|calls| utils_privacy_anonymizeprofile_17357ade
+    services_comments_service_gettaskcomments_298cc3fb -->|calls| utils_permissions_verifytaskaccess_f8f60600
+    services_comments_service_deletecomment_4fa852c4 -->|calls| utils_permissions_verifycommentauthor_bc02cf64
+    services_organizations_service_getorganizationde_b4fd1a6c -->|calls| utils_permissions_verifyorgmembership_1426a3b8
+    services_organizations_service_updateorganizatio_80ac0e11 -->|calls| utils_permissions_verifyorgadmin_932c50ce
+    services_organizations_service_getorganizationme_dec67dbc -->|calls| utils_permissions_verifyorgmembership_1426a3b8
+    services_organizations_service_addmember_7905761e -->|calls| utils_permissions_verifyorgadmin_932c50ce
+    services_organizations_service_updatememberrole_75448596 -->|calls| utils_permissions_verifyorgadmin_932c50ce
+    utils_permissions_verifyorgmembership_1426a3b8 -->|calls| utils_permissions_verifyorgadmin_932c50ce
+    src_services_comments_service_js_9a7e5dbc -->|imports| utils_permissions_verifytaskaccess_f8f60600
+    src_services_comments_service_js_9a7e5dbc -->|imports| utils_permissions_verifycommentauthor_bc02cf64
+    src_services_organizations_service_js_2f1679eb -->|imports| utils_permissions_verifyorgmembership_1426a3b8
+    src_services_organizations_service_js_2f1679eb -->|imports| utils_permissions_verifyorgadmin_932c50ce
+    src_services_projects_service_js_0377a90a -->|imports| utils_permissions_verifyorgmembership_1426a3b8
+    src_services_tasks_service_js_716bf5c5 -->|imports| utils_permissions_verifytaskaccess_f8f60600
+    src_services_tasks_service_js_716bf5c5 -->|imports| utils_permissions_verifyorgmembership_1426a3b8
+    %% Omitted for readability: 55 nodes, 0 edges
+    class src_services_organizations_service_js_2f1679eb module;
+    class services_organizations_service_getorganizationde_b4fd1a6c function;
+    class services_organizations_service_updateorganizatio_80ac0e11 function;
+    class services_organizations_service_getorganizationme_dec67dbc function;
+    class services_organizations_service_addmember_7905761e function;
+    class services_organizations_service_updatememberrole_75448596 function;
+    class src_services_comments_service_js_9a7e5dbc module;
+    class services_comments_service_addcomment_dfb473d7 function;
+    class services_comments_service_gettaskcomments_298cc3fb function;
+    class services_comments_service_deletecomment_4fa852c4 function;
+    class utils_permissions_verifytaskaccess_f8f60600 function;
+    class utils_permissions_verifycommentauthor_bc02cf64 function;
+    class utils_permissions_verifyorgmembership_1426a3b8 function;
+    class utils_permissions_verifyorgadmin_932c50ce function;
+    class src_services_projects_service_js_0377a90a module;
+    class src_services_tasks_service_js_716bf5c5 module;
+    class utils_errors_apperror_constructor_86761659 function;
+    class utils_privacy_anonymizeprofile_17357ade function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>{ errorHandler }</code><br><small style="color:var(--muted)">src/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>errors.js</code><br><small style="color:var(--muted)">src/utils/errors.js</small></td>
+  <td>{ errorHandler } node in src/app.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>comments.service.js</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>errors.js</code><br><small style="color:var(--muted)">src/utils/errors.js</small><br><code>permissions.js</code><br><small style="color:var(--muted)">src/utils/permissions.js</small><br><code>privacy.js</code><br><small style="color:var(--muted)">src/utils/privacy.js</small><br>+2 more</td>
+  <td>comments.service.js node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>{ adminClient }</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ adminClient } node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>{ AppError }</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ AppError } node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>{ verifyTaskAccess, verifyCommentAuthor }</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ verifyTaskAccess, verifyCommentAuthor } node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>{ anonymizeProfile }</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ anonymizeProfile } node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>addComment()</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>anonymizeProfile()</code><br><small style="color:var(--muted)">src/utils/privacy.js</small><br><code>verifyTaskAccess()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>addComment() node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>getTaskComments()</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyTaskAccess()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>getTaskComments() node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>deleteComment()</code><br><small style="color:var(--muted)">src/services/comments.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyCommentAuthor()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>deleteComment() node in src/services/comments.service.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>dashboard.service.js</code><br><small style="color:var(--muted)">src/services/dashboard.service.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>errors.js</code><br><small style="color:var(--muted)">src/utils/errors.js</small></td>
+  <td>dashboard.service.js node in src/services/dashboard.service.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>{ AppError }</code><br><small style="color:var(--muted)">src/services/dashboard.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ AppError } node in src/services/dashboard.service.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>getStats()</code><br><small style="color:var(--muted)">src/services/dashboard.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>getStats() node in src/services/dashboard.service.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>getRecentTasks()</code><br><small style="color:var(--muted)">src/services/dashboard.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>getRecentTasks() node in src/services/dashboard.service.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>organizations.service.js</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>AppError</code><br><small style="color:var(--muted)">src/utils/errors.js</small><br><code>ConflictError</code><br><small style="color:var(--muted)">src/utils/errors.js</small><br><code>errors.js</code><br><small style="color:var(--muted)">src/utils/errors.js</small><br>+5 more</td>
+  <td>organizations.service.js node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>{ adminClient }</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ adminClient } node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>{ AppError, NotFoundError, ConflictError }</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ AppError, NotFoundError, ConflictError } node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>{
+  verifyOrgMembership,
+  verifyOrgAdmin,
+}</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{
+  verifyOrgMembership,
+  verifyOrgAdmin,
+} node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>createOrganization()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>createOrganization() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>getUserOrganizations()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>getUserOrganizations() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>getOrganizationDetails()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyOrgMembership()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>getOrganizationDetails() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>updateOrganization()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyOrgAdmin()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>updateOrganization() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>deleteOrganization()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>deleteOrganization() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>{ anonymizeProfile }</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ anonymizeProfile } node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>getOrganizationMembers()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyOrgMembership()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>getOrganizationMembers() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>addMember()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyOrgAdmin()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>addMember() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>updateMemberRole()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyOrgAdmin()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>updateMemberRole() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>removeMember()</code><br><small style="color:var(--muted)">src/services/organizations.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>verifyOrgAdmin()</code><br><small style="color:var(--muted)">src/utils/permissions.js</small></td>
+  <td>removeMember() node in src/services/organizations.service.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>projects.service.js</code><br><small style="color:var(--muted)">src/services/projects.service.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>AppError</code><br><small style="color:var(--muted)">src/utils/errors.js</small><br><code>errors.js</code><br><small style="color:var(--muted)">src/utils/errors.js</small><br><code>NotFoundError</code><br><small style="color:var(--muted)">src/utils/errors.js</small><br>+3 more</td>
+  <td>projects.service.js node in src/services/projects.service.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>{ AppError, NotFoundError }</code><br><small style="color:var(--muted)">src/services/projects.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ AppError, NotFoundError } node in src/services/projects.service.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>{
+  verifyOrgMembership,
+  verifyProjectAccess,
+}</code><br><small style="color:var(--muted)">src/services/projects.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{
+  verifyOrgMembership,
+  verifyProjectAccess,
+} node in src/services/projects.service.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/services/organizations.service.js</code></td><td>14 nodes</td></tr>
+<tr><td><code>src/services/tasks.service.js</code></td><td>13 nodes</td></tr>
+<tr><td><code>src/utils/errors.js</code></td><td>13 nodes</td></tr>
+<tr><td><code>src/utils/permissions.js</code></td><td>10 nodes</td></tr>
+<tr><td><code>src/services/comments.service.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>src/services/projects.service.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>src/services/dashboard.service.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/utils/privacy.js</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x65, calls x30, imports x18, imports x14. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. Community 3 ====== -->
+<h2 id="community-3">6. Community 3</h2>
+<p>Community 3 groups implementation around client, components, hooks, utilsjs, mostly in src/lib/utils.js, src/hooks/useTasks.js, components/ui/card.jsx. This section covers 49 nodes and 76 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 3 (49 nodes, 76 edges)
+    subgraph community_3_components_ui_card_jsx_0231d665["components/ui/card.jsx"]
+        ui_card_card_7890a788("Card()<br/><small>components/ui/card.jsx</small>")
+        ui_card_cardcontent_ed1cd563("CardContent()<br/><small>components/ui/card.jsx</small>")
+        ui_card_carddescription_40d0a254("CardDescription()<br/><small>components/ui/card.jsx</small>")
+        ui_card_cardheader_cb718f02("CardHeader()<br/><small>components/ui/card.jsx</small>")
+        ui_card_cardtitle_f8dc8a4e("CardTitle()<br/><small>components/ui/card.jsx</small>")
+        client_src_components_ui_card_jsx_5f9213a1("card.jsx")
+    end
+    subgraph community_3_components_ui_badge_jsx_4061cf87["components/ui/badge.jsx"]
+        ui_badge_badgevariants_0cd644a0("badgeVariants<br/><small>components/ui/badge.jsx</small>")
+        ui_badge_badge_62fe1c0e("Badge()<br/><small>components/ui/badge.jsx</small>")
+        client_src_components_ui_badge_jsx_d604eaa6("badge.jsx")
+    end
+    subgraph community_3_components_ui_button_jsx_37354a94["components/ui/button.jsx"]
+        ui_button_buttonvariants_a1d3986d("buttonVariants<br/><small>components/ui/button.jsx</small>")
+        ui_button_button_e9ca2d52("Button()<br/><small>components/ui/button.jsx</small>")
+        client_src_components_ui_button_jsx_0a7ae68b("button.jsx")
+    end
+    subgraph community_3_components_tasks_TaskCard_jsx_b1e17178["components/tasks/TaskCard.jsx"]
+        tasks_taskcard_taskcard_14c9f737("TaskCard()<br/><small>components/tasks/TaskCard.jsx</small>")
+        client_src_components_tasks_taskcard_jsx_ddc0186f("TaskCard.jsx")
+    end
+    subgraph community_3_components_ui_avatar_jsx_c53d9201["components/ui/avatar.jsx"]
+        ui_avatar_avatar_f396152e("Avatar()<br/><small>components/ui/avatar.jsx</small>")
+        client_src_components_ui_avatar_jsx_9deb4f2b("avatar.jsx")
+    end
+    subgraph community_3_components_ui_skeleton_jsx_97dc1cd3["components/ui/skeleton.jsx"]
+        ui_skeleton_skeleton_534f2370("Skeleton()<br/><small>components/ui/skeleton.jsx</small>")
+        client_src_components_ui_skeleton_jsx_9dd98a6c("skeleton.jsx")
+    end
+    ui_badge_badgevariants_0cd644a0 -->|calls| ui_badge_badge_62fe1c0e
+    ui_button_buttonvariants_a1d3986d -->|calls| ui_button_button_e9ca2d52
+    %% Omitted for readability: 31 nodes, 0 edges
+    class ui_card_card_7890a788 ui;
+    class ui_card_cardcontent_ed1cd563 ui;
+    class ui_card_carddescription_40d0a254 ui;
+    class ui_card_cardheader_cb718f02 ui;
+    class ui_card_cardtitle_f8dc8a4e ui;
+    class client_src_components_ui_card_jsx_5f9213a1 ui;
+    class ui_badge_badgevariants_0cd644a0 ui;
+    class ui_badge_badge_62fe1c0e ui;
+    class client_src_components_ui_badge_jsx_d604eaa6 ui;
+    class ui_button_buttonvariants_a1d3986d ui;
+    class ui_button_button_e9ca2d52 ui;
+    class client_src_components_ui_button_jsx_0a7ae68b ui;
+    class tasks_taskcard_taskcard_14c9f737 ui;
+    class client_src_components_tasks_taskcard_jsx_ddc0186f ui;
+    class ui_avatar_avatar_f396152e ui;
+    class client_src_components_ui_avatar_jsx_9deb4f2b ui;
+    class ui_skeleton_skeleton_534f2370 ui;
+    class client_src_components_ui_skeleton_jsx_9dd98a6c ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>TaskCard.jsx</code><br><small style="color:var(--muted)">components/tasks/TaskCard.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>TaskCard.jsx node in components/tasks/TaskCard.jsx.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>TaskCard()</code><br><small style="color:var(--muted)">components/tasks/TaskCard.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small><br><code>formatDate()</code><br><small style="color:var(--muted)">src/lib/utils.js</small><br><code>getPriorityColor()</code><br><small style="color:var(--muted)">src/lib/utils.js</small><br>+1 more</td>
+  <td>TaskCard() node in components/tasks/TaskCard.jsx.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>avatar.jsx</code><br><small style="color:var(--muted)">components/ui/avatar.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>avatar.jsx node in components/ui/avatar.jsx.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Avatar()</code><br><small style="color:var(--muted)">components/ui/avatar.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small><br><code>getInitials()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>Avatar() node in components/ui/avatar.jsx.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>badge.jsx</code><br><small style="color:var(--muted)">components/ui/badge.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>badge.jsx node in components/ui/badge.jsx.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>badgeVariants</code><br><small style="color:var(--muted)">components/ui/badge.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>Badge()</code><br><small style="color:var(--muted)">components/ui/badge.jsx</small></td>
+  <td>badgeVariants node in components/ui/badge.jsx.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Badge()</code><br><small style="color:var(--muted)">components/ui/badge.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>badgeVariants</code><br><small style="color:var(--muted)">components/ui/badge.jsx</small></td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>Badge() node in components/ui/badge.jsx.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>button.jsx</code><br><small style="color:var(--muted)">components/ui/button.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>button.jsx node in components/ui/button.jsx.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>buttonVariants</code><br><small style="color:var(--muted)">components/ui/button.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>Button()</code><br><small style="color:var(--muted)">components/ui/button.jsx</small></td>
+  <td>buttonVariants node in components/ui/button.jsx.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Button()</code><br><small style="color:var(--muted)">components/ui/button.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>buttonVariants</code><br><small style="color:var(--muted)">components/ui/button.jsx</small></td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>Button() node in components/ui/button.jsx.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>card.jsx</code><br><small style="color:var(--muted)">components/ui/card.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>card.jsx node in components/ui/card.jsx.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Card()</code><br><small style="color:var(--muted)">components/ui/card.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>Card() node in components/ui/card.jsx.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>CardHeader()</code><br><small style="color:var(--muted)">components/ui/card.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>CardHeader() node in components/ui/card.jsx.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>CardTitle()</code><br><small style="color:var(--muted)">components/ui/card.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>CardTitle() node in components/ui/card.jsx.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>CardDescription()</code><br><small style="color:var(--muted)">components/ui/card.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>CardDescription() node in components/ui/card.jsx.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>CardContent()</code><br><small style="color:var(--muted)">components/ui/card.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>CardContent() node in components/ui/card.jsx.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>skeleton.jsx</code><br><small style="color:var(--muted)">components/ui/skeleton.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>skeleton.jsx node in components/ui/skeleton.jsx.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Skeleton()</code><br><small style="color:var(--muted)">components/ui/skeleton.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cn()</code><br><small style="color:var(--muted)">src/lib/utils.js</small></td>
+  <td>Skeleton() node in components/ui/skeleton.jsx.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>useAttachments.js</code><br><small style="color:var(--muted)">src/hooks/useAttachments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>useAttachments.js node in src/hooks/useAttachments.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>useTaskAttachments()</code><br><small style="color:var(--muted)">src/hooks/useAttachments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>TaskDetailPage()</code><br><small style="color:var(--muted)">pages/tasks/TaskDetailPage.jsx</small></td>
+  <td>useTaskAttachments() node in src/hooks/useAttachments.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>useUploadAttachment()</code><br><small style="color:var(--muted)">src/hooks/useAttachments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>TaskDetailPage()</code><br><small style="color:var(--muted)">pages/tasks/TaskDetailPage.jsx</small></td>
+  <td>useUploadAttachment() node in src/hooks/useAttachments.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>useDeleteAttachment()</code><br><small style="color:var(--muted)">src/hooks/useAttachments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>TaskDetailPage()</code><br><small style="color:var(--muted)">pages/tasks/TaskDetailPage.jsx</small></td>
+  <td>useDeleteAttachment() node in src/hooks/useAttachments.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>useComments.js</code><br><small style="color:var(--muted)">src/hooks/useComments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>useComments.js node in src/hooks/useComments.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>useComments()</code><br><small style="color:var(--muted)">src/hooks/useComments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>TaskDetailPage()</code><br><small style="color:var(--muted)">pages/tasks/TaskDetailPage.jsx</small></td>
+  <td>useComments() node in src/hooks/useComments.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>useAddComment()</code><br><small style="color:var(--muted)">src/hooks/useComments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>TaskDetailPage()</code><br><small style="color:var(--muted)">pages/tasks/TaskDetailPage.jsx</small></td>
+  <td>useAddComment() node in src/hooks/useComments.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>useDeleteComment()</code><br><small style="color:var(--muted)">src/hooks/useComments.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>TaskDetailPage()</code><br><small style="color:var(--muted)">pages/tasks/TaskDetailPage.jsx</small></td>
+  <td>useDeleteComment() node in src/hooks/useComments.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>useTasks.js</code><br><small style="color:var(--muted)">src/hooks/useTasks.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>useTasks.js node in src/hooks/useTasks.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>useTasks()</code><br><small style="color:var(--muted)">src/hooks/useTasks.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ProjectPage()</code><br><small style="color:var(--muted)">pages/projects/ProjectPage.jsx</small></td>
+  <td>useTasks() node in src/hooks/useTasks.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>useTask()</code><br><small style="color:var(--muted)">src/hooks/useTasks.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>TaskDetailPage()</code><br><small style="color:var(--muted)">pages/tasks/TaskDetailPage.jsx</small></td>
+  <td>useTask() node in src/hooks/useTasks.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>useCreateTask()</code><br><small style="color:var(--muted)">src/hooks/useTasks.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ProjectPage()</code><br><small style="color:var(--muted)">pages/projects/ProjectPage.jsx</small></td>
+  <td>useCreateTask() node in src/hooks/useTasks.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/lib/utils.js</code></td><td>9 nodes</td></tr>
+<tr><td><code>src/hooks/useTasks.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>components/ui/card.jsx</code></td><td>6 nodes</td></tr>
+<tr><td><code>src/hooks/useAttachments.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/hooks/useComments.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>pages/projects/ProjectPage.jsx</code></td><td>4 nodes</td></tr>
+<tr><td><code>components/ui/badge.jsx</code></td><td>3 nodes</td></tr>
+<tr><td><code>components/ui/button.jsx</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x41, calls x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 7. Community 7 ====== -->
+<h2 id="community-7">7. Community 7</h2>
+<p>Community 7 groups implementation around client, hooks, useorganizationsjs, pages, mostly in src/hooks/useOrganizations.js, src/hooks/useProjects.js, src/hooks/useDashboard.js. This section covers 27 nodes and 40 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 7 (27 nodes, 40 edges)
+    subgraph community_7_src_hooks_useOrganizations_js_0bdc71b0["src/hooks/useOrganizations.js"]
+        client_src_hooks_useorganizations_js_5d2dfe1a("useOrganizations.js")
+        hooks_useorganizations_useorganizations_a2f31714("useOrganizations()<br/><small>src/hooks/useOrganizations.js</small>")
+        hooks_useorganizations_useorganization_49279a20("useOrganization()<br/><small>src/hooks/useOrganizations.js</small>")
+        hooks_useorganizations_useorgmembers_786bf711("useOrgMembers()<br/><small>src/hooks/useOrganizations.js</small>")
+        hooks_useorganizations_usecreateorg_496c34e6("useCreateOrg()<br/><small>src/hooks/useOrganizations.js</small>")
+        hooks_useorganizations_useaddmember_71259bba("useAddMember()<br/><small>src/hooks/useOrganizations.js</small>")
+        hooks_useorganizations_useremovemember_3a4e48d6("useRemoveMember()<br/><small>src/hooks/useOrganizations.js</small>")
+        hooks_useorganizations_useupdateorg_92dc88b2("useUpdateOrg()<br/><small>src/hooks/useOrganizations.js</small>")
+        hooks_useorganizations_usedeleteorg_f2957306("useDeleteOrg()<br/><small>src/hooks/useOrganizations.js</small>")
+    end
+    subgraph community_7_src_hooks_useDashboard_js_9518ce9f["src/hooks/useDashboard.js"]
+        client_src_hooks_usedashboard_js_fbaad50e("useDashboard.js")
+        hooks_usedashboard_usedashboardstats_b6885085("useDashboardStats()<br/><small>src/hooks/useDashboard.js</small>")
+        hooks_usedashboard_userecenttasks_cdf9e0cc("useRecentTasks()<br/><small>src/hooks/useDashboard.js</small>")
+    end
+    subgraph community_7_src_hooks_useProjects_js_90b3f9ed["src/hooks/useProjects.js"]
+        client_src_hooks_useprojects_js_b749a9a7("useProjects.js")
+        hooks_useprojects_useproject_9c457796("useProject()<br/><small>src/hooks/useProjects.js</small>")
+        hooks_useprojects_useprojects_1b3112d0("useProjects()<br/><small>src/hooks/useProjects.js</small>")
+    end
+    subgraph community_7_components_layout_AppLayout_jsx_f5948ee4["components/layout/AppLayout.jsx"]
+        client_src_components_layout_applayout_jsx_f97e8ecd("AppLayout.jsx")
+        layout_applayout_applayout_7d4839c6("AppLayout()<br/><small>components/layout/AppLayout.jsx</small>")
+    end
+    client_src_pages_dashboard_dashboardpage_jsx_9af2656a("DashboardPage.jsx")
+    client_src_components_layout_applayout_jsx_f97e8ecd -->|contains| layout_applayout_applayout_7d4839c6
+    client_src_hooks_usedashboard_js_fbaad50e -->|contains| hooks_usedashboard_usedashboardstats_b6885085
+    client_src_hooks_usedashboard_js_fbaad50e -->|contains| hooks_usedashboard_userecenttasks_cdf9e0cc
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_useorganizations_a2f31714
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_useorganization_49279a20
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_useorgmembers_786bf711
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_usecreateorg_496c34e6
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_useaddmember_71259bba
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_useremovemember_3a4e48d6
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_useupdateorg_92dc88b2
+    client_src_hooks_useorganizations_js_5d2dfe1a -->|contains| hooks_useorganizations_usedeleteorg_f2957306
+    client_src_hooks_useprojects_js_b749a9a7 -->|contains| hooks_useprojects_useprojects_1b3112d0
+    client_src_hooks_useprojects_js_b749a9a7 -->|contains| hooks_useprojects_useproject_9c457796
+    %% Omitted for readability: 9 nodes, 0 edges
+    class client_src_hooks_useorganizations_js_5d2dfe1a ui;
+    class hooks_useorganizations_useorganizations_a2f31714 ui;
+    class hooks_useorganizations_useorganization_49279a20 ui;
+    class hooks_useorganizations_useorgmembers_786bf711 ui;
+    class hooks_useorganizations_usecreateorg_496c34e6 ui;
+    class hooks_useorganizations_useaddmember_71259bba ui;
+    class hooks_useorganizations_useremovemember_3a4e48d6 ui;
+    class hooks_useorganizations_useupdateorg_92dc88b2 ui;
+    class hooks_useorganizations_usedeleteorg_f2957306 ui;
+    class client_src_hooks_usedashboard_js_fbaad50e ui;
+    class hooks_usedashboard_usedashboardstats_b6885085 ui;
+    class hooks_usedashboard_userecenttasks_cdf9e0cc ui;
+    class client_src_hooks_useprojects_js_b749a9a7 ui;
+    class hooks_useprojects_useproject_9c457796 ui;
+    class hooks_useprojects_useprojects_1b3112d0 ui;
+    class client_src_components_layout_applayout_jsx_f97e8ecd ui;
+    class layout_applayout_applayout_7d4839c6 ui;
+    class client_src_pages_dashboard_dashboardpage_jsx_9af2656a ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>AppLayout.jsx</code><br><small style="color:var(--muted)">components/layout/AppLayout.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>AppLayout.jsx node in components/layout/AppLayout.jsx.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>AppLayout()</code><br><small style="color:var(--muted)">components/layout/AppLayout.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>useOrganizations()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br><code>useOrganizations.js</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td>AppLayout() node in components/layout/AppLayout.jsx.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>useDashboard.js</code><br><small style="color:var(--muted)">src/hooks/useDashboard.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>useDashboard.js node in src/hooks/useDashboard.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>useDashboardStats()</code><br><small style="color:var(--muted)">src/hooks/useDashboard.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>DashboardPage()</code><br><small style="color:var(--muted)">pages/dashboard/DashboardPage.jsx</small></td>
+  <td>useDashboardStats() node in src/hooks/useDashboard.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>useRecentTasks()</code><br><small style="color:var(--muted)">src/hooks/useDashboard.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>DashboardPage()</code><br><small style="color:var(--muted)">pages/dashboard/DashboardPage.jsx</small></td>
+  <td>useRecentTasks() node in src/hooks/useDashboard.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>useOrganizations.js</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>AppLayout()</code><br><small style="color:var(--muted)">components/layout/AppLayout.jsx</small></td>
+  <td><code>DashboardPage()</code><br><small style="color:var(--muted)">pages/dashboard/DashboardPage.jsx</small><br><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useOrganizations.js node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>useOrganizations()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>AppLayout()</code><br><small style="color:var(--muted)">components/layout/AppLayout.jsx</small></td>
+  <td><code>DashboardPage()</code><br><small style="color:var(--muted)">pages/dashboard/DashboardPage.jsx</small></td>
+  <td>useOrganizations() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>useOrganization()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>MembersPage()</code><br><small style="color:var(--muted)">pages/organizations/MembersPage.jsx</small><br><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useOrganization() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>useOrgMembers()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>MembersPage()</code><br><small style="color:var(--muted)">pages/organizations/MembersPage.jsx</small><br><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useOrgMembers() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>useCreateOrg()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>NewOrgPage()</code><br><small style="color:var(--muted)">pages/organizations/NewOrgPage.jsx</small></td>
+  <td>useCreateOrg() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>useAddMember()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>MembersPage()</code><br><small style="color:var(--muted)">pages/organizations/MembersPage.jsx</small></td>
+  <td>useAddMember() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>useRemoveMember()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>MembersPage()</code><br><small style="color:var(--muted)">pages/organizations/MembersPage.jsx</small></td>
+  <td>useRemoveMember() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>useUpdateOrg()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useUpdateOrg() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>useDeleteOrg()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useDeleteOrg() node in src/hooks/useOrganizations.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>useProjects.js</code><br><small style="color:var(--muted)">src/hooks/useProjects.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>useProjects.js node in src/hooks/useProjects.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>useProjects()</code><br><small style="color:var(--muted)">src/hooks/useProjects.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useProjects() node in src/hooks/useProjects.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>useProject()</code><br><small style="color:var(--muted)">src/hooks/useProjects.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useProject() node in src/hooks/useProjects.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>useCreateProject()</code><br><small style="color:var(--muted)">src/hooks/useProjects.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td>useCreateProject() node in src/hooks/useProjects.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>useDeleteProject()</code><br><small style="color:var(--muted)">src/hooks/useProjects.js</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>useDeleteProject() node in src/hooks/useProjects.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>DashboardPage.jsx</code><br><small style="color:var(--muted)">pages/dashboard/DashboardPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>DashboardPage()</code><br><small style="color:var(--muted)">pages/dashboard/DashboardPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>useDashboardStats()</code><br><small style="color:var(--muted)">src/hooks/useDashboard.js</small><br><code>useOrganizations()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br><code>useOrganizations.js</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>MembersPage.jsx</code><br><small style="color:var(--muted)">pages/organizations/MembersPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>MembersPage()</code><br><small style="color:var(--muted)">pages/organizations/MembersPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>useAddMember()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br><code>useOrganization()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br><code>useOrgMembers()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>NewOrgPage.jsx</code><br><small style="color:var(--muted)">pages/organizations/NewOrgPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>NewOrgPage()</code><br><small style="color:var(--muted)">pages/organizations/NewOrgPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>useCreateOrg()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>OrganizationPage.jsx</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>OrganizationPage()</code><br><small style="color:var(--muted)">pages/organizations/OrganizationPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td><code>useCreateProject()</code><br><small style="color:var(--muted)">src/hooks/useProjects.js</small><br><code>useDeleteOrg()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br><code>useOrganization()</code><br><small style="color:var(--muted)">src/hooks/useOrganizations.js</small><br>+5 more</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/hooks/useOrganizations.js</code></td><td>9 nodes</td></tr>
+<tr><td><code>src/hooks/useProjects.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/hooks/useDashboard.js</code></td><td>3 nodes</td></tr>
+<tr><td><code>components/layout/AppLayout.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>pages/dashboard/DashboardPage.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>pages/organizations/MembersPage.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>pages/organizations/NewOrgPage.jsx</code></td><td>2 nodes</td></tr>
+<tr><td><code>pages/organizations/OrganizationPage.jsx</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x21. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 8. Community 8 ====== -->
+<h2 id="community-8">8. Community 8</h2>
+<p>Community 8 groups implementation around setup, authservicejs, supabasejs, scripts, mostly in src/services/auth.service.js, scripts/setup_avatars.js, scripts/setup_storage_policies.js. This section covers 22 nodes and 27 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 8 (22 nodes, 27 edges)
+    subgraph community_8_scripts_setup_avatars_js_62a19312["scripts/setup_avatars.js"]
+        scripts_setup_avatars_setup_258e942d("setup()<br/><small>scripts/setup_avatars.js</small>")
+        scripts_setup_avatars_js_15c2ee7e("setup_avatars.js")
+        scripts_setup_avatars_supabase_a376b95f("supabase<br/><small>scripts/setup_avatars.js</small>")
+        scripts_setup_avatars_createclient_853b775e("createClient<br/><small>scripts/setup_avatars.js</small>")
+    end
+    subgraph community_8_scripts_setup_storage_policies_js_0c6e34e2["scripts/setup_storage_policies.js"]
+        scripts_setup_storage_policies_setup_bd5b550d("setup()<br/><small>scripts/setup_storage_policies.js</small>")
+        scripts_setup_storage_policies_js_a46d4462("setup_storage_policies.js")
+        scripts_setup_storage_policies_supabase_ce2952ce("supabase<br/><small>scripts/setup_storage_policies.js</small>")
+        scripts_setup_storage_policies_createclient_82139dc7("createClient<br/><small>scripts/setup_storage_policies.js</small>")
+    end
+    subgraph community_8_src_config_supabase_js_aaceda47["src/config/supabase.js"]
+        src_config_supabase_js_534c8362("supabase.js")
+        config_supabase_adminclient_99b54d7c("adminClient<br/><small>src/config/supabase.js</small>")
+        config_supabase_config_675c9204("config<br/><small>src/config/supabase.js</small>")
+        config_supabase_createclient_390361ca("createClient<br/><small>src/config/supabase.js</small>")
+    end
+    subgraph community_8_src_services_auth_service_js_323e8a63["src/services/auth.service.js"]
+        src_services_auth_service_js_1a37d405("auth.service.js")
+        services_auth_service_getprofile_18e62514("getProfile()<br/><small>src/services/auth.service.js</small>")
+        services_auth_service_signin_1a465a57("signIn()<br/><small>src/services/auth.service.js</small>")
+        services_auth_service_signout_5b399e43("signOut()<br/><small>src/services/auth.service.js</small>")
+    end
+    subgraph community_8_src_lib_supabase_js_54dcf8e3["src/lib/supabase.js"]
+        lib_supabase_supabase_d90d07c3("supabase<br/><small>src/lib/supabase.js</small>")
+        client_src_lib_supabase_js_3083501a("supabase.js")
+    end
+    lib_supabase_supabase_d90d07c3 -->|imports| src_services_auth_service_js_1a37d405
+    src_config_supabase_js_534c8362 -->|imports| src_services_auth_service_js_1a37d405
+    %% Omitted for readability: 4 nodes, 0 edges
+    class scripts_setup_avatars_setup_258e942d function;
+    class scripts_setup_avatars_js_15c2ee7e module;
+    class scripts_setup_avatars_supabase_a376b95f function;
+    class scripts_setup_avatars_createclient_853b775e entry;
+    class scripts_setup_storage_policies_setup_bd5b550d function;
+    class scripts_setup_storage_policies_js_a46d4462 module;
+    class scripts_setup_storage_policies_supabase_ce2952ce function;
+    class scripts_setup_storage_policies_createclient_82139dc7 entry;
+    class src_config_supabase_js_534c8362 module;
+    class config_supabase_adminclient_99b54d7c entry;
+    class config_supabase_config_675c9204 function;
+    class config_supabase_createclient_390361ca entry;
+    class src_services_auth_service_js_1a37d405 module;
+    class services_auth_service_getprofile_18e62514 function;
+    class services_auth_service_signin_1a465a57 function;
+    class services_auth_service_signout_5b399e43 function;
+    class lib_supabase_supabase_d90d07c3 function;
+    class client_src_lib_supabase_js_3083501a module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>supabase.js</code><br><small style="color:var(--muted)">src/lib/supabase.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>supabase.js node in src/lib/supabase.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>supabase</code><br><small style="color:var(--muted)">src/lib/supabase.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>auth.service.js</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td>supabase node in src/lib/supabase.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>setup_avatars.js</code><br><small style="color:var(--muted)">scripts/setup_avatars.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>setup_avatars.js node in scripts/setup_avatars.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>{ createClient }</code><br><small style="color:var(--muted)">scripts/setup_avatars.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ createClient } node in scripts/setup_avatars.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>supabase</code><br><small style="color:var(--muted)">scripts/setup_avatars.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>supabase node in scripts/setup_avatars.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>setup()</code><br><small style="color:var(--muted)">scripts/setup_avatars.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>setup() node in scripts/setup_avatars.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>setup_storage_policies.js</code><br><small style="color:var(--muted)">scripts/setup_storage_policies.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>{ createClient }</code><br><small style="color:var(--muted)">scripts/setup_storage_policies.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ createClient } node in scripts/setup_storage_policies.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>supabase</code><br><small style="color:var(--muted)">scripts/setup_storage_policies.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>supabase node in scripts/setup_storage_policies.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>setup()</code><br><small style="color:var(--muted)">scripts/setup_storage_policies.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>setup() node in scripts/setup_storage_policies.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>supabase.js</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>auth.service.js</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td>supabase.js node in src/config/supabase.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>{ createClient }</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ createClient } node in src/config/supabase.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>config</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>adminClient</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>adminClient node in src/config/supabase.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>auth.service.js</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>supabase</code><br><small style="color:var(--muted)">src/lib/supabase.js</small><br><code>supabase.js</code><br><small style="color:var(--muted)">src/config/supabase.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>auth.service.js node in src/services/auth.service.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>{ adminClient }</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ adminClient } node in src/services/auth.service.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>{ AppError, NotFoundError }</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ AppError, NotFoundError } node in src/services/auth.service.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>signUp()</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>signUp() node in src/services/auth.service.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>signIn()</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>signIn() node in src/services/auth.service.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>signOut()</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>signOut() node in src/services/auth.service.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>getProfile()</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>getProfile() node in src/services/auth.service.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>updateProfile()</code><br><small style="color:var(--muted)">src/services/auth.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>updateProfile() node in src/services/auth.service.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/services/auth.service.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>scripts/setup_avatars.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>scripts/setup_storage_policies.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/config/supabase.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/lib/supabase.js</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x25, imports x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 9. Community 17 ====== -->
+<h2 id="community-17">9. Community 17</h2>
+<p>Community 17 groups implementation around featuresmd, features, roadmap, project, mostly in FEATURES.md. This section covers 8 nodes and 7 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 17 (8 nodes, 7 edges)
+    test_features_current_features_c1cab342("✅ Current Features<br/><small>FEATURES.md</small>")
+    test_features_project_features_roadmap_ea7ba70a("🚀 Project Features &amp; Roadmap<br/><small>FEATURES.md</small>")
+    features_md_1776e37a("FEATURES.md")
+    test_features_future_roadmap_extra_features_67954025("🗺️ Future Roadmap (Extra Features)<br/><small>FEATURES.md</small>")
+    test_features_planned_ui_ux_enhancements_e3dc8c99("✨ Planned UI/UX Enhancements<br/><small>FEATURES.md</small>")
+    test_features_authentication_access_42f8e203("🔐 Authentication &amp; Access<br/><small>FEATURES.md</small>")
+    test_features_task_management_7138fd98("📋 Task Management<br/><small>FEATURES.md</small>")
+    test_features_collaborative_tools_83bdc9c1("📎 Collaborative Tools<br/><small>FEATURES.md</small>")
+    features_md_1776e37a -->|contains| test_features_project_features_roadmap_ea7ba70a
+    test_features_project_features_roadmap_ea7ba70a -->|contains| test_features_current_features_c1cab342
+    test_features_project_features_roadmap_ea7ba70a -->|contains| test_features_future_roadmap_extra_features_67954025
+    test_features_project_features_roadmap_ea7ba70a -->|contains| test_features_planned_ui_ux_enhancements_e3dc8c99
+    test_features_current_features_c1cab342 -->|contains| test_features_authentication_access_42f8e203
+    test_features_current_features_c1cab342 -->|contains| test_features_task_management_7138fd98
+    test_features_current_features_c1cab342 -->|contains| test_features_collaborative_tools_83bdc9c1
+    class test_features_current_features_c1cab342 concept;
+    class test_features_project_features_roadmap_ea7ba70a concept;
+    class features_md_1776e37a concept;
+    class test_features_future_roadmap_extra_features_67954025 concept;
+    class test_features_planned_ui_ux_enhancements_e3dc8c99 concept;
+    class test_features_authentication_access_42f8e203 concept;
+    class test_features_task_management_7138fd98 concept;
+    class test_features_collaborative_tools_83bdc9c1 concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>FEATURES.md</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing FEATURES.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>🚀 Project Features &amp; Roadmap</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 🚀 Project Features &amp; Roadmap.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>✅ Current Features</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing ✅ Current Features.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>🔐 Authentication &amp; Access</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 🔐 Authentication &amp; Access.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>📋 Task Management</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 📋 Task Management.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>📎 Collaborative Tools</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 📎 Collaborative Tools.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>🗺️ Future Roadmap (Extra Features)</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 🗺️ Future Roadmap (Extra Features).</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>✨ Planned UI/UX Enhancements</code><br><small style="color:var(--muted)">FEATURES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing ✨ Planned UI/UX Enhancements.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>FEATURES.md</code></td><td>8 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 10. Community 10 ====== -->
+<h2 id="community-10">10. Community 10</h2>
+<p>Community 10 groups implementation around loadingskeletonjsx, client, components, shared, mostly in components/shared/LoadingSkeleton.jsx. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 10 (4 nodes, 3 edges)
+    client_src_components_shared_loadingskeleton_jsx_55d4827f("LoadingSkeleton.jsx")
+    shared_loadingskeleton_cardskeleton_27ad4460("CardSkeleton()<br/><small>components/shared/LoadingSkeleton.jsx</small>")
+    shared_loadingskeleton_listskeleton_63f6d298("ListSkeleton()<br/><small>components/shared/LoadingSkeleton.jsx</small>")
+    shared_loadingskeleton_statsskeleton_091fc4d4("StatsSkeleton()<br/><small>components/shared/LoadingSkeleton.jsx</small>")
+    client_src_components_shared_loadingskeleton_jsx_55d4827f -->|contains| shared_loadingskeleton_cardskeleton_27ad4460
+    client_src_components_shared_loadingskeleton_jsx_55d4827f -->|contains| shared_loadingskeleton_listskeleton_63f6d298
+    client_src_components_shared_loadingskeleton_jsx_55d4827f -->|contains| shared_loadingskeleton_statsskeleton_091fc4d4
+    class client_src_components_shared_loadingskeleton_jsx_55d4827f ui;
+    class shared_loadingskeleton_cardskeleton_27ad4460 ui;
+    class shared_loadingskeleton_listskeleton_63f6d298 ui;
+    class shared_loadingskeleton_statsskeleton_091fc4d4 ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>LoadingSkeleton.jsx</code><br><small style="color:var(--muted)">components/shared/LoadingSkeleton.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>LoadingSkeleton.jsx node in components/shared/LoadingSkeleton.jsx.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>CardSkeleton()</code><br><small style="color:var(--muted)">components/shared/LoadingSkeleton.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CardSkeleton() node in components/shared/LoadingSkeleton.jsx.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>ListSkeleton()</code><br><small style="color:var(--muted)">components/shared/LoadingSkeleton.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ListSkeleton() node in components/shared/LoadingSkeleton.jsx.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>StatsSkeleton()</code><br><small style="color:var(--muted)">components/shared/LoadingSkeleton.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>StatsSkeleton() node in components/shared/LoadingSkeleton.jsx.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>components/shared/LoadingSkeleton.jsx</code></td><td>4 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 11. Community 18 ====== -->
+<h2 id="community-18">11. Community 18</h2>
+<p>Community 18 groups implementation around readmemd, client, taskmanager, expanding, mostly in client/README.md. This section covers 3 nodes and 2 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 18 (3 nodes, 2 edges)
+    client_readme_md_d33b933f("README.md")
+    client_readme_taskmanager_client_458ccd3a("TaskManager Client<br/><small>client/README.md</small>")
+    client_readme_expanding_the_eslint_configuration_e61743de("Expanding the ESLint configuration<br/><small>client/README.md</small>")
+    client_readme_md_d33b933f -->|contains| client_readme_taskmanager_client_458ccd3a
+    client_readme_taskmanager_client_458ccd3a -->|contains| client_readme_expanding_the_eslint_configuration_e61743de
+    class client_readme_md_d33b933f concept;
+    class client_readme_taskmanager_client_458ccd3a concept;
+    class client_readme_expanding_the_eslint_configuration_e61743de concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>README.md</code><br><small style="color:var(--muted)">client/README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing README.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>TaskManager Client</code><br><small style="color:var(--muted)">client/README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing TaskManager Client.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Expanding the ESLint configuration</code><br><small style="color:var(--muted)">client/README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Expanding the ESLint configuration.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>client/README.md</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 12. Community 11 ====== -->
+<h2 id="community-11">12. Community 11</h2>
+<p>Community 11 groups implementation around authcallbackjsx, client, pages, auth, mostly in pages/auth/AuthCallback.jsx. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 11 (2 nodes, 1 edges)
+    client_src_pages_auth_authcallback_jsx_12f7c95f("AuthCallback.jsx")
+    auth_authcallback_authcallback_4d38385a("AuthCallback()<br/><small>pages/auth/AuthCallback.jsx</small>")
+    client_src_pages_auth_authcallback_jsx_12f7c95f -->|contains| auth_authcallback_authcallback_4d38385a
+    class client_src_pages_auth_authcallback_jsx_12f7c95f ui;
+    class auth_authcallback_authcallback_4d38385a ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>AuthCallback.jsx</code><br><small style="color:var(--muted)">pages/auth/AuthCallback.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>AuthCallback.jsx node in pages/auth/AuthCallback.jsx.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>AuthCallback()</code><br><small style="color:var(--muted)">pages/auth/AuthCallback.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>AuthCallback() node in pages/auth/AuthCallback.jsx.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>pages/auth/AuthCallback.jsx</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 13. Community 12 ====== -->
+<h2 id="community-12">13. Community 12</h2>
+<p>Community 12 groups implementation around emptystatejsx, client, components, shared, mostly in components/shared/EmptyState.jsx. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 12 (2 nodes, 1 edges)
+    client_src_components_shared_emptystate_jsx_6ccdd511("EmptyState.jsx")
+    shared_emptystate_emptystate_85ea230c("EmptyState()<br/><small>components/shared/EmptyState.jsx</small>")
+    client_src_components_shared_emptystate_jsx_6ccdd511 -->|contains| shared_emptystate_emptystate_85ea230c
+    class client_src_components_shared_emptystate_jsx_6ccdd511 ui;
+    class shared_emptystate_emptystate_85ea230c ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>EmptyState.jsx</code><br><small style="color:var(--muted)">components/shared/EmptyState.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>EmptyState.jsx node in components/shared/EmptyState.jsx.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>EmptyState()</code><br><small style="color:var(--muted)">components/shared/EmptyState.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>EmptyState() node in components/shared/EmptyState.jsx.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>components/shared/EmptyState.jsx</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 14. Community 13 ====== -->
+<h2 id="community-13">14. Community 13</h2>
+<p>Community 13 groups implementation around inputjsx, client, components, input, mostly in components/ui/input.jsx. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 13 (2 nodes, 1 edges)
+    client_src_components_ui_input_jsx_aa278d92("input.jsx")
+    ui_input_input_54fb3925("Input<br/><small>components/ui/input.jsx</small>")
+    client_src_components_ui_input_jsx_aa278d92 -->|contains| ui_input_input_54fb3925
+    class client_src_components_ui_input_jsx_aa278d92 ui;
+    class ui_input_input_54fb3925 ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>input.jsx</code><br><small style="color:var(--muted)">components/ui/input.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>input.jsx node in components/ui/input.jsx.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Input</code><br><small style="color:var(--muted)">components/ui/input.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Input node in components/ui/input.jsx.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>components/ui/input.jsx</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 15. Community 16 ====== -->
+<h2 id="community-16">15. Community 16</h2>
+<p>Community 16 groups implementation around signupsuccesspagejsx, client, pages, auth, mostly in pages/auth/SignupSuccessPage.jsx. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 16 (2 nodes, 1 edges)
+    client_src_pages_auth_signupsuccesspage_jsx_715a990c("SignupSuccessPage.jsx")
+    auth_signupsuccesspage_signupsuccesspage_23d01661("SignupSuccessPage()<br/><small>pages/auth/SignupSuccessPage.jsx</small>")
+    client_src_pages_auth_signupsuccesspage_jsx_715a990c -->|contains| auth_signupsuccesspage_signupsuccesspage_23d01661
+    class client_src_pages_auth_signupsuccesspage_jsx_715a990c ui;
+    class auth_signupsuccesspage_signupsuccesspage_23d01661 ui;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>SignupSuccessPage.jsx</code><br><small style="color:var(--muted)">pages/auth/SignupSuccessPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>SignupSuccessPage()</code><br><small style="color:var(--muted)">pages/auth/SignupSuccessPage.jsx</small></td>
+  <td><span class="tag tag-hook">UI</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>pages/auth/SignupSuccessPage.jsx</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around client, attachmentsservicejs, services, eslintconfigjs, mostly in src/services/attachments.service.js, client/eslint.config.js, client/vite.config.js. This section covers 4 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Other (4 nodes, 1 edges)
+    subgraph other_src_services_attachments_service_js_2b61c847["src/services/attachments.service.js"]
+        client_src_services_attachments_service_js_664e199f("attachments.service.js")
+        services_attachments_service_attachmentservice_c42b5a94("attachmentService<br/><small>src/services/attachments.service.js</small>")
+    end
+    client_eslint_config_js_5d21ff05("eslint.config.js")
+    client_vite_config_js_b9e5e2ff("vite.config.js")
+    client_src_services_attachments_service_js_664e199f -->|contains| services_attachments_service_attachmentservice_c42b5a94
+    class client_src_services_attachments_service_js_664e199f module;
+    class services_attachments_service_attachmentservice_c42b5a94 function;
+    class client_eslint_config_js_5d21ff05 module;
+    class client_vite_config_js_b9e5e2ff module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>attachments.service.js</code><br><small style="color:var(--muted)">src/services/attachments.service.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>attachments.service.js node in src/services/attachments.service.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>attachmentService</code><br><small style="color:var(--muted)">src/services/attachments.service.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>attachmentService node in src/services/attachments.service.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>eslint.config.js</code><br><small style="color:var(--muted)">client/eslint.config.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>vite.config.js</code><br><small style="color:var(--muted)">client/vite.config.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Reads, resolves, or persists project configuration.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/services/attachments.service.js</code></td><td>2 nodes</td></tr>
+<tr><td><code>client/eslint.config.js</code></td><td>1 nodes</td></tr>
+<tr><td><code>client/vite.config.js</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<h2 id="stats">Project Statistics</h2>
+
+<div class="grid">
+  <div class="card">
+    <h4>Graph</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>Nodes</td><td>390</td></tr>
+      <tr><td>Edges</td><td>697</td></tr>
+      <tr><td>Hyperedges</td><td>0</td></tr>
+      <tr><td>Communities</td><td>20</td></tr>
+      <tr><td>Documented Sections</td><td>15</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Edge Confidence</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>EXTRACTED</td><td>631</td></tr>
+      <tr><td>INFERRED</td><td>66</td></tr>
+      <tr><td>AMBIGUOUS</td><td>0</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
+  <p>test — Architecture Documentation</p>
+  <p>Generated: 2026-05-14 10:09 UTC · graphify callflow-html</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+(function () {
+  const mermaidConfig = {
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#38bdf8',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#334155',
+      lineColor: '#64748b',
+      textColor: '#e2e8f0',
+    }
+  };
+
+  mermaid.initialize(mermaidConfig);
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function enhanceMermaidDiagrams() {
+    document.querySelectorAll('.mermaid').forEach((container) => {
+      if (container.dataset.zoomReady === 'true') return;
+      const svg = container.querySelector('svg');
+      if (!svg) return;
+
+      container.dataset.zoomReady = 'true';
+      container.classList.add('is-enhanced');
+
+      const viewport = document.createElement('div');
+      viewport.className = 'mermaid-viewport';
+      svg.parentNode.insertBefore(viewport, svg);
+      viewport.appendChild(svg);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+      toolbar.innerHTML = [
+        '<button type="button" data-action="zoom-out" title="Zoom out">-</button>',
+        '<span class="zoom-level" data-role="level">100%</span>',
+        '<button type="button" data-action="zoom-in" title="Zoom in">+</button>',
+        '<button type="button" data-action="fit" title="Fit width">Fit</button>',
+        '<button type="button" data-action="reset" title="Reset view">Reset</button>'
+      ].join('');
+      container.insertBefore(toolbar, viewport);
+
+      const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 };
+      const level = toolbar.querySelector('[data-role="level"]');
+
+      function applyTransform() {
+        svg.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+        level.textContent = `${Math.round(state.scale * 100)}%`;
+      }
+
+      function zoomBy(delta) {
+        state.scale = clamp(state.scale + delta, 0.25, 3);
+        applyTransform();
+      }
+
+      function reset() {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      function fitWidth() {
+        const rawWidth = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width
+          ? svg.viewBox.baseVal.width
+          : svg.getBoundingClientRect().width / state.scale;
+        if (!rawWidth) {
+          reset();
+          return;
+        }
+        state.scale = clamp((viewport.clientWidth - 48) / rawWidth, 0.25, 1.4);
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      toolbar.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'zoom-in') zoomBy(0.15);
+        if (action === 'zoom-out') zoomBy(-0.15);
+        if (action === 'fit') fitWidth();
+        if (action === 'reset') reset();
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        zoomBy(event.deltaY < 0 ? 0.1 : -0.1);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        state.dragging = true;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture(event.pointerId);
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!state.dragging) return;
+        state.x = state.originX + event.clientX - state.startX;
+        state.y = state.originY + event.clientY - state.startY;
+        applyTransform();
+      });
+
+      function endDrag(event) {
+        if (!state.dragging) return;
+        state.dragging = false;
+        viewport.classList.remove('is-dragging');
+        if (viewport.hasPointerCapture(event.pointerId)) {
+          viewport.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+      applyTransform();
+    });
+  }
+
+  function renderMermaid() {
+    const result = mermaid.run
+      ? mermaid.run({ querySelector: '.mermaid' })
+      : Promise.resolve();
+    Promise.resolve(result)
+      .then(enhanceMermaidDiagrams)
+      .catch((error) => {
+        console.error('Mermaid render failed:', error);
+        enhanceMermaidDiagrams();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+})();
+</script>
+
+</body>
+</html>

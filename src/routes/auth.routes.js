@@ -27,6 +27,7 @@ const updateProfileSchema = {
   body: Joi.object({
     first_name: Joi.string().max(100),
     last_name: Joi.string().max(100),
+    profile_picture_url: Joi.string().uri().allow(null, ''),
     avatar_url: Joi.string().uri().allow(null, ''),
   }).min(1),
 };
@@ -36,5 +37,6 @@ router.post('/login', authLimiter, validate(signInSchema), ctrl.signIn);
 router.post('/logout', authenticate, ctrl.signOut);
 router.get('/me', authenticate, ctrl.getMe);
 router.patch('/me', authenticate, validate(updateProfileSchema), ctrl.updateMe);
+router.post('/sync', authenticate, ctrl.syncProfile);
 
 module.exports = router;

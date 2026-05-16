@@ -28,21 +28,6 @@ async function createOrganization(supabase, userId, { name, description }) {
     throw new AppError(orgError.message, 400);
   }
 
-  // 2. Add creator as admin member
-  const { error: memberError } = await supabase
-    .from('organization_members')
-    .insert({
-      organization_id: org.id,
-      user_id: userId,
-      role: 'admin',
-    });
-
-  if (memberError) {
-    // Rollback: delete the org if member creation fails
-    await supabase.from('organizations').delete().eq('id', org.id);
-    throw new AppError('Failed to set up organization membership', 500);
-  }
-
   return org;
 }
 
@@ -154,17 +139,15 @@ async function deleteOrganization(supabase, userId, orgId) {
 /**
  * Get all members of an organization.
  */
+const { anonymizeProfile } = require('../utils/privacy');
+
 async function getOrganizationMembers(supabase, userId, orgId) {
-  await verifyOrgMembership(supabase, userId, orgId);
+  const membership = await verifyOrgMembership(supabase, userId, orgId);
+  const isAdmin = membership.role === 'admin';
 
   const { data, error } = await supabase
     .from('organization_members')
-    .select(`
-      id, role, created_at,
-      user:user_id (
-        id
-      )
-    `)
+    .select('id, role, user_id, created_at')
     .eq('organization_id', orgId)
     .order('created_at', { ascending: true });
 
@@ -172,23 +155,34 @@ async function getOrganizationMembers(supabase, userId, orgId) {
     throw new AppError(error.message, 400);
   }
 
-  // Enrich with profile data using admin client (profiles RLS only allows own profile)
   const enriched = await Promise.all(
     (data || []).map(async (member) => {
+      // Get profile
       const { data: profile } = await adminClient
         .from('profiles')
-        .select('first_name, last_name, avatar_url')
-        .eq('id', member.user.id)
+        .select('id, first_name, last_name, avatar_url')
+        .eq('id', member.user_id)
         .single();
+
+      const isSelf = member.user_id === userId;
+      const profileResult = anonymizeProfile(profile, member.role, isAdmin, isSelf);
+
+      // Only admins/self can see email
+      let email = '***@***.***';
+      if (isAdmin || isSelf) {
+        const { data: { user: authUser } } = await adminClient.auth.admin.getUserById(member.user_id);
+        email = authUser?.email || null;
+      }
 
       return {
         id: member.id,
-        userId: member.user.id,
+        userId: member.user_id,
+        user_id: member.user_id, // Added for frontend compatibility
         role: member.role,
         createdAt: member.created_at,
-        firstName: profile?.first_name || null,
-        lastName: profile?.last_name || null,
-        avatarUrl: profile?.avatar_url || null,
+        email,
+        profile: profileResult, // For components using member.profile.first_name
+        ...profileResult, // For components using member.firstName
       };
     })
   );
@@ -206,9 +200,16 @@ async function addMember(supabase, userId, orgId, { email, role }) {
   const { data: users, error: userError } = await adminClient.auth.admin.listUsers();
   if (userError) throw new AppError('Failed to look up user', 500);
 
-  const targetUser = users.users.find((u) => u.email === email);
+  let targetUser = users.users.find((u) => u.email === email);
+  
   if (!targetUser) {
-    throw new NotFoundError('User with this email does not exist. They must sign up first');
+    // If user doesn't exist, invite them via Supabase Auth
+    const { data: invite, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(email, {
+      redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard`,
+    });
+    
+    if (inviteError) throw new AppError(inviteError.message, 400);
+    targetUser = invite.user;
   }
 
   // Check if already a member

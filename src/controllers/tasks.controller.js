@@ -35,3 +35,28 @@ exports.remove = async (req, res, next) => {
     return noContent(res);
   } catch (err) { next(err); }
 };
+
+exports.assign = async (req, res, next) => {
+  try {
+    const { taskId } = req.params;
+    const { userId: targetUserId } = req.body;
+    const assignment = await taskService.assignUser(req.supabase, req.user.id, taskId, targetUserId);
+    return created(res, assignment);
+  } catch (err) { next(err); }
+};
+
+exports.unassign = async (req, res, next) => {
+  try {
+    const { taskId, userId: targetUserId } = req.params;
+    await taskService.unassignUser(req.supabase, req.user.id, taskId, targetUserId);
+    return noContent(res);
+  } catch (err) { next(err); }
+};
+
+exports.getAssignments = async (req, res, next) => {
+  try {
+    const { taskId } = req.params;
+    const assignments = await taskService.getTaskAssignments(req.supabase, req.user.id, taskId);
+    return success(res, assignments);
+  } catch (err) { next(err); }
+};

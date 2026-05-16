@@ -1,6 +1,7 @@
 /**
  * Express application setup.
  * Configures middleware stack and mounts API routes.
+ * Last restart trigger: anon key fix
  */
 const express = require('express');
 const helmet = require('helmet');
