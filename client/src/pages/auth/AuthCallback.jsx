@@ -54,10 +54,10 @@ export default function AuthCallback() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="min-h-screen flex items-center justify-center bg-black p-4 z-50 relative">
       <div className="flex flex-col items-center gap-4">
         <Loader2 className="h-10 w-10 text-primary animate-spin" />
-        <p className="text-text-secondary font-medium animate-pulse">
+        <p className="text-white font-medium animate-pulse">
           Completing authentication...
         </p>
       </div>

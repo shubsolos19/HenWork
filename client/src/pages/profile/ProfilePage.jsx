@@ -101,7 +101,7 @@ export default function ProfilePage() {
     <div className="max-w-xl mx-auto space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-text">Profile Settings</h1>
-        <p className="text-sm text-text-secondary mt-1">Manage your public profile and personal details</p>
+        <p className="text-sm text-white mt-1">Manage your public profile and personal details</p>
       </div>
 
       <Card>
@@ -135,7 +135,7 @@ export default function ProfilePage() {
                 </Button>
               )}
             </div>
-            <p className="text-xs text-text-muted">JPG or PNG. Max size 5MB.</p>
+            <p className="text-xs text-white">JPG or PNG. Max size 5MB.</p>
           </div>
         </CardContent>
       </Card>

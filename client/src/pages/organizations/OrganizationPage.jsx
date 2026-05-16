@@ -120,15 +120,15 @@ export default function OrganizationPage() {
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold text-text">{org?.name}</h1>
             {user?.id === org?.owner_id && (
-              <Button variant="ghost" size="icon" onClick={handleEditOpen} className="h-8 w-8 text-text-muted hover:text-text" title="Edit Organization">
+              <Button variant="ghost" size="icon" onClick={handleEditOpen} className="h-8 w-8 text-white hover:text-text" title="Edit Organization">
                 <Settings className="h-4 w-4" />
               </Button>
             )}
           </div>
-          {org?.description && <p className="text-text-secondary mt-1">{org.description}</p>}
+          {org?.description && <p className="text-white mt-1">{org.description}</p>}
           <div className="flex items-center gap-3 mt-2">
             <Badge variant={org?.userRole === 'admin' ? 'default' : 'outline'}>{org?.userRole}</Badge>
-            <span className="text-sm text-text-muted">{org?.memberCount} member{org?.memberCount !== 1 ? 's' : ''}</span>
+            <span className="text-sm text-white">{org?.memberCount} member{org?.memberCount !== 1 ? 's' : ''}</span>
             {/* Member Avatars */}
             {org?.userRole === 'admin' && members && members.length > 0 && (
               <div className="flex -space-x-2 ml-2">
@@ -145,13 +145,13 @@ export default function OrganizationPage() {
                       <span className="font-medium text-text">
                         {m.firstName} {m.lastName}
                       </span>
-                      <span className="text-text-muted ml-1 capitalize">({m.role})</span>
+                      <span className="text-white ml-1 capitalize">({m.role})</span>
                     </div>
                   </div>
                 ))}
                 {members.length > 3 && (
                   <div className="relative group cursor-pointer z-10 shrink-0">
-                    <div className="glass h-8 w-8 flex items-center justify-center text-[10px] font-bold text-text-muted">
+                    <div className="glass h-8 w-8 flex items-center justify-center text-[10px] font-bold text-white">
                       +{members.length - 3}
                     </div>
                     <div className="glass absolute top-full left-1/2 -translate-x-1/2 mt-2 hidden group-hover:block z-50 whitespace-nowrap px-2 py-1.5 text-xs max-h-48 overflow-y-auto custom-scrollbar">
@@ -217,11 +217,11 @@ export default function OrganizationPage() {
             <form onSubmit={handleCreate} className="space-y-3">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-text">New Project</p>
-                <button type="button" onClick={() => setShowCreate(false)} className="text-text-muted hover:text-text"><X className="h-4 w-4" /></button>
+                <button type="button" onClick={() => setShowCreate(false)} className="text-white hover:text-text"><X className="h-4 w-4" /></button>
               </div>
               <Input placeholder="Project name" value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
               <textarea placeholder="Description (optional)" value={desc} onChange={(e) => setDesc(e.target.value)}
-                className="flex w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[60px] resize-none transition-colors" />
+                className="flex w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-text placeholder:text-white/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[60px] resize-none transition-colors" />
               <Button type="submit" size="sm" disabled={createProject.isPending}>
                 {createProject.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create'}
               </Button>
@@ -245,10 +245,10 @@ export default function OrganizationPage() {
                     <div className="h-9 w-9 rounded-lg bg-accent/10 flex items-center justify-center mb-3">
                       <FolderKanban className="h-4 w-4 text-accent" />
                     </div>
-                    <ArrowRight className="h-4 w-4 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className="h-4 w-4 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <h3 className="font-medium text-text group-hover:text-primary transition-colors">{proj.name}</h3>
-                  {proj.description && <p className="text-sm text-text-muted mt-1 line-clamp-2">{proj.description}</p>}
+                  {proj.description && <p className="text-sm text-white mt-1 line-clamp-2">{proj.description}</p>}
                 </CardContent>
               </Card>
             </Link>

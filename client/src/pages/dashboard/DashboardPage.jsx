@@ -28,7 +28,7 @@ export default function DashboardPage() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 -mt-2">
       <div className="flex flex-col gap-0.5">
         <h1 className="text-xl font-bold tracking-tight text-white">Dashboard</h1>
-        <p className="text-white/50 text-[10px] font-medium">Overview of your tasks and organizations</p>
+        <p className="text-white text-[10px] font-medium">Overview of your tasks and organizations</p>
       </div>
 
       {/* Stats Grid */}
@@ -42,7 +42,7 @@ export default function DashboardPage() {
                   <s.icon className={`h-4 w-4 ${s.color}`} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[8px] text-white/40 font-bold uppercase tracking-[0.1em] truncate">{s.label}</p>
+                  <p className="text-[8px] text-white font-bold uppercase tracking-[0.1em] truncate">{s.label}</p>
                   <p className="text-lg font-bold text-white mt-0.5">{s.value}</p>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function DashboardPage() {
                         )}
                       </div>
                     </div>
-                    <ArrowRight className="h-5 w-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="h-5 w-5 text-white group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </Link>
                 ))}
               </div>
@@ -101,7 +101,7 @@ export default function DashboardPage() {
                 <div className="h-2 w-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]" />
                 Organizations
               </h2>
-              <Link to="/org/new" className="h-8 w-8 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-[#7c3aed] hover:text-white transition-all">
+              <Link to="/org/new" className="h-8 w-8 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-[#7c3aed] hover:text-white transition-all">
                 <Plus className="h-5 w-5" />
               </Link>
             </div>
@@ -118,9 +118,9 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-white truncate group-hover:text-[#a78bfa] transition-colors">{org.name}</p>
-                      <p className="text-[11px] text-white/40 uppercase font-bold tracking-tight mt-0.5">{org.userRole}</p>
+                      <p className="text-[11px] text-white uppercase font-bold tracking-tight mt-0.5">{org.userRole}</p>
                     </div>
-                    <ArrowRight className="h-5 w-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="h-5 w-5 text-white group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </Link>
                 ))}
               </div>
