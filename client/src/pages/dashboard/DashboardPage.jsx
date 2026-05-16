@@ -25,25 +25,25 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard</h1>
-        <p className="text-white/50 text-sm font-medium">Overview of your tasks and organizations</p>
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 -mt-2">
+      <div className="flex flex-col gap-0.5">
+        <h1 className="text-xl font-bold tracking-tight text-white">Dashboard</h1>
+        <p className="text-white/50 text-[10px] font-medium">Overview of your tasks and organizations</p>
       </div>
 
       {/* Stats Grid */}
       {statsLoading ? <StatsSkeleton /> : (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {statCards.map((s) => (
-            <div key={s.label} className="glass group relative overflow-hidden transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-white/5 blur-2xl group-hover:bg-white/10 transition-colors" />
-              <div className="flex items-center gap-4 relative z-10">
-                <div className={`h-12 w-12 rounded-xl ${s.bg} flex items-center justify-center shadow-lg border border-white/5`}>
-                  <s.icon className={`h-6 w-6 ${s.color}`} />
+            <div key={s.label} className="glass group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 p-3 min-h-[75px] flex items-center">
+              <div className="absolute top-0 right-0 -mt-4 -mr-4 h-16 w-16 rounded-full bg-white/5 blur-xl group-hover:bg-white/10 transition-colors" />
+              <div className="flex items-center gap-2.5 relative z-10 w-full">
+                <div className={`h-8 w-8 rounded-lg ${s.bg} flex items-center justify-center shadow-lg border border-white/5 shrink-0`}>
+                  <s.icon className={`h-4 w-4 ${s.color}`} />
                 </div>
-                <div>
-                  <p className="text-[10px] text-white/40 font-bold uppercase tracking-[0.1em]">{s.label}</p>
-                  <p className="text-2xl font-bold text-white mt-0.5">{s.value}</p>
+                <div className="min-w-0">
+                  <p className="text-[8px] text-white/40 font-bold uppercase tracking-[0.1em] truncate">{s.label}</p>
+                  <p className="text-lg font-bold text-white mt-0.5">{s.value}</p>
                 </div>
               </div>
             </div>

@@ -22,3 +22,8 @@ Thumbs.db
 # Build
 dist/
 build/
+
+# Media Assets (Private)
+client/src/assets/dbg3.png
+client/src/assets/dbgg.mp4
+client/src/assets/hero-landscape.jpg
