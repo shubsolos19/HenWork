@@ -1,52 +1,108 @@
-# TaskManager 📋
+<div align="center">
 
-A modern, full-stack collaborative task management system built to streamline team workflows, track projects, and organize tasks with powerful real-time capabilities.
+<br/>
 
-![TaskManager Overview](https://via.placeholder.com/800x400.png?text=TaskManager+App)
+```
+████████╗ █████╗ ███████╗██╗  ██╗    ███╗   ███╗ ██████╗ ██████╗
+╚══██╔══╝██╔══██╗██╔════╝██║ ██╔╝    ████╗ ████║██╔════╝ ██╔══██╗
+   ██║   ███████║███████╗█████╔╝     ██╔████╔██║██║  ███╗██████╔╝
+   ██║   ██╔══██║╚════██║██╔═██╗     ██║╚██╔╝██║██║   ██║██╔══██╗
+   ██║   ██║  ██║███████║██║  ██╗    ██║ ╚═╝ ██║╚██████╔╝██║  ██║
+   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝
+```
 
-## 🌟 Key Features
+**A modern, full-stack collaborative task management system**  
+*built to streamline team workflows with real-time capabilities.*
+
+<br/>
+
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Supabase](https://img.shields.io/badge/Supabase-Realtime-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
+
+<br/>
+
+</div>
+
+---
+
+## ✨ Overview
+
+TaskManager is a **production-ready, multi-tenant task management platform** designed for modern agile teams. It combines a powerful Kanban-based workflow engine with real-time collaboration, strict privacy controls, and a clean, intuitive UI — giving your team everything it needs to ship faster.
+
+---
+
+## 🌟 Feature Highlights
 
 ### 🏢 Organizations & Projects
-- **Multi-Tenant Architecture**: Create multiple organizations and switch between them seamlessly.
-- **Project Workspaces**: Organize tasks into distinct projects under each organization.
-- **Role-Based Access Control (RBAC)**: Distinct permissions for `Admin` and `Member` roles.
-- **Strict Privacy Controls**: Non-admins see anonymized profiles (roles only), while admins can manage teams and see full identities.
+| Feature | Description |
+|---|---|
+| **Multi-Tenant Architecture** | Create multiple organizations and switch between them seamlessly |
+| **Project Workspaces** | Organize tasks into distinct projects under each organization |
+| **Role-Based Access Control** | Distinct permissions for `Admin` and `Member` roles |
+| **Strict Privacy Controls** | Non-admins see anonymized profiles; admins manage full identities |
 
 ### ✅ Task Management & Kanban
-- **Interactive Kanban Boards**: Drag-and-drop or status-based task progression (To Do → In Progress → Completed).
-- **Task Assignments**: Assign multiple team members to a single task using robust UUID-based tracking.
-- **Task Details**: Rich descriptions, due dates, and priority levels (Low, Medium, High).
+| Feature | Description |
+|---|---|
+| **Interactive Kanban Boards** | Drag-and-drop task progression: `To Do` → `In Progress` → `Completed` |
+| **Task Assignments** | Assign multiple team members using robust UUID-based tracking |
+| **Rich Task Details** | Descriptions, due dates, and priority levels (Low / Medium / High) |
 
 ### 💬 Collaboration & Real-Time Sync
-- **Live Updates**: Instant UI syncing across clients using **Supabase Realtime** for member assignments and task updates.
-- **Task Comments**: Built-in discussion threads for individual tasks (with PII masking for non-admins).
-- **File Attachments**: Upload documents and images (up to 25MB) directly to tasks using Supabase Storage.
+| Feature | Description |
+|---|---|
+| **Live Updates** | Instant UI sync via **Supabase Realtime** subscriptions |
+| **Task Comments** | Built-in discussion threads with PII masking for non-admins |
+| **File Attachments** | Upload documents and images (up to **25MB**) directly to tasks |
 
-## 🛠️ Technology Stack
+---
 
-**Frontend:**
-- **React.js 18** (via Vite for lightning-fast HMR)
-- **Tailwind CSS** (for highly customizable utility-first styling)
-- **shadcn/ui** (Accessible, beautifully designed React components)
-- **React Query (TanStack)** (For powerful asynchronous state management & caching)
-- **React Router** (Client-side routing)
-- **Lucide React** (Beautiful iconography)
+## 🛠️ Tech Stack
 
-**Backend:**
-- **Node.js & Express.js** (RESTful API architecture)
-- **Supabase** (PostgreSQL Database, Authentication, Storage, & Realtime Subscriptions)
-- **Joi** (Strict payload validation)
+<table>
+<tr>
+<td valign="top" width="50%">
+
+### 🖥️ Frontend
+- ⚛️ **React.js 18** — via Vite (lightning-fast HMR)
+- 🎨 **Tailwind CSS** — utility-first styling
+- 🧩 **shadcn/ui** — accessible, designed components
+- 🔄 **TanStack Query** — async state & caching
+- 🔁 **React Router** — client-side routing
+- 🖼️ **Lucide React** — beautiful iconography
+
+</td>
+<td valign="top" width="50%">
+
+### ⚙️ Backend
+- 🟢 **Node.js & Express.js** — RESTful API
+- 🐘 **Supabase** — PostgreSQL, Auth, Storage & Realtime
+- ✅ **Joi** — strict payload validation
+
+</td>
+</tr>
+</table>
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
-- npm or yarn
-- A [Supabase](https://supabase.com/) account and project.
 
-### 1. Environment Setup
+Before you begin, ensure you have the following installed:
 
-Create a `.env` file in the root directory and add your backend/Supabase credentials:
+- ✅ **Node.js** v18 or higher
+- ✅ **npm** or **yarn**
+- ✅ A **[Supabase](https://supabase.com/)** account and project
+
+---
+
+### 1️⃣ Environment Setup
+
+**Backend** — Create `.env` in the root directory:
 
 ```env
 PORT=4000
@@ -58,7 +114,7 @@ CORS_ORIGINS=http://localhost:3000,http://localhost:5173
 FRONTEND_URL=http://localhost:3000
 ```
 
-Create a `.env` file in the `client` directory for the frontend:
+**Frontend** — Create `.env` in the `/client` directory:
 
 ```env
 VITE_API_URL=http://localhost:4000/api
@@ -66,46 +122,78 @@ VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-### 2. Installation
+> ⚠️ **Never commit `.env` files to version control.** Add them to `.gitignore`.
 
-Install dependencies for both the backend and frontend:
+---
+
+### 2️⃣ Installation
 
 ```bash
-# Install backend dependencies
+# Install backend dependencies (root directory)
 npm install
 
 # Install frontend dependencies
-cd client
-npm install
+cd client && npm install
 ```
-
-### 3. Running the Application
-
-Run the backend and frontend development servers concurrently:
-
-```bash
-# Terminal 1: Start the backend server (Root Directory)
-npm run dev
-
-# Terminal 2: Start the frontend React app (Client Directory)
-cd client
-npm run dev
-```
-
-The frontend will be available at `http://localhost:3000` (or `http://localhost:5173` depending on your Vite config), and the backend API will run on `http://localhost:4000`.
-
-## 🔒 Security & Privacy Features
-
-TaskManager implements a strict "Enrichment Pattern" for profile data. 
-All Personally Identifiable Information (PII) like names, emails, and avatars are anonymized at the backend service layer before being sent to the client, unless the requesting user holds an `admin` role within that specific organization. This ensures regulatory compliance and internal privacy without sacrificing application functionality.
-
-## 🤝 Roadmap & Future Enhancements
-
-- [ ] Task filtering and advanced search functionality.
-- [ ] Sub-tasks and checklists within parent tasks.
-- [ ] Activity logs (audit trails) for tasks.
-- [ ] Due-date reminders and email notifications.
-- [ ] Dark Mode support across all UI components.
 
 ---
+
+### 3️⃣ Run the Application
+
+Open two terminals and run:
+
+```bash
+# Terminal 1 — Backend (root directory)
+npm run dev
+
+# Terminal 2 — Frontend (client directory)
+cd client && npm run dev
+```
+
+| Service | URL |
+|---|---|
+| 🖥️ Frontend | `http://localhost:3000` or `http://localhost:5173` |
+| ⚙️ Backend API | `http://localhost:4000` |
+
+---
+
+## 🔒 Security & Privacy
+
+TaskManager implements the **Enrichment Pattern** for all profile data:
+
+> All Personally Identifiable Information (PII) — names, emails, avatars — is **anonymized at the backend service layer** before reaching the client, unless the requesting user holds an `admin` role within that specific organization.
+
+This ensures regulatory compliance and internal privacy **without** sacrificing application functionality.
+
+---
+
+## 🗺️ Roadmap
+
+Track upcoming features and improvements:
+
+- [ ] 🔍 Task filtering and advanced search
+- [ ] 🌿 Sub-tasks and checklists within parent tasks
+- [ ] 📜 Activity logs and audit trails for tasks
+- [ ] 🔔 Due-date reminders and email notifications
+- [ ] 🌙 Dark Mode support across all UI components
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Commit your changes: `git commit -m "feat: add your feature"`
+4. Push and open a Pull Request
+
+---
+
+<div align="center">
+
+<br/>
+
 *Built with ❤️ for modern agile teams.*
+
+</div>
