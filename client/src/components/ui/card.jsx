@@ -1,7 +1,8 @@
 import { cn } from '@/lib/utils';
 
 export function Card({ className, ...props }) {
-  return <div className={cn('glass p-6 transition-all duration-200', className)} {...props} />;
+  const isBlackGlass = className?.includes('glass-black');
+  return <div className={cn(isBlackGlass ? '' : 'glass', 'p-6 transition-all duration-200', className)} {...props} />;
 }
 
 export function CardHeader({ className, ...props }) {

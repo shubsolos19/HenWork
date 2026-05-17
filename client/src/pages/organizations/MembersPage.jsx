@@ -142,7 +142,12 @@ export default function MembersPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant={m.role === 'admin' ? 'default' : 'outline'}>{m.role}</Badge>
+                    <Badge 
+                      variant={m.role === 'admin' ? 'default' : 'outline'} 
+                      className={m.role !== 'admin' ? 'bg-white text-black border-none font-semibold capitalize px-2.5 py-0.5' : ''}
+                    >
+                      {m.role}
+                    </Badge>
                     {isAdmin && (
                       <Button variant="ghost" size="icon" onClick={() => handleRemove(m.id)}
                         className="h-8 w-8 text-text-muted hover:text-destructive" title="Remove member">

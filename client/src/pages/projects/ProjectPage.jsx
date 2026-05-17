@@ -41,15 +41,15 @@ function KanbanColumn({ title, tasks, projectId, color, orgId }) {
     <div className="flex-1 min-w-[280px]">
       <div className="flex items-center gap-2 mb-3 px-1">
         <div className={`h-2 w-2 rounded-full ${color}`} />
-        <h3 className="text-sm font-medium text-text">{title}</h3>
+        <h3 className="text-sm font-bold text-black">{title}</h3>
         <span className="text-xs text-white ml-auto">{tasks.length}</span>
       </div>
-      <div className="space-y-2">
+      <div className="flex flex-col gap-3">
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} projectId={projectId} orgId={orgId} />
         ))}
         {!tasks.length && (
-          <div className="glass flex flex-col items-center justify-center py-6 text-center border-dashed text-white">
+          <div className="glass bg-[#000000]/55 flex flex-col items-center justify-center py-6 text-center border-dashed text-white">
             No tasks
           </div>
         )}
@@ -117,13 +117,23 @@ export default function ProjectPage() {
           <h1 className="text-2xl font-bold text-text">Project Tasks</h1>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex border border-border rounded-lg overflow-hidden">
+          <div className="flex border border-white/15 bg-black/40 backdrop-blur-md rounded-lg overflow-hidden">
             <button onClick={() => setView('board')}
-              className={cn('px-3 py-1.5 text-xs', view === 'board' ? 'bg-primary/10 text-primary' : 'text-white hover:bg-surface-hover')}>
+              className={cn(
+                'px-3 py-1.5 text-xs transition-all duration-200',
+                view === 'board' 
+                  ? 'bg-white/20 text-white font-medium' 
+                  : 'text-white/60 hover:text-white hover:bg-white/5'
+              )}>
               <LayoutGrid className="h-3.5 w-3.5" />
             </button>
             <button onClick={() => setView('list')}
-              className={cn('px-3 py-1.5 text-xs', view === 'list' ? 'bg-primary/10 text-primary' : 'text-white hover:bg-surface-hover')}>
+              className={cn(
+                'px-3 py-1.5 text-xs transition-all duration-200',
+                view === 'list' 
+                  ? 'bg-white/20 text-white font-medium' 
+                  : 'text-white/60 hover:text-white hover:bg-white/5'
+              )}>
               <ListTodo className="h-3.5 w-3.5" />
             </button>
           </div>

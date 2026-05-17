@@ -109,7 +109,7 @@ export default function TaskDetailPage() {
   if (isLoading) return <div className="max-w-3xl mx-auto"><ListSkeleton rows={6} /></div>;
 
   const statusOptions = [
-    { value: 'todo', label: 'To Do', icon: Clock, color: 'text-text-secondary' },
+    { value: 'todo', label: 'To Do', icon: Clock, color: 'text-white' },
     { value: 'in_progress', label: 'In Progress', icon: Loader2, color: 'text-warning' },
     { value: 'completed', label: 'Completed', icon: CheckCircle2, color: 'text-success' },
   ];
@@ -180,15 +180,15 @@ export default function TaskDetailPage() {
     <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10 space-y-6 animate-fade-in">
       {/* Back */}
       <Link to={projectId ? `/project/${projectId}?orgId=${orgId}` : '/dashboard'}
-        className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text transition-colors group">
-        <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" /> Back to project
+        className="inline-flex items-center gap-1.5 text-sm text-white transition-colors group">
+        <ArrowLeft className="h-4 w-4 text-white group-hover:-translate-x-0.5 transition-transform" /> Back to project
       </Link>
 
       {/* Task Header */}
       <div className="space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-bold text-text tracking-tight break-words">{task?.title}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-black tracking-tight break-words">{task?.title}</h1>
         {task?.description && (
-          <p className="text-text-secondary text-sm sm:text-base leading-relaxed max-w-2xl break-words">{task.description}</p>
+          <p className="text-white text-sm sm:text-base leading-relaxed max-w-2xl break-words">{task.description}</p>
         )}
       </div>
 
@@ -282,7 +282,7 @@ export default function TaskDetailPage() {
         <CardContent className="p-0 divide-y divide-border">
           {/* Status */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 first:pt-4">
-            <span className="text-sm font-medium text-text-secondary shrink-0">Status</span>
+            <span className="text-sm font-medium text-white shrink-0">Status</span>
             <div className="flex flex-wrap gap-1.5">
               {statusOptions.map((opt) => (
                 <button key={opt.value} onClick={() => handleStatusChange(opt.value)}
@@ -290,7 +290,7 @@ export default function TaskDetailPage() {
                     'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all border',
                     task?.status === opt.value
                       ? 'bg-surface-hover border-border-bright ' + opt.color
-                      : 'border-transparent text-text-muted hover:bg-surface-hover'
+                      : 'border-transparent text-white hover:bg-surface-hover'
                   )}>
                   <opt.icon className="h-3.5 w-3.5" />
                   {opt.label}
@@ -301,28 +301,35 @@ export default function TaskDetailPage() {
 
           {/* Priority */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4">
-            <span className="text-sm font-medium text-text-secondary shrink-0">Priority</span>
+            <span className="text-sm font-medium text-white shrink-0">Priority</span>
             <div className="flex flex-wrap gap-1.5">
-              {['low', 'medium', 'high'].map((p) => (
-                <button key={p} onClick={() => handlePriorityChange(p)}
-                  className={cn(
-                    'px-4 py-1.5 rounded-lg text-xs font-medium transition-all capitalize border',
-                    task?.priority === p
-                      ? getPriorityColor(p) + ' border-current/20'
-                      : 'border-transparent text-text-muted hover:bg-surface-hover'
-                  )}>
-                  {p}
-                </button>
-              ))}
+              {['low', 'medium', 'high'].map((p) => {
+                const isSelected = task?.priority === p;
+                let colorClass = getPriorityColor(p);
+                if (p === 'high' && isSelected) {
+                  colorClass = colorClass.replace('text-destructive', 'text-[#ff0000]');
+                }
+                return (
+                  <button key={p} onClick={() => handlePriorityChange(p)}
+                    className={cn(
+                      'px-4 py-1.5 rounded-lg text-xs font-medium transition-all capitalize border',
+                      isSelected
+                        ? colorClass + ' border-current/20'
+                        : 'border-transparent text-white hover:bg-surface-hover'
+                    )}>
+                    {p}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Due Date */}
           <div className="flex items-center justify-between p-4">
-            <span className="text-sm font-medium text-text-secondary">Due Date</span>
+            <span className="text-sm font-medium text-white">Due Date</span>
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-text-muted" />
-              <span className={cn('text-sm font-medium', (task?.due_date || task?.dueDate) && isOverdue(task.due_date || task.dueDate) && task.status !== 'completed' ? 'text-destructive' : 'text-text')}>
+              <Calendar className="h-4 w-4 text-white" />
+              <span className={cn('text-sm font-medium', (task?.due_date || task?.dueDate) && isOverdue(task.due_date || task.dueDate) && task.status !== 'completed' ? 'text-[#ff0000]' : 'text-white')}>
                 {(task?.due_date || task?.dueDate) ? formatDate(task.due_date || task.dueDate) : 'No due date'}
               </span>
             </div>
@@ -330,8 +337,8 @@ export default function TaskDetailPage() {
 
           {/* Created */}
           <div className="flex items-center justify-between p-4 last:pb-4">
-            <span className="text-sm font-medium text-text-secondary">Created</span>
-            <span className="text-sm text-text-muted">{formatRelative(task?.created_at)}</span>
+            <span className="text-sm font-medium text-white">Created</span>
+            <span className="text-sm text-white">{formatRelative(task?.created_at)}</span>
           </div>
         </CardContent>
       </Card>
@@ -428,7 +435,7 @@ export default function TaskDetailPage() {
         <CardContent className="space-y-4">
           {/* Comment list */}
           {commentsLoading ? <ListSkeleton rows={3} /> : !comments?.length ? (
-            <p className="text-sm text-text-muted text-center py-4">No comments yet. Start the conversation!</p>
+            <p className="text-sm text-white text-center py-4">No comments yet. Start the conversation!</p>
           ) : (
             <div className="space-y-3">
               {comments.map((c) => (
@@ -461,7 +468,8 @@ export default function TaskDetailPage() {
           <form onSubmit={handleComment} className="flex gap-2 pt-2 border-t border-border">
             <Input placeholder="Write a comment..." value={commentText} onChange={(e) => setCommentText(e.target.value)}
               className="flex-1" />
-            <Button type="submit" size="icon" disabled={!commentText.trim() || addComment.isPending}>
+            <Button type="submit" size="icon" disabled={!commentText.trim() || addComment.isPending}
+              className="bg-[#000000] hover:bg-[#000000]/90 text-white transition-colors">
               {addComment.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
           </form>

@@ -127,7 +127,12 @@ export default function OrganizationPage() {
           </div>
           {org?.description && <p className="text-white mt-1">{org.description}</p>}
           <div className="flex items-center gap-3 mt-2">
-            <Badge variant={org?.userRole === 'admin' ? 'default' : 'outline'}>{org?.userRole}</Badge>
+            <Badge 
+              variant={org?.userRole === 'admin' ? 'default' : 'outline'} 
+              className={org?.userRole !== 'admin' ? 'bg-white text-black border-none font-semibold capitalize px-2.5 py-0.5' : ''}
+            >
+              {org?.userRole}
+            </Badge>
             <span className="text-sm text-white">{org?.memberCount} member{org?.memberCount !== 1 ? 's' : ''}</span>
             {/* Member Avatars */}
             {org?.userRole === 'admin' && members && members.length > 0 && (

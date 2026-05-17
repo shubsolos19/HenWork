@@ -37,18 +37,18 @@ export default function AppLayout() {
   return (
     <div className="flex h-screen overflow-hidden font-sans text-white relative">
       {/* Global Background Video Wallpaper */}
-      <div className="fixed inset-0 pointer-events-none z-0 bg-[#0f0f12]">
+      <div className="fixed inset-0 pointer-events-none z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="h-full w-full object-cover opacity-80"
+          className="h-full w-full object-cover"
         >
           <source src={wallpaperVideo} type="video/mp4" />
         </video>
-        {/* Cinematic Tint Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/80 backdrop-blur-[1px]" />
+        {/* Subtle overlay to reduce brightness ever so slightly */}
+        <div className="absolute inset-0 bg-black/25" />
       </div>
 
       <div className="flex flex-1 relative z-10 overflow-hidden">
@@ -74,7 +74,7 @@ export default function AppLayout() {
                   'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
                   location.pathname === item.to
                     ? 'bg-[#7c3aed]/20 text-[#a78bfa] shadow-[inset_0_0_12px_rgba(124,58,237,0.1)] border border-[#7c3aed]/20'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                    : 'text-white hover:bg-white/5'
                 )}>
                 <item.icon className="h-4 w-4" />
                 {item.label}
@@ -82,9 +82,9 @@ export default function AppLayout() {
             ))}
 
             <div className="pt-6 pb-2 px-3 flex items-center justify-between">
-              <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.15em]">Organizations</p>
+              <p className="text-[10px] font-bold text-white uppercase tracking-[0.15em]">Organizations</p>
               <Link to="/org/new" onClick={() => setSidebarOpen(false)}
-                className="text-white/30 hover:text-white transition-colors"
+                className="text-white hover:opacity-85 transition-opacity"
                 title="New Organization">
                 <Plus className="h-4 w-4" />
               </Link>
@@ -96,7 +96,7 @@ export default function AppLayout() {
                   'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200',
                   location.pathname.startsWith(`/org/${org.id}`)
                     ? 'bg-[#7c3aed]/20 text-[#a78bfa] border border-[#7c3aed]/20'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                    : 'text-white hover:bg-white/5'
                 )}>
                 <Building2 className="h-4 w-4" />
                 <span className="truncate">{org.name}</span>
@@ -109,8 +109,8 @@ export default function AppLayout() {
             <Link to="/profile" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3 hover:bg-white/5 p-2 rounded-xl transition-all duration-200 -mx-2">
               <Avatar firstName={firstName} lastName={lastName} src={profile?.profile_picture_url} size="sm" />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-white truncate">{firstName} {lastName}</p>
-                <p className="text-xs text-white/40 truncate">{user?.email}</p>
+                <p className="text-sm font-semibold text-black truncate">{firstName} {lastName}</p>
+                <p className="text-xs text-white truncate">{user?.email}</p>
               </div>
             </Link>
           </div>
@@ -136,7 +136,7 @@ export default function AppLayout() {
               <button onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-2 rounded-xl px-2 py-1.5 hover:bg-white/5 transition-all duration-200">
                 <Avatar firstName={firstName} lastName={lastName} src={profile?.profile_picture_url} size="sm" />
-                <span className="hidden sm:block text-sm text-white/90">{firstName}</span>
+                <span className="hidden sm:block text-sm text-black font-semibold">{firstName} {lastName}</span>
                 <ChevronDown className="h-3.5 w-3.5 text-white/30" />
               </button>
 

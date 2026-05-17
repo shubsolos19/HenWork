@@ -8,7 +8,7 @@ import { formatDate, isOverdue, getPriorityColor, cn } from '@/lib/utils';
 export function TaskCard({ task, projectId, orgId }) {
   return (
     <Link to={`/task/${task.id}?projectId=${projectId}&orgId=${orgId}`}>
-      <Card className="hover:border-border-bright transition-all duration-200 cursor-pointer group">
+      <Card className="glass bg-[#000000]/55 hover:bg-[#000000]/65 hover:border-border-bright transition-all duration-200 cursor-pointer group">
         <CardContent className="p-4">
           <p className="text-sm font-medium text-text group-hover:text-primary transition-colors line-clamp-2">
             {task.title}
