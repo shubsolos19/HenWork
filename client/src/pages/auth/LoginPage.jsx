@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import heroLandscape from '@/assets/dbg3.png';
 import { SocialAuth } from '@/components/auth/SocialAuth';
+import { Logo } from '@/components/shared/Logo';
 
 export default function LoginPage() {
   const { signIn } = useAuth();
@@ -35,7 +36,7 @@ export default function LoginPage() {
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="absolute top-0 inset-x-0 z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5">
           <Link to="/" className="flex items-center gap-2 font-serif text-2xl font-bold tracking-tight">
-            <span aria-hidden>🐦</span> HenWork
+            <Logo className="h-7 w-7 shrink-0" /> HenWork
           </Link>
         </header>
         <main className="flex flex-1 items-center justify-center px-6">
