@@ -20,6 +20,7 @@ import {
   Users, UserPlus
 } from 'lucide-react';
 import { attachmentService } from '@/services/attachments.service';
+import { supabase } from '@/lib/supabase';
 
 export default function TaskDetailPage() {
   const { taskId } = useParams();
@@ -93,17 +94,30 @@ export default function TaskDetailPage() {
     e.target.value = ''; // Reset input
   };
 
-  const handleDownload = async (attachmentId) => {
+  const handleDownload = async (file) => {
+    const toastId = toast.loading(`Downloading ${file.file_name}...`);
     try {
-      const { url, fileName } = await attachmentService.getDownloadUrl(attachmentId);
+      const { url, fileName } = await attachmentService.getDownloadUrl(file.id);
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Failed to retrieve file from storage server');
+
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      
       const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
+      link.href = downloadUrl;
+      link.download = fileName || file.file_name;
       document.body.appendChild(link);
       link.click();
+      
       document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+      
+      toast.success(`${fileName || file.file_name} downloaded successfully`, { id: toastId });
     } catch (err) {
-      toast.error('Failed to generate download link');
+      console.error('Download error:', err);
+      toast.error(err.message || `Failed to download ${file.file_name}`, { id: toastId });
     }
   };
 
@@ -406,7 +420,7 @@ export default function TaskDetailPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleDownload(file.id)} title="Download">
+                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleDownload(file)} title="Download">
                         <Download className="h-3.5 w-3.5" />
                       </Button>
                       {(file.uploaded_by === user?.id || task?.role === 'admin') && (

@@ -12,17 +12,18 @@ const { verifyTaskAccess } = require('../utils/permissions');
 async function uploadAttachment(supabase, userId, taskId, { fileName, fileSize, contentType, filePath, fileBlob }) {
   const { task } = await verifyTaskAccess(supabase, userId, taskId);
 
-  // 1. Upload to Storage
-  // The filePath is expected to be org_id/project_id/task_id/filename
-  const { error: storageError } = await supabase.storage
-    .from('task-attachments')
-    .upload(filePath, fileBlob, {
-      contentType,
-      upsert: true
-    });
+  // 1. Upload to Storage (only if fileBlob is provided, e.g. from backend direct uploads)
+  if (fileBlob) {
+    const { error: storageError } = await supabase.storage
+      .from('task-attachments')
+      .upload(filePath, fileBlob, {
+        contentType,
+        upsert: true
+      });
 
-  if (storageError) {
-    throw new AppError(storageError.message, 400);
+    if (storageError) {
+      throw new AppError(storageError.message, 400);
+    }
   }
 
   // 2. Save metadata to DB

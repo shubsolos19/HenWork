@@ -6,7 +6,27 @@
     <meta name="description" content="Team Task Manager — Organize projects, manage tasks, and collaborate with your team" />
     <title>HenWork</title>
     <link rel="icon" type="image/png" href="/easter-eggs.png" />
-    <link rel="preload" as="image" href="/dbg3.png" />
+    <script>
+      try {
+        var hasSession = false;
+        for (var i = 0; i < localStorage.length; i++) {
+          var key = localStorage.key(i);
+          if (key && key.indexOf('auth-token') > -1) {
+            hasSession = true;
+            break;
+          }
+        }
+        var path = window.location.pathname;
+        var isAuthPage = path === '/' || path === '/login' || path === '/signup' || path === '/signup-success';
+        if (!hasSession || isAuthPage) {
+          var link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.href = '/dbg3.png';
+          document.head.appendChild(link);
+        }
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
