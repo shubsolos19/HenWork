@@ -1,13 +1,10 @@
 {
   "communities": {
     "0": [
-      "services_auth_service_apperror_notfounderror",
-      "services_auth_service_getprofile",
-      "services_auth_service_signin",
-      "services_auth_service_signout",
-      "services_auth_service_signup",
-      "services_auth_service_syncgoogleprofile",
-      "services_auth_service_updateprofile",
+      "services_comments_service_addcomment",
+      "services_comments_service_deletecomment",
+      "services_comments_service_gettaskcomments",
+      "services_comments_service_verifytaskaccess_verifycommentauthor",
       "services_dashboard_service_getrecenttasks",
       "services_dashboard_service_getstats",
       "services_organizations_service_addmember",
@@ -32,17 +29,19 @@
       "services_tasks_service_deletetask",
       "services_tasks_service_getprojecttasks",
       "services_tasks_service_gettaskassignments",
+      "services_tasks_service_gettaskdetails",
       "services_tasks_service_unassignuser",
       "services_tasks_service_updatetask",
       "services_tasks_service_verifyprojectaccess_verifytaskaccess_verifytaskcreator_verifytaskassignmentmanager_verifyorgmembership",
       "src_app_errorhandler",
-      "src_services_auth_service_js",
+      "src_services_comments_service_js",
       "src_services_dashboard_service_js",
       "src_services_organizations_service_js",
       "src_services_projects_service_js",
       "src_services_tasks_service_js",
       "src_utils_errors_js",
       "src_utils_permissions_js",
+      "src_utils_privacy_js",
       "utils_errors_apperror",
       "utils_errors_apperror_constructor",
       "utils_errors_conflicterror",
@@ -51,12 +50,15 @@
       "utils_errors_unauthorizederror",
       "utils_errors_validationerror",
       "utils_permissions_forbiddenerror_notfounderror",
+      "utils_permissions_verifycommentauthor",
       "utils_permissions_verifyorgadmin",
       "utils_permissions_verifyorgmembership",
       "utils_permissions_verifyorgowner",
       "utils_permissions_verifyprojectaccess",
+      "utils_permissions_verifytaskaccess",
       "utils_permissions_verifytaskassignmentmanager",
-      "utils_permissions_verifytaskcreator"
+      "utils_permissions_verifytaskcreator",
+      "utils_privacy_anonymizeprofile"
     ],
     "1": [
       "client_src_components_ui_avatar_jsx",
@@ -107,44 +109,6 @@
       "ui_skeleton_skeleton"
     ],
     "2": [
-      "app_jsx",
-      "auth_loginpage_loginpage",
-      "auth_socialauth_socialauth",
-      "client_src_context_authcontext_jsx",
-      "client_src_hooks_usedashboard_js",
-      "client_src_hooks_useorganizations_js",
-      "client_src_hooks_useprofile_js",
-      "client_src_main_jsx",
-      "client_src_pages_organizations_neworgpage_jsx",
-      "context_authcontext_authcontext",
-      "context_authcontext_authprovider",
-      "context_authcontext_useauth",
-      "hooks_usedashboard_usedashboardstats",
-      "hooks_usedashboard_userecenttasks",
-      "hooks_useorganizations_useaddmember",
-      "hooks_useorganizations_usecreateorg",
-      "hooks_useorganizations_usedeleteorg",
-      "hooks_useorganizations_useorgmembers",
-      "hooks_useorganizations_useremovemember",
-      "hooks_useorganizations_useupdateorg",
-      "hooks_useprofile_useprofile",
-      "hooks_useprofile_useupdateprofile",
-      "hooks_useprojects_usecreateproject",
-      "hooks_useprojects_usedeleteproject",
-      "hooks_useprojects_useproject",
-      "layout_applayout_applayout",
-      "organizations_memberspage_memberspage",
-      "organizations_neworgpage_neworgpage",
-      "pages_auth_loginpage_jsx",
-      "pages_auth_signuppage_jsx",
-      "pages_dashboard_dashboardpage_jsx",
-      "pages_organizations_organizationpage_jsx",
-      "pages_profile_profilepage_jsx",
-      "src_app_protectedroute",
-      "src_app_publicroute",
-      "src_app_queryclient"
-    ],
-    "3": [
       "config_supabase_createuserclient",
       "middleware_auth_adminclient_createuserclient",
       "middleware_auth_authenticate",
@@ -180,7 +144,7 @@
       "src_middleware_auth_js",
       "src_middleware_validate_js"
     ],
-    "4": [
+    "3": [
       "client_readme_expanding_the_eslint_configuration",
       "client_readme_taskmanager_client",
       "features_md",
@@ -209,6 +173,30 @@
       "test_readme_taskmanager",
       "test_readme_technology_stack"
     ],
+    "4": [
+      "controllers_auth_controller_success_created",
+      "controllers_organizations_controller_orgservice",
+      "controllers_projects_controller_projectservice",
+      "controllers_tasks_controller_success_created_nocontent",
+      "controllers_tasks_controller_taskservice",
+      "services_attachments_service_deleteattachment",
+      "services_attachments_service_getdownloadurl",
+      "services_attachments_service_gettaskattachments",
+      "services_attachments_service_uploadattachment",
+      "src_controllers_attachments_controller_js",
+      "src_controllers_auth_controller_js",
+      "src_controllers_comments_controller_js",
+      "src_controllers_dashboard_controller_js",
+      "src_controllers_organizations_controller_js",
+      "src_controllers_projects_controller_js",
+      "src_controllers_tasks_controller_js",
+      "src_services_attachments_service_js",
+      "src_utils_response_js",
+      "utils_response_created",
+      "utils_response_nocontent",
+      "utils_response_paginated",
+      "utils_response_success"
+    ],
     "5": [
       "config_cors_cors",
       "config_cors_corsoptions",
@@ -216,14 +204,9 @@
       "config_env_missing",
       "config_env_path",
       "config_env_required",
-      "config_supabase_createclient",
-      "lib_supabase_supabase",
       "middleware_ratelimiter_ratelimit",
       "middleware_requestlogger_morgan",
       "routes_auth_routes_authlimiter",
-      "scripts_setup_avatars_js",
-      "scripts_setup_avatars_setup",
-      "scripts_setup_storage_policies_js",
       "src_app_app",
       "src_app_corsmiddleware",
       "src_app_globallimiter",
@@ -237,98 +220,129 @@
       "src_middleware_ratelimiter_js"
     ],
     "6": [
-      "config_supabase_adminclient",
-      "controllers_auth_controller_success_created",
-      "services_attachments_service_deleteattachment",
-      "services_attachments_service_getdownloadurl",
-      "services_attachments_service_gettaskattachments",
-      "services_attachments_service_uploadattachment",
-      "services_comments_service_addcomment",
-      "services_comments_service_deletecomment",
-      "services_comments_service_gettaskcomments",
-      "services_comments_service_verifytaskaccess_verifycommentauthor",
-      "services_tasks_service_gettaskdetails",
-      "src_controllers_attachments_controller_js",
-      "src_services_attachments_service_js",
-      "src_services_comments_service_js",
-      "src_utils_privacy_js",
-      "utils_permissions_verifycommentauthor",
-      "utils_permissions_verifytaskaccess",
-      "utils_privacy_anonymizeprofile"
+      "app_jsx",
+      "auth_loginpage_loginpage",
+      "auth_socialauth_socialauth",
+      "client_src_hooks_useprofile_js",
+      "client_src_main_jsx",
+      "context_authcontext_authcontext",
+      "context_authcontext_authprovider",
+      "context_authcontext_jsx",
+      "context_authcontext_useauth",
+      "hooks_useprofile_useprofile",
+      "hooks_useprofile_useupdateprofile",
+      "layout_applayout_applayout",
+      "pages_auth_loginpage_jsx",
+      "pages_auth_signuppage_jsx",
+      "pages_profile_profilepage_jsx",
+      "src_app_protectedroute",
+      "src_app_publicroute",
+      "src_app_queryclient"
     ],
     "7": [
-      "controllers_organizations_controller_orgservice",
-      "controllers_projects_controller_projectservice",
-      "controllers_tasks_controller_success_created_nocontent",
-      "controllers_tasks_controller_taskservice",
-      "src_controllers_auth_controller_js",
-      "src_controllers_comments_controller_js",
-      "src_controllers_dashboard_controller_js",
-      "src_controllers_organizations_controller_js",
-      "src_controllers_projects_controller_js",
-      "src_controllers_tasks_controller_js",
-      "src_utils_response_js",
-      "utils_response_created",
-      "utils_response_nocontent",
-      "utils_response_paginated",
-      "utils_response_success"
+      "client_src_hooks_usedashboard_js",
+      "client_src_hooks_useorganizations_js",
+      "client_src_pages_organizations_neworgpage_jsx",
+      "hooks_usedashboard_usedashboardstats",
+      "hooks_usedashboard_userecenttasks",
+      "hooks_useorganizations_useaddmember",
+      "hooks_useorganizations_usecreateorg",
+      "hooks_useorganizations_usedeleteorg",
+      "hooks_useorganizations_useorgmembers",
+      "hooks_useorganizations_useremovemember",
+      "hooks_useorganizations_useupdateorg",
+      "hooks_useprojects_usecreateproject",
+      "hooks_useprojects_usedeleteproject",
+      "hooks_useprojects_useproject",
+      "organizations_neworgpage_neworgpage",
+      "pages_dashboard_dashboardpage_jsx",
+      "pages_organizations_memberspage_jsx",
+      "pages_organizations_organizationpage_jsx"
     ],
     "8": [
+      "config_supabase_adminclient",
+      "config_supabase_createclient",
+      "lib_supabase_supabase",
+      "scripts_setup_avatars_js",
+      "scripts_setup_avatars_setup",
+      "scripts_setup_storage_policies_js",
+      "services_auth_service_apperror_notfounderror",
+      "services_auth_service_getprofile",
+      "services_auth_service_signin",
+      "services_auth_service_signout",
+      "services_auth_service_signup",
+      "services_auth_service_syncgoogleprofile",
+      "services_auth_service_updateprofile",
+      "src_services_auth_service_js"
+    ],
+    "9": [
       "client_src_lib_api_js",
       "lib_api_api",
       "lib_api_gettoken",
       "lib_api_settokengetter",
       "lib_api_token"
     ],
-    "9": [
+    "10": [
       "components_shared_loadingskeleton_jsx",
       "shared_loadingskeleton_cardskeleton",
       "shared_loadingskeleton_listskeleton",
       "shared_loadingskeleton_statsskeleton"
     ],
-    "10": [
-      "auth_authcallback_authcallback",
-      "client_src_pages_auth_authcallback_jsx"
-    ],
     "11": [
-      "client_src_components_ui_input_jsx",
-      "ui_input_input"
+      "components_shared_loader_jsx",
+      "shared_loader_loader",
+      "shared_loader_styledwrapper"
     ],
     "12": [
-      "client_src_components_shared_emptystate_jsx",
+      "components_shared_emptystate_jsx",
       "shared_emptystate_emptystate"
     ],
     "13": [
-      "client_eslint_config_js"
+      "components_shared_logo_jsx",
+      "shared_logo_logo"
     ],
     "14": [
-      "client_vite_config_js"
+      "auth_authcallback_authcallback",
+      "pages_auth_authcallback_jsx"
     ],
     "15": [
-      "auth_signupsuccesspage_signupsuccesspage"
+      "client_src_components_ui_input_jsx",
+      "ui_input_input"
     ],
     "16": [
+      "client_eslint_config_js"
+    ],
+    "17": [
+      "client_vite_config_js"
+    ],
+    "18": [
+      "auth_signupsuccesspage_signupsuccesspage"
+    ],
+    "19": [
       "pages_landingpage_jsx"
     ]
   },
   "cohesion": {
     "0": 0.07,
     "1": 0.07,
-    "2": 0.07,
-    "3": 0.13,
-    "4": 0.07,
-    "5": 0.11,
-    "6": 0.22,
-    "7": 0.32,
-    "8": 0.4,
-    "9": 0.5,
-    "10": 1.0,
-    "11": 1.0,
+    "2": 0.13,
+    "3": 0.07,
+    "4": 0.23,
+    "5": 0.13,
+    "6": 0.13,
+    "7": 0.16,
+    "8": 0.19,
+    "9": 0.4,
+    "10": 0.5,
+    "11": 0.67,
     "12": 1.0,
     "13": 1.0,
     "14": 1.0,
     "15": 1.0,
-    "16": 1.0
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0
   },
   "gods": [
     {
