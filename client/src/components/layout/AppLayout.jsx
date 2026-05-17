@@ -60,7 +60,7 @@ export default function AppLayout() {
         )}>
           {/* Logo */}
           <div className="flex items-center gap-2 px-5 py-5 border-b border-white/5 bg-transparent">
-            <Link to="/" className="flex items-center gap-2.5">
+            <Link to="/dashboard" className="flex items-center gap-2.5">
               <Logo className="h-7 w-7 shrink-0" />
               <img src="/woodhw.png" alt="HenWork" className="h-8 object-contain" />
             </Link>

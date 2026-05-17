@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
       setUser(s?.user ?? null);
       
       const elapsedTime = Date.now() - startTime;
-      const remainingTime = Math.max(0, 4500 - elapsedTime);
+      const remainingTime = Math.max(0, 2000 - elapsedTime);
       loadTimeout = setTimeout(() => {
         setLoading(false);
       }, remainingTime);

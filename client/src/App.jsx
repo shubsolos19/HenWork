@@ -34,7 +34,7 @@ function ProtectedRoute({ children }) {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black p-4 z-50 relative overflow-hidden">
-        <div className="flex flex-col items-center gap-24 relative w-full h-full max-w-md">
+        <div className="flex flex-col items-center gap-16 relative w-full h-full max-w-md">
           <div className="relative w-full h-40 flex items-center justify-center">
             <Loader />
           </div>
@@ -50,7 +50,20 @@ function ProtectedRoute({ children }) {
 
 function PublicRoute({ children }) {
   const { user, loading } = useAuth();
-  if (loading) return null;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black p-4 z-50 relative overflow-hidden">
+        <div className="flex flex-col items-center gap-16 relative w-full h-full max-w-md">
+          <div className="relative w-full h-40 flex items-center justify-center">
+            <Loader />
+          </div>
+          <p className="text-white font-medium animate-pulse text-center tracking-wider text-sm mt-4">
+            Loading...
+          </p>
+        </div>
+      </div>
+    );
+  }
   return user ? <Navigate to="/dashboard" replace /> : children;
 }
 

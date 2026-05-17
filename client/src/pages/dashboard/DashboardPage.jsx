@@ -35,8 +35,8 @@ export default function DashboardPage() {
       {statsLoading ? <StatsSkeleton /> : (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {statCards.map((s) => (
-            <div key={s.label} className="glass group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 p-3 min-h-[75px] flex items-center">
-              <div className="absolute top-0 right-0 -mt-4 -mr-4 h-16 w-16 rounded-full bg-white/5 blur-xl group-hover:bg-white/10 transition-colors" />
+            <div key={s.label} className="glass group relative isolate z-10 overflow-hidden transition-all duration-300 hover:-translate-y-1 p-3 min-h-[75px] flex items-center">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_60%)] group-hover:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_60%)] transition-all duration-300 pointer-events-none" />
               <div className="flex items-center gap-2.5 relative z-10 w-full">
                 <div className={`h-8 w-8 rounded-lg ${s.bg} flex items-center justify-center shadow-lg border border-white/5 shrink-0`}>
                   <s.icon className={`h-4 w-4 ${s.color}`} />
@@ -66,7 +66,7 @@ export default function DashboardPage() {
             ) : (
               <div className="space-y-3">
                 {recentTasks.map((task) => (
-                  <Link key={task.id} to={`/task/${task.id}?projectId=${task.project_id}`}
+                  <Link key={task.id} to={`/task/${task.id}?projectId=${task.project_id}&from=dashboard`}
                     className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 group">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-white truncate group-hover:text-[#a78bfa] transition-colors">

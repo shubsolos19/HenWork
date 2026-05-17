@@ -26,6 +26,7 @@ export default function TaskDetailPage() {
   const [searchParams] = useSearchParams();
   const projectId = searchParams.get('projectId');
   const orgId = searchParams.get('orgId');
+  const from = searchParams.get('from');
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -137,7 +138,7 @@ export default function TaskDetailPage() {
           try {
             await deleteTask.mutateAsync(taskId);
             toast.success('Task deleted');
-            navigate(projectId ? `/project/${projectId}?orgId=${orgId}` : '/dashboard');
+            navigate((from === 'dashboard' || !orgId) ? '/dashboard' : `/project/${projectId}?orgId=${orgId}`);
           } catch (err) {
             toast.error(err.message || 'Failed to delete task', { duration: 4000 });
           }
@@ -179,9 +180,9 @@ export default function TaskDetailPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10 space-y-6 animate-fade-in">
       {/* Back */}
-      <Link to={projectId ? `/project/${projectId}?orgId=${orgId}` : '/dashboard'}
+      <Link to={(from === 'dashboard' || !orgId) ? '/dashboard' : `/project/${projectId}?orgId=${orgId}`}
         className="inline-flex items-center gap-1.5 text-sm text-white transition-colors group">
-        <ArrowLeft className="h-4 w-4 text-white group-hover:-translate-x-0.5 transition-transform" /> Back to project
+        <ArrowLeft className="h-4 w-4 text-white group-hover:-translate-x-0.5 transition-transform" /> Back to {from === 'dashboard' || !orgId ? 'dashboard' : 'project'}
       </Link>
 
       {/* Task Header */}

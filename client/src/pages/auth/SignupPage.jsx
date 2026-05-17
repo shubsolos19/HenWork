@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
-import heroLandscape from '@/assets/dbg3.png';
 import { SocialAuth } from '@/components/auth/SocialAuth';
 import { Logo } from '@/components/shared/Logo';
 
@@ -42,7 +41,7 @@ export default function SignupPage() {
   return (
     <div
       className="relative min-h-screen overflow-hidden bg-[#fdfaf6] font-sans text-[#1a1a1a] bg-cover bg-no-repeat bg-[center_top] will-change-[background-image]"
-      style={{ backgroundImage: `url(${heroLandscape})` }}
+      style={{ backgroundImage: "url('/dbg3.png')" }}
     >
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="absolute top-0 inset-x-0 z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5">
