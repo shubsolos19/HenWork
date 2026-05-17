@@ -27,14 +27,20 @@ const queryClient = new QueryClient({
   },
 });
 
+import Loader from '@/components/shared/Loader';
+
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-background">
-        <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-text-muted">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-black p-4 z-50 relative overflow-hidden">
+        <div className="flex flex-col items-center gap-24 relative w-full h-full max-w-md">
+          <div className="relative w-full h-40 flex items-center justify-center">
+            <Loader />
+          </div>
+          <p className="text-white font-medium animate-pulse text-center tracking-wider text-sm mt-4">
+            Loading...
+          </p>
         </div>
       </div>
     );

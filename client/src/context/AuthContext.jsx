@@ -10,10 +10,18 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const startTime = Date.now();
+    let loadTimeout;
+
     supabase.auth.getSession().then(({ data: { session: s } }) => {
       setSession(s);
       setUser(s?.user ?? null);
-      setLoading(false);
+      
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, 4500 - elapsedTime);
+      loadTimeout = setTimeout(() => {
+        setLoading(false);
+      }, remainingTime);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) => {
@@ -21,7 +29,10 @@ export function AuthProvider({ children }) {
       setUser(s?.user ?? null);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+      if (loadTimeout) clearTimeout(loadTimeout);
+    };
   }, []);
 
   // Keep axios token getter in sync
