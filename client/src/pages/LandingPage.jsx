@@ -19,9 +19,9 @@ export default function LandingPage() {
 
         <div className="relative z-10">
           <header className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-5 lg:grid lg:grid-cols-3">
-            <Link to="/" className="flex items-center gap-2 font-serif text-xl font-bold tracking-tight text-[#1a1a1a] sm:text-2xl lg:justify-self-start">
-              <Logo className="h-6 w-6 shrink-0" />
-              HenWork
+            <Link to="/" className="flex items-center gap-2.5 lg:justify-self-start">
+              <Logo className="h-8 w-8 sm:h-9 sm:w-9 shrink-0" />
+              <img src="/woodhw.png" alt="HenWork" className="h-7 sm:h-8 object-contain" />
             </Link>
             <nav className="hidden items-center gap-7 text-sm font-medium text-[#1a1a1a]/85 lg:flex lg:justify-self-center">
               {navLinks.map((l) => (

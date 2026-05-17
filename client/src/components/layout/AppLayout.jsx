@@ -60,8 +60,9 @@ export default function AppLayout() {
         )}>
           {/* Logo */}
           <div className="flex items-center gap-2 px-5 py-5 border-b border-white/5 bg-transparent">
-            <Link to="/" className="flex items-center gap-2 font-serif text-xl font-bold tracking-tight text-white">
-              <Logo className="h-6 w-6 shrink-0" /> HenWork
+            <Link to="/" className="flex items-center gap-2.5">
+              <Logo className="h-7 w-7 shrink-0" />
+              <img src="/woodhw.png" alt="HenWork" className="h-8 object-contain" />
             </Link>
             <button onClick={() => setSidebarOpen(false)} className="ml-auto lg:hidden text-white/50 hover:text-white">
               <X className="h-5 w-5" />

@@ -46,8 +46,9 @@ export default function SignupPage() {
     >
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="absolute top-0 inset-x-0 z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5">
-          <Link to="/" className="flex items-center gap-2 font-serif text-2xl font-bold tracking-tight">
-            <Logo className="h-7 w-7 shrink-0" /> HenWork
+          <Link to="/" className="flex items-center gap-2.5">
+            <Logo className="h-9 w-9 shrink-0" />
+            <img src="/woodhw.png" alt="HenWork" className="h-8 object-contain" />
           </Link>
         </header>
         <main className="flex flex-1 items-center justify-center px-6">
