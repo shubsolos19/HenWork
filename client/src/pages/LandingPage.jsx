@@ -111,8 +111,10 @@ export default function LandingPage() {
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center flex flex-col items-center justify-center">
-            <div className="mb-2 flex items-center justify-center">
-              <LoveReact size={56} color="rgb(255, 91, 137)" />
+            <div className="mb-2 flex items-center justify-center gap-4">
+              <LoveReact size={40} color="rgb(255, 91, 137)" />
+              <LoveReact size={56} color="rgb(34, 197, 94)" />
+              <LoveReact size={40} color="rgb(139, 92, 246)" />
             </div>
             <p className="mt-4 font-serif text-4xl leading-tight text-[#1a1a1a] sm:text-5xl">
               Everything you need,<br className="sm:hidden" /> nothing you don't.
