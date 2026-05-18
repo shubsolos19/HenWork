@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { useTasks, useCreateTask, useUpdateTask } from '@/hooks/useTasks';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -65,6 +65,7 @@ export default function ProjectPage() {
   const [filters, setFilters] = useState({});
   const [view, setView] = useState('board');
   const [showCreate, setShowCreate] = useState(false);
+  const showToast = useToast();
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -87,7 +88,11 @@ export default function ProjectPage() {
         priority: form.priority,
         dueDate: form.dueDate || undefined,
       });
-      toast.success('Task created successfully');
+      showToast({
+        type: 'success',
+        title: 'Task Created',
+        message: `Successfully created task: ${form.title}`
+      });
       setShowCreate(false);
       setForm({
         title: '',
@@ -97,7 +102,12 @@ export default function ProjectPage() {
         dueDate: new Date().toLocaleDateString('en-CA')
       });
     } catch (err) {
-      toast.error(err.message || 'Failed to create task', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Creation Failed',
+        message: err.message || 'Failed to create task',
+        duration: 4000
+      });
     }
   };
 

@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { useOrganization, useUpdateOrg, useDeleteOrg, useOrgMembers } from '@/hooks/useOrganizations';
 import { useProjects, useCreateProject } from '@/hooks/useProjects';
 import { useAuth } from '@/context/AuthContext';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +26,7 @@ export default function OrganizationPage() {
   const createProject = useCreateProject(orgId);
   const updateOrg = useUpdateOrg(orgId);
   const deleteOrg = useDeleteOrg(orgId);
+  const showToast = useToast();
   const [showCreate, setShowCreate] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
@@ -64,13 +65,22 @@ export default function OrganizationPage() {
     e.preventDefault();
     try {
       const proj = await createProject.mutateAsync({ name, description: desc });
-      toast.success('Project created');
+      showToast({
+        type: 'success',
+        title: 'Project Created',
+        message: `Successfully set up project: ${name}`
+      });
       setShowCreate(false);
       setName('');
       setDesc('');
       navigate(`/project/${proj.id}?orgId=${orgId}`);
     } catch (err) {
-      toast.error(err.message || 'Failed to create project', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Project Creation Failed',
+        message: err.message || 'Failed to create project',
+        duration: 4000
+      });
     }
   };
 
@@ -84,30 +94,41 @@ export default function OrganizationPage() {
     e.preventDefault();
     try {
       await updateOrg.mutateAsync({ name: editName, description: editDesc });
-      toast.success('Organization updated');
+      showToast({
+        type: 'success',
+        title: 'Workspace Updated',
+        message: 'Organization details updated successfully!'
+      });
       setShowEdit(false);
     } catch (err) {
-      toast.error(err.message || 'Failed to update organization', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Update Failed',
+        message: err.message || 'Failed to update organization',
+        duration: 4000
+      });
     }
   };
 
-  const handleDelete = () => {
-    toast.warning('Are you sure? This cannot be undone.', {
-      duration: Infinity,
-      action: {
-        label: 'Delete',
-        onClick: async () => {
-          try {
-            await deleteOrg.mutateAsync();
-            toast.success('Organization deleted');
-            navigate('/');
-          } catch (err) {
-            toast.error(err.message || 'Failed to delete organization', { duration: 4000 });
-          }
-        }
-      },
-      cancel: { label: 'Cancel' }
-    });
+  const handleDelete = async () => {
+    try {
+      await deleteOrg.mutateAsync();
+      showToast({
+        type: 'success',
+        title: 'Organization Deleted',
+        message: 'The organization workspace was successfully removed.'
+      });
+      setTimeout(() => {
+        navigate('/');
+      }, 100);
+    } catch (err) {
+      showToast({
+        type: 'error',
+        title: 'Deletion Failed',
+        message: err.message || 'Failed to delete organization',
+        duration: 4000
+      });
+    }
   };
 
   if (orgLoading) return <div className="space-y-4"><CardSkeleton /><CardSkeleton /></div>;

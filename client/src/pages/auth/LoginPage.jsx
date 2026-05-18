@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Loader2 } from 'lucide-react';
 import { SocialAuth } from '@/components/auth/SocialAuth';
 import { Logo } from '@/components/shared/Logo';
@@ -9,6 +9,7 @@ import { Logo } from '@/components/shared/Logo';
 export default function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  const showToast = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,10 +19,21 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await signIn({ email, password });
-      toast.success('Logged in successfully');
-      navigate('/dashboard');
+      showToast({
+        type: 'success',
+        title: 'Logged in successfully',
+        message: 'Welcome back to your serene workspace!'
+      });
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 100);
     } catch (err) {
-      toast.error(err.message || 'Invalid credentials', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Sign In Failed',
+        message: err.message || 'Invalid credentials',
+        duration: 4000
+      });
     } finally {
       setLoading(false);
     }

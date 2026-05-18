@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { useOrgMembers, useAddMember, useRemoveMember, useOrganization } from '@/hooks/useOrganizations';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +21,7 @@ export default function MembersPage() {
   const addMember = useAddMember(orgId);
   const removeMember = useRemoveMember(orgId);
   const isAdmin = org?.userRole === 'admin';
+  const showToast = useToast();
   const [showAdd, setShowAdd] = useState(false);
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('member');
@@ -58,27 +59,38 @@ export default function MembersPage() {
       setShowAdd(false);
       setEmail('');
       setRole('member');
-      toast.success(`Invite sent! We've sent an invitation email to ${email} via Henwork.`, { duration: 6000 });
+      showToast({
+        type: 'success',
+        title: 'Invitation Sent',
+        message: `We've sent an invitation email to ${email} via Henwork.`,
+        duration: 6000
+      });
     } catch (err) {
-      toast.error(err.message || "Failed to send invitation", { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Invitation Failed',
+        message: err.message || 'Failed to send invitation',
+        duration: 4000
+      });
     }
   };
 
-  const handleRemove = (memberId) => {
-    toast.warning('Remove this member?', {
-      action: {
-        label: 'Remove',
-        onClick: async () => {
-          try {
-            await removeMember.mutateAsync(memberId);
-            toast.success('Member removed');
-          } catch (err) {
-            toast.error(err.message || 'Failed to remove member', { duration: 4000 });
-          }
-        }
-      },
-      cancel: { label: 'Cancel' }
-    });
+  const handleRemove = async (memberId) => {
+    try {
+      await removeMember.mutateAsync(memberId);
+      showToast({
+        type: 'success',
+        title: 'Member Removed',
+        message: 'The member has been successfully removed from this workspace.'
+      });
+    } catch (err) {
+      showToast({
+        type: 'error',
+        title: 'Removal Failed',
+        message: err.message || 'Failed to remove member',
+        duration: 4000
+      });
+    }
   };
 
   return (

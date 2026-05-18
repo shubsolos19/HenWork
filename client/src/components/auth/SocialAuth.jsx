@@ -1,19 +1,24 @@
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
 export function SocialAuth() {
   const { signInWithGoogle } = useAuth();
   const [loading, setLoading] = useState(false);
+  const showToast = useToast();
 
   const handleGoogleSignIn = async () => {
     try {
       setLoading(true);
       await signInWithGoogle();
     } catch (err) {
-      toast.error(err.message || 'Google sign-in failed');
+      showToast({
+        type: 'error',
+        title: 'Sign In Failed',
+        message: err.message || 'Google sign-in failed'
+      });
       setLoading(false);
     }
   };

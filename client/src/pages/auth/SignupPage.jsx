@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Loader2 } from 'lucide-react';
 import { SocialAuth } from '@/components/auth/SocialAuth';
 import { Logo } from '@/components/shared/Logo';
@@ -9,6 +9,7 @@ import { Logo } from '@/components/shared/Logo';
 export default function SignupPage() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
+  const showToast = useToast();
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: '' });
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +18,12 @@ export default function SignupPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.password.length < 8) {
-      toast.error('Password must be at least 8 characters', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Validation Error',
+        message: 'Password must be at least 8 characters',
+        duration: 4000
+      });
       return;
     }
     setLoading(true);
@@ -25,14 +31,31 @@ export default function SignupPage() {
       const data = await signUp({ ...form, redirectTo: `${window.location.origin}/dashboard` });
 
       if (data?.session) {
-        toast.success('Account created! Welcome to Henwork.');
-        navigate('/dashboard', { replace: true });
+        showToast({
+          type: 'success',
+          title: 'Account Created',
+          message: 'Account created! Welcome to Henwork.'
+        });
+        setTimeout(() => {
+          navigate('/dashboard', { replace: true });
+        }, 100);
       } else {
-        toast.success('Signup successful! Please check your email to verify your account.');
-        navigate('/signup-success');
+        showToast({
+          type: 'success',
+          title: 'Signup Successful',
+          message: 'Please check your email to verify your account.'
+        });
+        setTimeout(() => {
+          navigate('/signup-success');
+        }, 100);
       }
     } catch (err) {
-      toast.error(err.message || 'Signup failed', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Signup Failed',
+        message: err.message || 'Signup failed',
+        duration: 4000
+      });
     } finally {
       setLoading(false);
     }

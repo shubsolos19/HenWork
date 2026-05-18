@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { supabase } from '@/lib/supabase';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,7 @@ export default function ProfilePage() {
   const { user } = useAuth();
   const { data: profile, isLoading } = useProfile();
   const updateProfile = useUpdateProfile();
+  const showToast = useToast();
   const fileInputRef = useRef(null);
 
   const [form, setForm] = useState({
@@ -37,9 +38,17 @@ export default function ProfilePage() {
         first_name: form.firstName,
         last_name: form.lastName,
       });
-      toast.success('Profile updated successfully');
+      showToast({
+        type: 'success',
+        title: 'Profile Updated',
+        message: 'Your personal information was saved successfully.'
+      });
     } catch (err) {
-      toast.error(err.message || 'Failed to update profile');
+      showToast({
+        type: 'error',
+        title: 'Update Failed',
+        message: err.message || 'Failed to update profile'
+      });
     }
   };
 
@@ -48,10 +57,18 @@ export default function ProfilePage() {
     if (!file) return;
 
     if (!['image/jpeg', 'image/png'].includes(file.type)) {
-      return toast.error('Only JPG and PNG images are allowed.');
+      return showToast({
+        type: 'error',
+        title: 'Unsupported File Format',
+        message: 'Only JPG and PNG images are allowed.'
+      });
     }
     if (file.size > 5 * 1024 * 1024) {
-      return toast.error('Image size must be less than 5MB.');
+      return showToast({
+        type: 'error',
+        title: 'File Too Large',
+        message: 'Image size must be less than 5MB.'
+      });
     }
 
     try {
@@ -71,9 +88,17 @@ export default function ProfilePage() {
         .getPublicUrl(filePath);
 
       await updateProfile.mutateAsync({ profile_picture_url: publicUrl });
-      toast.success('Profile picture updated!');
+      showToast({
+        type: 'success',
+        title: 'Avatar Updated',
+        message: 'Profile picture updated successfully!'
+      });
     } catch (err) {
-      toast.error(err.message || 'Failed to upload image');
+      showToast({
+        type: 'error',
+        title: 'Upload Failed',
+        message: err.message || 'Failed to upload image'
+      });
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -83,9 +108,17 @@ export default function ProfilePage() {
   const handleRemovePicture = async () => {
     try {
       await updateProfile.mutateAsync({ profile_picture_url: null });
-      toast.success('Profile picture removed');
+      showToast({
+        type: 'success',
+        title: 'Avatar Removed',
+        message: 'Your profile picture was successfully removed.'
+      });
     } catch (err) {
-      toast.error(err.message || 'Failed to remove picture');
+      showToast({
+        type: 'error',
+        title: 'Removal Failed',
+        message: err.message || 'Failed to remove picture'
+      });
     }
   };
 

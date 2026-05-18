@@ -5,7 +5,7 @@ import { useComments, useAddComment, useDeleteComment, useStarComment, useUnstar
 import { useTaskAttachments, useUploadAttachment, useDeleteAttachment } from '@/hooks/useAttachments';
 import { useOrgMembers, useOrganization } from '@/hooks/useOrganizations';
 import { useAuth } from '@/context/AuthContext';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -55,6 +55,7 @@ export default function TaskDetailPage() {
   const [mentionTriggerIndex, setMentionTriggerIndex] = useState(-1);
 
   const { data: orgMembers } = useOrgMembers(orgId);
+  const showToast = useToast();
 
   // Extract all unique users who have commented in this task
   const uniqueCommenters = [];
@@ -103,7 +104,11 @@ export default function TaskDetailPage() {
     // Check total size (25MB)
     const totalSize = files.reduce((acc, f) => acc + f.size, 0);
     if (totalSize > 25 * 1024 * 1024) {
-      toast.error('Total file size must be less than 25MB');
+      showToast({
+        type: 'error',
+        title: 'File Size Limit',
+        message: 'Total file size must be less than 25MB'
+      });
       return;
     }
 
@@ -115,19 +120,31 @@ export default function TaskDetailPage() {
         await uploadAttachment.mutateAsync({ orgId, projectId, taskId, file });
         successCount++;
       } catch (err) {
-        toast.error(`Failed to upload ${file.name}: ${err.message}`);
+        showToast({
+          type: 'error',
+          title: 'Upload Failed',
+          message: `Failed to upload ${file.name}: ${err.message}`
+        });
       }
     }
 
     setIsUploading(false);
     if (successCount > 0) {
-      toast.success(`Successfully uploaded ${successCount} file(s)`);
+      showToast({
+        type: 'success',
+        title: 'Upload Complete',
+        message: `Successfully uploaded ${successCount} file(s)`
+      });
     }
     e.target.value = ''; // Reset input
   };
 
   const handleDownload = async (file) => {
-    const toastId = toast.loading(`Downloading ${file.file_name}...`);
+    const toastId = showToast({
+      type: 'loading',
+      title: 'Downloading file',
+      message: `Downloading ${file.file_name}...`
+    });
     try {
       const { url, fileName } = await attachmentService.getDownloadUrl(file.id);
 
@@ -146,10 +163,20 @@ export default function TaskDetailPage() {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(downloadUrl);
 
-      toast.success(`${fileName || file.file_name} downloaded successfully`, { id: toastId });
+      showToast({
+        id: toastId,
+        type: 'success',
+        title: 'Download Successful',
+        message: `${fileName || file.file_name} downloaded successfully`
+      });
     } catch (err) {
       console.error('Download error:', err);
-      toast.error(err.message || `Failed to download ${file.file_name}`, { id: toastId });
+      showToast({
+        id: toastId,
+        type: 'error',
+        title: 'Download Failed',
+        message: err.message || `Failed to download ${file.file_name}`
+      });
     }
   };
 
@@ -163,35 +190,55 @@ export default function TaskDetailPage() {
 
   const handleStatusChange = (status) => {
     updateTask.mutate({ taskId, status }, {
-      onSuccess: () => toast.success('Status updated'),
-      onError: (err) => toast.error(err.message || 'Failed to update status', { duration: 4000 })
+      onSuccess: () => showToast({
+        type: 'success',
+        title: 'Status Updated',
+        message: 'Task status updated successfully.'
+      }),
+      onError: (err) => showToast({
+        type: 'error',
+        title: 'Update Failed',
+        message: err.message || 'Failed to update status',
+        duration: 4000
+      })
     });
   };
 
   const handlePriorityChange = (priority) => {
     updateTask.mutate({ taskId, priority }, {
-      onSuccess: () => toast.success('Priority updated'),
-      onError: (err) => toast.error(err.message || 'Failed to update priority', { duration: 4000 })
+      onSuccess: () => showToast({
+        type: 'success',
+        title: 'Priority Updated',
+        message: 'Task priority updated successfully.'
+      }),
+      onError: (err) => showToast({
+        type: 'error',
+        title: 'Update Failed',
+        message: err.message || 'Failed to update priority',
+        duration: 4000
+      })
     });
   };
 
-  const handleDelete = () => {
-    toast.warning('Are you sure? This cannot be undone.', {
-      duration: Infinity,
-      action: {
-        label: 'Delete Task',
-        onClick: async () => {
-          try {
-            await deleteTask.mutateAsync(taskId);
-            toast.success('Task deleted');
-            navigate((from === 'dashboard' || !orgId) ? '/dashboard' : `/project/${projectId}?orgId=${orgId}`);
-          } catch (err) {
-            toast.error(err.message || 'Failed to delete task', { duration: 4000 });
-          }
-        }
-      },
-      cancel: { label: 'Cancel' }
-    });
+  const handleDelete = async () => {
+    try {
+      await deleteTask.mutateAsync(taskId);
+      showToast({
+        type: 'success',
+        title: 'Task Deleted',
+        message: 'The task has been permanently removed.'
+      });
+      setTimeout(() => {
+        navigate((from === 'dashboard' || !orgId) ? '/dashboard' : `/project/${projectId}?orgId=${orgId}`);
+      }, 100);
+    } catch (err) {
+      showToast({
+        type: 'error',
+        title: 'Deletion Failed',
+        message: err.message || 'Failed to delete task',
+        duration: 4000
+      });
+    }
   };
 
   const handleComment = async (e) => {
@@ -202,7 +249,12 @@ export default function TaskDetailPage() {
       setCommentText('');
       setShowMentionsDropdown(false);
     } catch (err) {
-      toast.error(err.message || 'Failed to add comment', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Comment Failed',
+        message: err.message || 'Failed to add comment',
+        duration: 4000
+      });
     }
   };
 
@@ -245,31 +297,59 @@ export default function TaskDetailPage() {
     try {
       if (comment.starred) {
         await unstarComment.mutateAsync(comment.id);
-        toast.success('Comment unstarred');
+        showToast({
+          type: 'success',
+          title: 'Comment Unstarred',
+          message: 'The comment star was removed.'
+        });
       } else {
         await starComment.mutateAsync(comment.id);
-        toast.success('Comment starred!');
+        showToast({
+          type: 'success',
+          title: 'Comment Starred',
+          message: 'The comment was successfully starred!'
+        });
       }
     } catch (err) {
-      toast.error(err.message || 'Failed to toggle star');
+      showToast({
+        type: 'error',
+        title: 'Action Failed',
+        message: err.message || 'Failed to toggle star'
+      });
     }
   };
 
   const handleAssign = async (userId) => {
     try {
       await assignUser.mutateAsync(userId);
-      toast.success('Member assigned');
+      showToast({
+        type: 'success',
+        title: 'Member Assigned',
+        message: 'Member has been successfully assigned to this task.'
+      });
     } catch (err) {
-      toast.error(err.message || 'Failed to assign member');
+      showToast({
+        type: 'error',
+        title: 'Assignment Failed',
+        message: err.message || 'Failed to assign member'
+      });
     }
   };
 
   const handleUnassign = async (userId) => {
     try {
       await unassignUser.mutateAsync(userId);
-      toast.success('Member removed');
+      showToast({
+        type: 'success',
+        title: 'Member Unassigned',
+        message: 'Member has been unassigned from this task.'
+      });
     } catch (err) {
-      toast.error(err.message || 'Failed to remove member');
+      showToast({
+        type: 'error',
+        title: 'Unassignment Failed',
+        message: err.message || 'Failed to remove member'
+      });
     }
   };
 

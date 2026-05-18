@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateOrg } from '@/hooks/useOrganizations';
-import { toast } from 'sonner';
+import { useToast } from '@/hooks/useToast';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ import { Building2, Loader2, ArrowLeft } from 'lucide-react';
 export default function NewOrgPage() {
   const navigate = useNavigate();
   const createOrg = useCreateOrg();
+  const showToast = useToast();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
@@ -17,10 +18,21 @@ export default function NewOrgPage() {
     e.preventDefault();
     try {
       const org = await createOrg.mutateAsync({ name, description });
-      toast.success('Organization created!');
-      navigate(`/org/${org.id}`);
+      showToast({
+        type: 'success',
+        title: 'Organization Created',
+        message: `Successfully set up workspace: ${name}`
+      });
+      setTimeout(() => {
+        navigate(`/org/${org.id}`);
+      }, 100);
     } catch (err) {
-      toast.error(err.message || 'Failed to create organization', { duration: 4000 });
+      showToast({
+        type: 'error',
+        title: 'Workspace Creation Failed',
+        message: err.message || 'Failed to create organization',
+        duration: 4000
+      });
     }
   };
 
