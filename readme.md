@@ -195,5 +195,8 @@ Contributions are welcome! Please:
 <br/>
 
 *Built with ❤️ for modern agile teams.*
+<br/>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=d4af37&height=100&section=footer&animation=fadeIn" width="100%"/>
 
 </div>
