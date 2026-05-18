@@ -16,6 +16,7 @@ export default function LandingPage() {
       icon: Layers,
       bgColor: 'bg-[#2c4e3f]', // Sage Foliage / Meadow Grass Green
       textColor: '#2c4e3f',
+      buttonText: 'Wanna See!',
     },
     {
       name: 'Serene Workflows',
@@ -23,6 +24,7 @@ export default function LandingPage() {
       icon: Kanban,
       bgColor: 'bg-[#50136cff]', // Crimson Sunset Sky
       textColor: '#50136cff',
+      buttonText: "Let's Go!",
     },
     {
       name: 'Rich Task Context',
@@ -30,6 +32,7 @@ export default function LandingPage() {
       icon: Paperclip,
       bgColor: 'bg-[#7b4312ff]', // Golden Wheat Field
       textColor: '#7b4312ff',
+      buttonText: 'Jump In',
     },
     {
       name: 'Overdue Tracking',
@@ -37,6 +40,7 @@ export default function LandingPage() {
       icon: Clock,
       bgColor: 'bg-[#065668]', // Earthy Clay / Soil
       textColor: '#065668',
+      buttonText: 'See the Magic',
     },
   ];
 
@@ -53,10 +57,10 @@ export default function LandingPage() {
         />
 
         <div className="relative z-10">
-          <header className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-5 lg:grid lg:grid-cols-3">
+          <header className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 lg:grid lg:grid-cols-3">
             <Link to="/" className="flex items-center gap-2.5 lg:justify-self-start">
-              <Logo className="h-8 w-8 sm:h-9 sm:w-9 shrink-0" />
-              <img src="/woodhw.png" alt="HenWork" className="h-7 sm:h-8 object-contain" />
+              <Logo className="h-8 w-8 sm:h-9 sm:w-9 lg:h-11 lg:w-11 shrink-0" />
+              <img src="/woodhw.png" alt="HenWork" className="h-7 sm:h-8 lg:h-9 object-contain" />
             </Link>
             <nav className="hidden items-center gap-7 text-sm font-medium text-[#1a1a1a]/85 lg:flex lg:justify-self-center">
               {navLinks.map((l) => (
@@ -85,11 +89,11 @@ export default function LandingPage() {
             <h1 className="font-serif text-5xl leading-[1.05] text-[#1a1a1a] sm:text-6xl md:text-7xl animate-fade-in">
               Team work, finally
               <br />
-              at a calmer pace.
+              at a calmer pace
             </h1>
             <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-[#1a1a1a]/80 animate-fade-in" style={{ animationDelay: '100ms' }}>
               Organize your team, projects, and tasks in one beautiful workspace
-              <br className="hidden sm:block" /> built for clarity, not clutter.
+              <br className="hidden sm:block" /> built for clarity, not clutter
             </p>
             <div className="mt-10 flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
               <Link
@@ -161,7 +165,7 @@ export default function LandingPage() {
                     className="mt-6 w-full text-center px-6 py-3 bg-white font-semibold rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white text-sm"
                     style={{ color: feature.textColor }}
                   >
-                    Learn More
+                    {feature.buttonText}
                   </Link>
                 </NoiseCard>
               ))}

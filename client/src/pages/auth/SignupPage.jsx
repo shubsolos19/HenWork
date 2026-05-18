@@ -67,10 +67,10 @@ export default function SignupPage() {
       style={{ backgroundImage: "url('/dbg3.png')" }}
     >
       <div className="relative z-10 flex min-h-screen flex-col">
-        <header className="absolute top-0 inset-x-0 z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 py-4 sm:py-5">
+        <header className="absolute top-0 inset-x-0 z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6">
           <Link to="/" className="flex items-center gap-2.5">
-            <Logo className="h-8 w-8 sm:h-9 sm:w-9 shrink-0" />
-            <img src="/woodhw.png" alt="HenWork" className="h-7 sm:h-8 object-contain" />
+            <Logo className="h-8 w-8 sm:h-9 sm:w-9 lg:h-11 lg:w-11 shrink-0" />
+            <img src="/woodhw.png" alt="HenWork" className="h-7 sm:h-8 lg:h-9 object-contain" />
           </Link>
         </header>
         <main className="flex flex-1 items-center justify-center px-4 pt-20 pb-8 sm:py-0">

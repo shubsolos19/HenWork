@@ -19,7 +19,11 @@ export default function AuthCallback() {
         syncAttempted.current = true;
         try {
           // Sync Google profile picture on login/signup
-          await api.post('/auth/sync');
+          await api.post('/auth/sync', {}, {
+            headers: {
+              Authorization: `Bearer ${session.access_token}`
+            }
+          });
         } catch (err) {
           console.error('Failed to sync Google profile:', err);
         } finally {
