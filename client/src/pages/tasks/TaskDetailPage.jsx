@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { useTask, useUpdateTask, useDeleteTask, useAssignUser, useUnassignUser } from '@/hooks/useTasks';
-import { useComments, useAddComment, useDeleteComment } from '@/hooks/useComments';
+import { useComments, useAddComment, useDeleteComment, useStarComment, useUnstarComment } from '@/hooks/useComments';
 import { useTaskAttachments, useUploadAttachment, useDeleteAttachment } from '@/hooks/useAttachments';
 import { useOrgMembers, useOrganization } from '@/hooks/useOrganizations';
 import { useAuth } from '@/context/AuthContext';
@@ -17,7 +17,7 @@ import { getStatusLabel, getPriorityColor, formatDate, formatRelative, isOverdue
 import {
   ArrowLeft, Calendar, Flag, Clock, Trash2, Loader2,
   MessageSquare, Send, CheckCircle2, Paperclip, Download, File, X, HardDrive, Plus,
-  Users, UserPlus
+  Users, UserPlus, Star
 } from 'lucide-react';
 import { attachmentService } from '@/services/attachments.service';
 import { supabase } from '@/lib/supabase';
@@ -37,6 +37,8 @@ export default function TaskDetailPage() {
   const { data: comments, isLoading: commentsLoading } = useComments(taskId);
   const addComment = useAddComment(taskId);
   const delComment = useDeleteComment(taskId);
+  const starComment = useStarComment(taskId);
+  const unstarComment = useUnstarComment(taskId);
 
   // Attachments
   const { data: attachments, isLoading: attachmentsLoading } = useTaskAttachments(taskId);
@@ -47,7 +49,37 @@ export default function TaskDetailPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [showMemberSelector, setShowMemberSelector] = useState(false);
 
+  // Mention autocomplete states
+  const [showMentionsDropdown, setShowMentionsDropdown] = useState(false);
+  const [mentionSearch, setMentionSearch] = useState('');
+  const [mentionTriggerIndex, setMentionTriggerIndex] = useState(-1);
+
   const { data: orgMembers } = useOrgMembers(orgId);
+
+  // Extract all unique users who have commented in this task
+  const uniqueCommenters = [];
+  const seenUserIds = new Set();
+  if (comments && comments.length > 0) {
+    comments.forEach((c) => {
+      if (c.user_id && !seenUserIds.has(c.user_id)) {
+        seenUserIds.add(c.user_id);
+        const nameParts = (c.user_full_name || 'Unknown User').split(' ');
+        uniqueCommenters.push({
+          id: c.user_id,
+          user_id: c.user_id,
+          fullName: c.user_full_name || 'Unknown User',
+          firstName: nameParts[0] || '',
+          lastName: nameParts.slice(1).join(' ') || '',
+          profile_picture_url: c.profile_picture_url,
+          email: orgMembers?.find(m => m.user_id === c.user_id)?.email || '',
+        });
+      }
+    });
+  }
+
+  const filteredMembers = uniqueCommenters.filter((m) => {
+    return m.fullName.toLowerCase().includes(mentionSearch);
+  });
   const { data: org } = useOrganization(orgId);
   const assignUser = useAssignUser(taskId, projectId);
   const unassignUser = useUnassignUser(taskId, projectId);
@@ -98,22 +130,22 @@ export default function TaskDetailPage() {
     const toastId = toast.loading(`Downloading ${file.file_name}...`);
     try {
       const { url, fileName } = await attachmentService.getDownloadUrl(file.id);
-      
+
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to retrieve file from storage server');
 
       const blob = await response.blob();
       const downloadUrl = window.URL.createObjectURL(blob);
-      
+
       const link = document.createElement('a');
       link.href = downloadUrl;
       link.download = fileName || file.file_name;
       document.body.appendChild(link);
       link.click();
-      
+
       document.body.removeChild(link);
       window.URL.revokeObjectURL(downloadUrl);
-      
+
       toast.success(`${fileName || file.file_name} downloaded successfully`, { id: toastId });
     } catch (err) {
       console.error('Download error:', err);
@@ -168,8 +200,58 @@ export default function TaskDetailPage() {
     try {
       await addComment.mutateAsync(commentText.trim());
       setCommentText('');
+      setShowMentionsDropdown(false);
     } catch (err) {
       toast.error(err.message || 'Failed to add comment', { duration: 4000 });
+    }
+  };
+
+  const handleCommentInputChange = (e) => {
+    const val = e.target.value;
+    setCommentText(val);
+
+    const selectionStart = e.target.selectionStart || 0;
+    const textBeforeCursor = val.slice(0, selectionStart);
+    const lastAtIdx = textBeforeCursor.lastIndexOf('@');
+
+    if (lastAtIdx !== -1 && (lastAtIdx === 0 || /\s/.test(textBeforeCursor[lastAtIdx - 1]))) {
+      const searchPart = textBeforeCursor.slice(lastAtIdx + 1);
+      if (!/\s/.test(searchPart)) {
+        setShowMentionsDropdown(true);
+        setMentionSearch(searchPart.toLowerCase());
+        setMentionTriggerIndex(lastAtIdx);
+        return;
+      }
+    }
+    setShowMentionsDropdown(false);
+  };
+
+  const insertMention = (member) => {
+    const mentionText = `${member.firstName || ''}${member.lastName || ''}`;
+    const beforeStr = commentText.slice(0, mentionTriggerIndex);
+    const afterStr = commentText.slice(mentionTriggerIndex + mentionSearch.length + 1);
+
+    setCommentText(`${beforeStr}@${mentionText} ${afterStr}`);
+    setShowMentionsDropdown(false);
+
+    // Set focus back to input
+    const inputEl = document.getElementById('comment-input');
+    if (inputEl) {
+      inputEl.focus();
+    }
+  };
+
+  const handleToggleStar = async (comment) => {
+    try {
+      if (comment.starred) {
+        await unstarComment.mutateAsync(comment.id);
+        toast.success('Comment unstarred');
+      } else {
+        await starComment.mutateAsync(comment.id);
+        toast.success('Comment starred!');
+      }
+    } catch (err) {
+      toast.error(err.message || 'Failed to toggle star');
     }
   };
 
@@ -424,7 +506,7 @@ export default function TaskDetailPage() {
                         <Download className="h-3.5 w-3.5" />
                       </Button>
                       {(file.uploaded_by === user?.id || task?.role === 'admin') && (
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:bg-destructive/10" 
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:bg-destructive/10"
                           onClick={() => deleteAttachment.mutate(file.id)} title="Delete">
                           <Trash2 className="h-3.5 w-3.5" />
                         </Button>
@@ -465,12 +547,30 @@ export default function TaskDetailPage() {
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-medium text-text">{c.user_full_name}</span>
                       <span className="text-xs text-text-muted">{formatRelative(c.created_at)}</span>
-                      {c.user_id === user?.id && (
-                        <button onClick={() => delComment.mutate(c.id)}
-                          className="opacity-0 group-hover:opacity-100 text-text-muted hover:text-destructive transition-all ml-auto">
-                          <Trash2 className="h-3 w-3" />
+
+                      <div className="flex items-center gap-2 ml-auto shrink-0">
+                        {/* Star Button */}
+                        <button
+                          onClick={() => handleToggleStar(c)}
+                          className={cn(
+                            "transition-all focus:outline-none",
+                            c.starred
+                              ? "text-[#f59e0b] hover:text-[#d97706]"
+                              : "text-white/40 opacity-0 group-hover:opacity-100 hover:text-[#f59e0b]"
+                          )}
+                          title={c.starred ? "Unstar Comment" : "Star Comment"}
+                        >
+                          <Star className={cn("h-3.5 w-3.5", c.starred && "fill-current")} />
                         </button>
-                      )}
+
+                        {/* Trash Button */}
+                        {c.user_id === user?.id && (
+                          <button onClick={() => delComment.mutate(c.id)}
+                            className="opacity-0 group-hover:opacity-100 text-text-muted hover:text-destructive transition-all">
+                            <Trash2 className="h-3 w-3" />
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <p className="text-sm text-text-secondary mt-0.5 whitespace-pre-wrap">{c.content}</p>
                   </div>
@@ -480,14 +580,51 @@ export default function TaskDetailPage() {
           )}
 
           {/* Add comment */}
-          <form onSubmit={handleComment} className="flex gap-2 pt-2 border-t border-border">
-            <Input placeholder="Write a comment..." value={commentText} onChange={(e) => setCommentText(e.target.value)}
-              className="flex-1" />
-            <Button type="submit" size="icon" disabled={!commentText.trim() || addComment.isPending}
-              className="bg-[#000000] hover:bg-[#000000]/90 text-white transition-colors">
-              {addComment.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            </Button>
-          </form>
+          <div className="relative pt-2 border-t border-border">
+            {/* Mentions Autocomplete Dropdown */}
+            {showMentionsDropdown && filteredMembers.length > 0 && (
+              <div className="absolute bottom-full left-0 mb-2 w-64 max-h-48 overflow-y-auto rounded-xl border border-white/10 bg-black/90 backdrop-blur-md shadow-2xl p-1 z-50">
+                {filteredMembers.map((member) => {
+                  const fName = member.profile?.first_name || member.firstName || '';
+                  const lName = member.profile?.last_name || member.lastName || '';
+                  return (
+                    <button
+                      key={member.id}
+                      type="button"
+                      onClick={() => insertMention(member)}
+                      className="w-full text-left px-3 py-2 rounded-lg text-xs font-semibold text-white/90 hover:bg-[#7c3aed]/20 hover:text-white transition-colors flex items-center gap-2"
+                    >
+                      <Avatar
+                        src={member.profile?.avatar_url || member.profile_picture_url}
+                        firstName={fName}
+                        lastName={lName}
+                        size="sm"
+                      />
+                      <div className="truncate flex-1">
+                        <p className="truncate text-white font-medium">{fName} {lName}</p>
+                        <p className="text-[10px] text-white/40 truncate">{member.email}</p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            <form onSubmit={handleComment} className="flex gap-2">
+              <Input
+                id="comment-input"
+                placeholder="Write a comment (use @ to mention team)..."
+                value={commentText}
+                onChange={handleCommentInputChange}
+                className="flex-1"
+                autoComplete="off"
+              />
+              <Button type="submit" size="icon" disabled={!commentText.trim() || addComment.isPending}
+                className="bg-[#000000] hover:bg-[#000000]/90 text-white transition-colors">
+                {addComment.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              </Button>
+            </form>
+          </div>
         </CardContent>
       </Card>
 

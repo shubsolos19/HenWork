@@ -15,3 +15,17 @@ exports.getRecentTasks = async (req, res, next) => {
     return success(res, tasks);
   } catch (err) { next(err); }
 };
+
+exports.getMentions = async (req, res, next) => {
+  try {
+    const comments = await dashboardService.getMentions(req.supabase, req.user.id);
+    return success(res, comments);
+  } catch (err) { next(err); }
+};
+
+exports.getStarred = async (req, res, next) => {
+  try {
+    const comments = await dashboardService.getStarred(req.supabase, req.user.id);
+    return success(res, comments);
+  } catch (err) { next(err); }
+};

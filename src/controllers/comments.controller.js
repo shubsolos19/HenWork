@@ -21,3 +21,17 @@ exports.remove = async (req, res, next) => {
     return noContent(res);
   } catch (err) { next(err); }
 };
+
+exports.star = async (req, res, next) => {
+  try {
+    const data = await commentService.starComment(req.supabase, req.user.id, req.params.commentId);
+    return success(res, data);
+  } catch (err) { next(err); }
+};
+
+exports.unstar = async (req, res, next) => {
+  try {
+    await commentService.unstarComment(req.supabase, req.user.id, req.params.commentId);
+    return noContent(res);
+  } catch (err) { next(err); }
+};

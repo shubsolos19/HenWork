@@ -142,8 +142,8 @@ export default function MembersPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge 
-                      variant={m.role === 'admin' ? 'default' : 'outline'} 
+                    <Badge
+                      variant={m.role === 'admin' ? 'default' : 'outline'}
                       className={m.role !== 'admin' ? 'bg-white text-black border-none font-semibold capitalize px-2.5 py-0.5' : ''}
                     >
                       {m.role}

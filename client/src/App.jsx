@@ -51,6 +51,9 @@ function ProtectedRoute({ children }) {
 function PublicRoute({ children }) {
   const { user, loading } = useAuth();
   if (loading) {
+    if (window.location.pathname === '/') {
+      return children;
+    }
     return (
       <div className="min-h-screen flex items-center justify-center bg-black p-4 z-50 relative overflow-hidden">
         <div className="flex flex-col items-center gap-16 relative w-full h-full max-w-md">

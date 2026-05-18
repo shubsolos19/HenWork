@@ -121,8 +121,8 @@ export default function ProjectPage() {
             <button onClick={() => setView('board')}
               className={cn(
                 'px-3 py-1.5 text-xs transition-all duration-200',
-                view === 'board' 
-                  ? 'bg-white/20 text-white font-medium' 
+                view === 'board'
+                  ? 'bg-white/20 text-white font-medium'
                   : 'text-white/60 hover:text-white hover:bg-white/5'
               )}>
               <LayoutGrid className="h-3.5 w-3.5" />
@@ -130,8 +130,8 @@ export default function ProjectPage() {
             <button onClick={() => setView('list')}
               className={cn(
                 'px-3 py-1.5 text-xs transition-all duration-200',
-                view === 'list' 
-                  ? 'bg-white/20 text-white font-medium' 
+                view === 'list'
+                  ? 'bg-white/20 text-white font-medium'
                   : 'text-white/60 hover:text-white hover:bg-white/5'
               )}>
               <ListTodo className="h-3.5 w-3.5" />

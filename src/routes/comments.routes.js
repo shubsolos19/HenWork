@@ -20,8 +20,17 @@ const deleteSchema = {
   }),
 };
 
+const starSchema = {
+  params: Joi.object({
+    taskId: Joi.string().uuid().required(),
+    commentId: Joi.string().uuid().required(),
+  }),
+};
+
 router.post('/', authenticate, validate(createSchema), ctrl.create);
 router.get('/', authenticate, ctrl.list);
 router.delete('/:commentId', authenticate, validate(deleteSchema), ctrl.remove);
+router.post('/:commentId/star', authenticate, validate(starSchema), ctrl.star);
+router.delete('/:commentId/star', authenticate, validate(starSchema), ctrl.unstar);
 
 module.exports = router;

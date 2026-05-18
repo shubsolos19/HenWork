@@ -127,8 +127,8 @@ export default function OrganizationPage() {
           </div>
           {org?.description && <p className="text-white mt-1">{org.description}</p>}
           <div className="flex items-center gap-3 mt-2">
-            <Badge 
-              variant={org?.userRole === 'admin' ? 'default' : 'outline'} 
+            <Badge
+              variant={org?.userRole === 'admin' ? 'default' : 'outline'}
               className={org?.userRole !== 'admin' ? 'bg-white text-black border-none font-semibold capitalize px-2.5 py-0.5' : ''}
             >
               {org?.userRole}

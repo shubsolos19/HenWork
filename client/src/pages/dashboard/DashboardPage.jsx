@@ -1,21 +1,27 @@
-import { Link } from 'react-router-dom';
-import { useDashboardStats, useRecentTasks } from '@/hooks/useDashboard';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useDashboardStats, useRecentTasks, useDashboardMentions, useDashboardStarred } from '@/hooks/useDashboard';
 import { useOrganizations } from '@/hooks/useOrganizations';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/shared/EmptyState';
+import { Avatar } from '@/components/ui/avatar';
 import { StatsSkeleton, ListSkeleton, CardSkeleton } from '@/components/shared/LoadingSkeleton';
-import { getStatusLabel, getStatusColor, getPriorityColor, formatDate, isOverdue } from '@/lib/utils';
+import { getStatusLabel, getStatusColor, getPriorityColor, formatDate, formatRelative, isOverdue } from '@/lib/utils';
 import {
-  ListTodo, Clock, CheckCircle2, AlertTriangle, Building2, Plus, ArrowRight
+  ListTodo, Clock, CheckCircle2, AlertTriangle, Building2, Plus, ArrowRight, MessageSquare, AtSign, Star, ArrowLeft
 } from 'lucide-react';
 import wallpaperVideo from '@/assets/dbgg.mp4';
 
 export default function DashboardPage() {
+  const [searchParams] = useSearchParams();
+  const view = searchParams.get('view');
+
   const { data: stats, isLoading: statsLoading } = useDashboardStats();
   const { data: recentTasks, isLoading: tasksLoading } = useRecentTasks(8);
   const { data: orgs, isLoading: orgsLoading } = useOrganizations();
+  const { data: mentions, isLoading: mentionsLoading } = useDashboardMentions();
+  const { data: starred, isLoading: starredLoading } = useDashboardStarred();
 
   const statCards = [
     { label: 'Total Tasks', value: stats?.totalTasks ?? 0, icon: ListTodo, color: 'text-[#a78bfa]', bg: 'bg-[#7c3aed]/20' },
@@ -23,6 +29,73 @@ export default function DashboardPage() {
     { label: 'Completed', value: stats?.completed ?? 0, icon: CheckCircle2, color: 'text-[#34d399]', bg: 'bg-[#10b981]/20' },
     { label: 'Overdue', value: stats?.overdue ?? 0, icon: AlertTriangle, color: 'text-[#ff0000]', bg: 'bg-[#ef4444]/20' },
   ];
+
+  const pageTitle = view === 'mentions' ? 'Mentions' : view === 'starred' ? 'Starred' : 'Dashboard';
+  const pageSubtitle = view === 'mentions' ? 'Comments where you are mentioned' : view === 'starred' ? 'Your starred comments' : 'Overview of your tasks and organizations';
+
+  if (view === 'mentions' || view === 'starred') {
+    const commentsData = view === 'mentions' ? mentions : starred;
+    const commentsLoading = view === 'mentions' ? mentionsLoading : starredLoading;
+
+    return (
+      <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 -mt-2">
+        <div className="flex items-center gap-3">
+          <Link to="/dashboard" className="h-8 w-8 rounded-full bg-white/5 hover:bg-white/10 transition-all flex items-center justify-center text-white">
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <div className="flex flex-col gap-0.5">
+            <h1 className="text-xl font-bold tracking-tight text-white">{pageTitle}</h1>
+            <p className="text-white text-[10px] font-medium">{pageSubtitle}</p>
+          </div>
+        </div>
+
+        <div className="glass p-8">
+          {commentsLoading ? (
+            <ListSkeleton rows={4} />
+          ) : !commentsData?.length ? (
+            <EmptyState
+              icon={view === 'mentions' ? AtSign : Star}
+              title={view === 'mentions' ? "No mentions yet" : "No starred comments"}
+              description={view === 'mentions' ? "When teammates mention you using @Name, they will show up here." : "Comments you star will appear in this list."}
+            />
+          ) : (
+            <div className="space-y-4">
+              {commentsData.map((c) => (
+                <Link
+                  key={c.id}
+                  to={`/task/${c.task_id}?projectId=${c.project_id}&from=dashboard`}
+                  className="block p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 group"
+                >
+                  <div className="flex gap-3">
+                    <Avatar
+                      src={c.profile_picture_url}
+                      firstName={c.user_full_name?.split(' ')[0]}
+                      lastName={c.user_full_name?.split(' ')[1] || ''}
+                      size="sm"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-semibold text-white group-hover:text-[#a78bfa] transition-colors">
+                            {c.user_full_name}
+                          </span>
+                          <span className="text-xs text-white/50">{formatRelative(c.created_at)}</span>
+                        </div>
+                        <Badge className="text-[10px] uppercase bg-[#7c3aed]/20 text-[#a78bfa] border-none px-2 py-0">
+                          {c.task_title}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-white/80 mt-1 whitespace-pre-wrap">{c.content}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 -mt-2">

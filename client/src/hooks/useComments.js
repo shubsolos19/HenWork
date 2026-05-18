@@ -24,3 +24,19 @@ export function useDeleteComment(taskId) {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['comments', taskId] }),
   });
 }
+
+export function useStarComment(taskId) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (commentId) => api.post(`/tasks/${taskId}/comments/${commentId}/star`),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['comments', taskId] }),
+  });
+}
+
+export function useUnstarComment(taskId) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (commentId) => api.delete(`/tasks/${taskId}/comments/${commentId}/star`),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['comments', taskId] }),
+  });
+}

@@ -6,8 +6,8 @@ import { useProfile } from '@/hooks/useProfile';
 import { Button } from '@/components/ui/button';
 import { Avatar } from '@/components/ui/avatar';
 import {
-  LayoutDashboard, Building2, Plus, LogOut, Menu, X,
-  ChevronDown, FolderKanban, Settings
+  Building2, Plus, LogOut, Menu, X,
+  ChevronDown, FolderKanban, Settings, AtSign, Star
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import wallpaperVideo from '@/assets/dbgg.mp4';
@@ -30,10 +30,6 @@ export default function AppLayout() {
     await signOut();
     navigate('/login');
   };
-
-  const navItems = [
-    { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  ];
 
   return (
     <div className="flex h-screen overflow-hidden font-sans text-white relative">
@@ -70,18 +66,36 @@ export default function AppLayout() {
           </div>
 
           <nav className="flex-1 overflow-y-auto p-3 space-y-1 bg-transparent">
-            {navItems.map((item) => (
-              <Link key={item.to} to={item.to} onClick={() => setSidebarOpen(false)}
-                className={cn(
-                  'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
-                  location.pathname === item.to
-                    ? 'bg-[#7c3aed]/20 text-[#a78bfa] shadow-[inset_0_0_12px_rgba(124,58,237,0.1)] border border-[#7c3aed]/20'
-                    : 'text-white hover:bg-white/5'
-                )}>
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </Link>
-            ))}
+            {/* Shortcuts Section */}
+            <div className="pb-2">
+              <div className="px-3 py-2 flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-[0.15em]">
+                <ChevronDown className="h-3.5 w-3.5" />
+                Shortcuts
+              </div>
+              <div className="space-y-1">
+                <Link to="/dashboard?view=mentions" onClick={() => setSidebarOpen(false)}
+                  className={cn(
+                    'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-200',
+                    location.search === '?view=mentions'
+                      ? 'bg-[#7c3aed]/20 text-[#a78bfa] shadow-[inset_0_0_12px_rgba(124,58,237,0.1)] border border-[#7c3aed]/20'
+                      : 'text-white/80 hover:bg-white/5 hover:text-white'
+                  )}>
+                  <AtSign className="h-4 w-4" />
+                  Mentions
+                </Link>
+
+                <Link to="/dashboard?view=starred" onClick={() => setSidebarOpen(false)}
+                  className={cn(
+                    'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-200',
+                    location.search === '?view=starred'
+                      ? 'bg-[#7c3aed]/20 text-[#a78bfa] shadow-[inset_0_0_12px_rgba(124,58,237,0.1)] border border-[#7c3aed]/20'
+                      : 'text-white/80 hover:bg-white/5 hover:text-white'
+                  )}>
+                  <Star className="h-4 w-4" />
+                  Starred
+                </Link>
+              </div>
+            </div>
 
             <div className="pt-6 pb-2 px-3 flex items-center justify-between">
               <p className="text-[10px] font-bold text-white uppercase tracking-[0.15em]">Organizations</p>

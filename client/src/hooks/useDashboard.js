@@ -14,3 +14,17 @@ export function useRecentTasks(limit = 10) {
     queryFn: () => api.get(`/dashboard/recent-tasks?limit=${limit}`).then((r) => r.data),
   });
 }
+
+export function useDashboardMentions() {
+  return useQuery({
+    queryKey: ['dashboard', 'mentions'],
+    queryFn: () => api.get('/dashboard/mentions').then((r) => r.data),
+  });
+}
+
+export function useDashboardStarred() {
+  return useQuery({
+    queryKey: ['dashboard', 'starred'],
+    queryFn: () => api.get('/dashboard/starred').then((r) => r.data),
+  });
+}
