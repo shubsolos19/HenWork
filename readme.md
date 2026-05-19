@@ -21,6 +21,7 @@
 [![Supabase](https://img.shields.io/badge/Supabase-Realtime-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
+[![React Doctor](https://www.react.doctor/share/badge?p=client&s=90&w=147&f=21)](https://www.react.doctor/share?p=client&s=90&w=147&f=21)
 
 <br/>
 
