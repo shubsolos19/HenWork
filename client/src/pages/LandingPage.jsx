@@ -175,21 +175,21 @@ export default function LandingPage() {
       </section>
 
       {/* Footer Section */}
-      <footer className="py-6 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-[#1A1A1A] text-[#fdfaf6] text-center">
+      <footer className="py-6 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-[#000000] text-white text-center">
         {/* Subtle warm ambient glow matching footer landscape */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(253,250,246,0.06),transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(255,255,255,0.06),transparent_70%)] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center w-full relative z-10">
           <div className="mb-4 flex items-center justify-center gap-4">
             <img
               src="/easter-eggs.png"
               alt="HenWork Icon"
-              className="h-10 w-10 object-contain drop-shadow-lg select-none pointer-events-none"
+              className="h-10 w-10 object-contain drop-shadow-md select-none pointer-events-none"
             />
             <img
               src="/woodhw.png"
               alt="HenWork"
-              className="h-9 object-contain drop-shadow-lg select-none pointer-events-none"
+              className="h-9 object-contain drop-shadow-md select-none pointer-events-none"
             />
           </div>
 
@@ -206,7 +206,7 @@ export default function LandingPage() {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-white/70 hover:text-white transition-all duration-300 relative after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+                    className="text-white/80 hover:text-white transition-all duration-300 relative after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
                   >
                     {link.name}
                   </a>
@@ -323,7 +323,7 @@ export default function LandingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={icon.name}
-                className="text-white/60 hover:text-white transition-colors duration-300"
+                className="text-white/70 hover:text-white transition-colors duration-300"
                 href={icon.href}
               >
                 {icon.svg}
@@ -331,7 +331,7 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <p className="text-center text-xs text-white/40 mt-2">
+          <p className="text-center text-xs text-white/60 mt-2">
             &copy; {new Date().getFullYear()} HenWork. All rights reserved.
           </p>
         </div>
