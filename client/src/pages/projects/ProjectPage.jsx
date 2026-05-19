@@ -38,7 +38,7 @@ function TaskFilters({ filters, onChange }) {
 
 function KanbanColumn({ title, tasks, projectId, color, orgId }) {
   return (
-    <div className="flex-1 min-w-[280px]">
+    <div className="flex-1 min-w-[280px] w-full">
       <div className="flex items-center gap-2 mb-3 px-1">
         <div className={`h-2 w-2 rounded-full ${color}`} />
         <h3 className="text-sm font-bold text-black">{title}</h3>
@@ -188,7 +188,7 @@ export default function ProjectPage() {
       {isLoading ? <ListSkeleton rows={6} /> : !(tasks || []).length ? (
         <EmptyState icon={ListTodo} title="No tasks yet" description="Create your first task to get started" actionLabel="Create Task" onAction={() => setShowCreate(true)} />
       ) : view === 'board' ? (
-        <div className="flex gap-4 overflow-x-auto pb-4">
+        <div className="flex flex-col lg:flex-row gap-6 pb-4">
           <KanbanColumn title="To Do" tasks={todo} projectId={projectId} orgId={orgId} color="bg-text-secondary" />
           <KanbanColumn title="In Progress" tasks={inProgress} projectId={projectId} orgId={orgId} color="bg-warning" />
           <KanbanColumn title="Completed" tasks={completed} projectId={projectId} orgId={orgId} color="bg-success" />
