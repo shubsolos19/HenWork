@@ -86,7 +86,10 @@ We built HenWork with strict rules to keep the app secure, fast, and light:
 
 ## 📊 Project Insights & Analytics
 
+<div align="center">
+
 ### 🏥 React Health Report
+
 Our frontend is optimized for performance with a **React Doctor Score of 90/100** — ensuring zero memory leaks, efficient rendering, and a lightning-fast user experience.
 
 [![React Doctor Report](https://img.shields.io/badge/React%20Doctor-90%2F100-4CAF50?style=for-the-badge&logo=react&logoColor=white)](https://www.react.doctor/share?p=client&s=90&w=147&f=21)
@@ -96,11 +99,14 @@ Our frontend is optimized for performance with a **React Doctor Score of 90/100*
 ---
 
 ### 🌐 Architecture Visualization
+
 Explore the complete system architecture and component relationships through our interactive network graph:
 
 [![Henwork Graph Visualization](https://img.shields.io/badge/System%20Architecture-Interactive%20Graph-6366F1?style=for-the-badge&logo=graphql&logoColor=white)](https://shubsolos19.github.io/Henwork-Graph-Visualization/)
 
 👉 **[View Architecture Graph](https://shubsolos19.github.io/Henwork-Graph-Visualization/)**
+
+</div>
 
 ---
 
