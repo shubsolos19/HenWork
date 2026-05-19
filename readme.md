@@ -35,29 +35,24 @@ TaskManager is a **production-ready, multi-tenant task management platform** des
 
 ---
 
-## 🌟 Feature Highlights
+## 🌟 Features & Rules
 
-### 🏢 Organizations & Projects
-| Feature | Description |
-|---|---|
-| **Multi-Tenant Architecture** | Create multiple organizations and switch between them seamlessly |
-| **Project Workspaces** | Organize tasks into distinct projects under each organization |
-| **Role-Based Access Control** | Distinct permissions for `Admin` and `Member` roles |
-| **Strict Privacy Controls** | Non-admins see anonymized profiles; admins manage full identities |
+### 🚀 What HenWork Can Do
+* 🏢 **Multi-Tenant Workspaces**: Keep your businesses, agencies, and side projects organized in completely separate workspaces.
+* 📋 **Visual Kanban Boards**: Move tasks easily across **To Do**, **In Progress**, and **Completed** lists. The layout automatically stacks on mobile screens so you never lose visibility.
+* 💬 **Team Collaboration**: Comment on tasks in real time, star important replies, and check your `@mentions` directly on your dashboard.
+* 📎 **File Attachments**: Upload documents and images (up to **25MB**) directly inside any task details view.
+* ⚡ **Instant Skeleton Loaders**: Pages load instantly on refresh using beautiful, smooth skeleton frameworks instead of blocky loading screens.
+* 🎨 **Stunning Aesthetics**: Premium glassmorphic styling, calming colors, and a silent background video wallpaper.
 
-### ✅ Task Management & Kanban
-| Feature | Description |
-|---|---|
-| **Interactive Kanban Boards** | Drag-and-drop task progression: `To Do` → `In Progress` → `Completed` |
-| **Task Assignments** | Assign multiple team members using robust UUID-based tracking |
-| **Rich Task Details** | Descriptions, due dates, and priority levels (Low / Medium / High) |
+---
 
-### 💬 Collaboration & Real-Time Sync
-| Feature | Description |
-|---|---|
-| **Live Updates** | Instant UI sync via **Supabase Realtime** subscriptions |
-| **Task Comments** | Built-in discussion threads with PII masking for non-admins |
-| **File Attachments** | Upload documents and images (up to **25MB**) directly to tasks |
+### 🛡️ Core Rules We Follow
+We built HenWork with strict rules to keep the app secure, fast, and light:
+
+* 🧠 **No Memory Leaks (React Doctor)**: Every real-time database listener, timer, or event listener is automatically cleaned up when a page closes. This keeps the application incredibly fast and lightweight.
+* 🔒 **Strict Privacy for Members (PII Rule)**: Regular team members see anonymous profiles to protect user privacy. Only organization **Admins** have full permission to see real names, emails, and profile pictures.
+* 🛡️ **Safe & Spam-Protected**: Enforces healthy rate limits on database actions to keep performance high and prevent spam.
 
 ---
 
