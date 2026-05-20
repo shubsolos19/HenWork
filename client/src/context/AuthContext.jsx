@@ -62,6 +62,11 @@ export function AuthProvider({ children }) {
   const signOut = useCallback(async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
+
+    // Force clear state immediately so PublicRoute sees user=null
+    // without waiting for the async onAuthStateChange callback
+    setUser(null);
+    setSession(null);
   }, []);
 
   const signInWithGoogle = useCallback(async () => {

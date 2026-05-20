@@ -48,7 +48,7 @@ export default function App() {
           <ToastProvider defaultPosition="topRight">
             <Routes>
               {/* Public */}
-              <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
               <Route path="/signup" element={<PublicRoute><SignupPage /></PublicRoute>} />
               <Route path="/signup-success" element={<SignupSuccessPage />} />

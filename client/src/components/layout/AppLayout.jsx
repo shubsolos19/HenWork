@@ -27,8 +27,11 @@ export default function AppLayout() {
   const lastName = profile?.last_name || meta.last_name || '';
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/login');
+    try {
+      await signOut();
+    } finally {
+      navigate('/login', { replace: true });
+    }
   };
 
   return (
