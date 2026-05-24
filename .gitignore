@@ -25,3 +25,5 @@ build/
 
 # Media Assets (Private)
 
+# Graph Analysis (local only)
+graphify-out/
