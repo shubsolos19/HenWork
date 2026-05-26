@@ -10,7 +10,7 @@ import {
   ChevronDown, FolderKanban, Settings, AtSign, Star
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import wallpaperVideo from '@/assets/dbgg.mp4';
+import wallpaperVideo from '@/assets/vid1.mp4';
 import { Logo } from '@/components/shared/Logo';
 
 export default function AppLayout() {

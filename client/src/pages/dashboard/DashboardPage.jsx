@@ -11,7 +11,7 @@ import { getStatusLabel, getStatusColor, getPriorityColor, formatDate, formatRel
 import {
   ListTodo, Clock, CheckCircle2, AlertTriangle, Building2, Plus, ArrowRight, MessageSquare, AtSign, Star, ArrowLeft
 } from 'lucide-react';
-import wallpaperVideo from '@/assets/dbgg.mp4';
+import wallpaperVideo from '@/assets/vid1.mp4';
 
 export default function DashboardPage() {
   const [searchParams] = useSearchParams();
