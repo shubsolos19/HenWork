@@ -7,11 +7,23 @@ import Loader from '@/components/shared/Loader';
 export default function AuthCallback() {
   const navigate = useNavigate();
   const syncAttempted = useRef(false);
-  const [status, setStatus] = useState('authenticating'); // 'authenticating' | 'success'
+  const [dots, setDots] = useState(' .');
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setDots(' . .'), 1000);
+    const t2 = setTimeout(() => setDots(' . . .'), 2000);
+    const t3 = setTimeout(() => setIsSuccess(true), 3000);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, []);
 
   useEffect(() => {
     const startTime = Date.now();
-    let successTimeout;
     let navTimeout;
 
     const handleAuth = async (session) => {
@@ -28,17 +40,11 @@ export default function AuthCallback() {
           console.error('Failed to sync Google profile:', err);
         } finally {
           const elapsedTime = Date.now() - startTime;
-          const timeToSuccess = Math.max(0, 3000 - elapsedTime);
-          
-          // Switch to success status at exactly the 3-second mark
-          successTimeout = setTimeout(() => {
-            setStatus('success');
-            
-            // Navigate to dashboard 2 seconds after the success status appears (total 5 seconds)
-            navTimeout = setTimeout(() => {
-              navigate('/dashboard', { replace: true });
-            }, 2000);
-          }, timeToSuccess);
+          const timeToNavigate = Math.max(0, 4000 - elapsedTime);
+
+          navTimeout = setTimeout(() => {
+            navigate('/dashboard', { replace: true });
+          }, timeToNavigate);
         }
       }
     };
@@ -70,7 +76,6 @@ export default function AuthCallback() {
     return () => {
       subscription.unsubscribe();
       clearTimeout(timeout);
-      if (successTimeout) clearTimeout(successTimeout);
       if (navTimeout) clearTimeout(navTimeout);
     };
   }, [navigate]);
@@ -81,16 +86,17 @@ export default function AuthCallback() {
         <div className="relative w-full h-40 flex items-center justify-center">
           <Loader />
         </div>
-        
-        {status === 'success' ? (
-          <p className="text-emerald-400 font-bold text-center tracking-widest text-xl animate-in fade-in slide-in-from-bottom-6 duration-500">
-            Success
-          </p>
-        ) : (
-          <p className="text-white font-medium animate-pulse text-center tracking-wider text-sm">
-            Completing authentication...
-          </p>
-        )}
+
+        <p className="text-white font-medium text-center tracking-wider text-sm h-6 flex items-center justify-center">
+          {isSuccess ? (
+            'Success 💗'
+          ) : (
+            <>
+              Authenticating
+              <span className="inline-block w-8 text-left">{dots}</span>
+            </>
+          )}
+        </p>
       </div>
     </div>
   );
