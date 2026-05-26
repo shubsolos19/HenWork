@@ -484,7 +484,7 @@ export default function TaskDetailPage() {
                 const isSelected = task?.priority === p;
                 let colorClass = getPriorityColor(p);
                 if (p === 'high' && isSelected) {
-                  colorClass = colorClass.replace('text-destructive', 'text-[#ff0000]');
+                  colorClass = colorClass.replace('text-destructive', 'text-[#FF7777]');
                 }
                 return (
                   <button key={p} onClick={() => handlePriorityChange(p)}
@@ -506,7 +506,7 @@ export default function TaskDetailPage() {
             <span className="text-sm font-medium text-white">Due Date</span>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-white" />
-              <span className={cn('text-sm font-medium', (task?.due_date || task?.dueDate) && isOverdue(task.due_date || task.dueDate) && task.status !== 'completed' ? 'text-[#ff0000]' : 'text-white')}>
+              <span className={cn('text-sm font-medium', (task?.due_date || task?.dueDate) && isOverdue(task.due_date || task.dueDate) && task.status !== 'completed' ? 'text-[#FF7777]' : 'text-white')}>
                 {(task?.due_date || task?.dueDate) ? formatDate(task.due_date || task.dueDate) : 'No due date'}
               </span>
             </div>

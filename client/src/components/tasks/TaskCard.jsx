@@ -21,7 +21,7 @@ export function TaskCard({ task, projectId, orgId }) {
               {task.due_date && (
                 <span className={cn(
                   'text-[10px] flex items-center gap-1',
-                  isOverdue(task.due_date) && task.status !== 'completed' ? 'text-destructive' : 'text-white'
+                  isOverdue(task.due_date) && task.status !== 'completed' ? 'text-[#FF7777]' : 'text-white'
                 )}>
                   <Calendar className="h-3 w-3 text-white" /> {formatDate(task.due_date)}
                 </span>

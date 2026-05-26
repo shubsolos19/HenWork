@@ -27,7 +27,7 @@ export default function DashboardPage() {
     { label: 'Total Tasks', value: stats?.totalTasks ?? 0, icon: ListTodo, color: 'text-[#a78bfa]', bg: 'bg-[#7c3aed]/20' },
     { label: 'In Progress', value: stats?.inProgress ?? 0, icon: Clock, color: 'text-[#fbbf24]', bg: 'bg-[#f59e0b]/20' },
     { label: 'Completed', value: stats?.completed ?? 0, icon: CheckCircle2, color: 'text-[#34d399]', bg: 'bg-[#10b981]/20' },
-    { label: 'Overdue', value: stats?.overdue ?? 0, icon: AlertTriangle, color: 'text-[#ff0000]', bg: 'bg-[#ef4444]/20' },
+    { label: 'Overdue', value: stats?.overdue ?? 0, icon: AlertTriangle, color: 'text-[#FF7777]', bg: 'bg-[#FF7777]/20' },
   ];
 
   const pageTitle = view === 'mentions' ? 'Mentions' : view === 'starred' ? 'Starred' : 'Dashboard';
@@ -151,8 +151,8 @@ export default function DashboardPage() {
                           {getStatusLabel(task.status)}
                         </Badge>
                         {isOverdue(task.due_date) && task.status !== 'completed' && (
-                          <span className="text-[10px] text-[#ff0000] font-bold uppercase tracking-wide flex items-center gap-1">
-                            <span className="h-1 w-1 rounded-full bg-[#ff0000] animate-pulse" />
+                          <span className="text-[10px] text-[#FF7777] font-bold uppercase tracking-wide flex items-center gap-1">
+                            <span className="h-1 w-1 rounded-full bg-[#FF7777] animate-pulse" />
                             Overdue
                           </span>
                         )}

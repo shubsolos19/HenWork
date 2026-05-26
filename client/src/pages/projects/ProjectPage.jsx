@@ -206,7 +206,7 @@ export default function ProjectPage() {
                   </Badge>
                   <Badge className={cn('text-[10px]', getPriorityColor(task.priority))}>{task.priority}</Badge>
                   {task.due_date && (
-                    <span className={cn('text-[10px]', isOverdue(task.due_date) && task.status !== 'completed' ? 'text-destructive' : 'text-white')}>
+                    <span className={cn('text-[10px]', isOverdue(task.due_date) && task.status !== 'completed' ? 'text-[#FF7777]' : 'text-white')}>
                       {formatDate(task.due_date)}
                     </span>
                   )}
