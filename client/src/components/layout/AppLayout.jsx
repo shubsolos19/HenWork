@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/context/AuthContext';
 import { useOrganizations } from '@/hooks/useOrganizations';
 import { useProfile } from '@/hooks/useProfile';
@@ -19,6 +20,7 @@ export default function AppLayout() {
   const location = useLocation();
   const { data: orgs } = useOrganizations();
   const { data: profile } = useProfile();
+  const queryClient = useQueryClient();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
@@ -29,6 +31,7 @@ export default function AppLayout() {
   const handleSignOut = async () => {
     try {
       await signOut();
+      queryClient.clear();
     } finally {
       navigate('/login', { replace: true });
     }

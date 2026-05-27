@@ -144,8 +144,12 @@ async function syncGoogleProfile(user) {
     });
   } else {
     // Existing user
-    if (profile.avatar_url !== googlePic) {
-      // Update avatar_url if it changed
+    // We only update if they don't have an avatar or if their current avatar is from Google.
+    // This prevents overwriting a custom uploaded avatar (which would be a Supabase storage URL).
+    const isGooglePhoto = profile.avatar_url?.includes('googleusercontent.com');
+    const hasNoPhoto = !profile.avatar_url;
+
+    if ((hasNoPhoto || isGooglePhoto) && profile.avatar_url !== googlePic) {
       await adminClient.from('profiles').update({
         avatar_url: googlePic,
         updated_at: new Date().toISOString()
