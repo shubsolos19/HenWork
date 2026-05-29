@@ -110,9 +110,28 @@ Explore the complete system architecture and component relationships through our
 
 ---
 
-## 🚀 Getting Started
+## 📖 How to Use HenWork
 
-### Prerequisites
+HenWork is built around a simple, powerful hierarchy that scales perfectly with your team, business, or institution. Here is how to structure your workspace:
+
+### 1️⃣ Organizations (The Top Level)
+*Think of this as the main umbrella for your entire group.*
+- **Example:** `Stanford University`, `Acme Corp`, or `My Agency`
+- **Action:** Create a new Organization to invite your core members and admins.
+
+### 2️⃣ Projects (The Categories)
+*Projects live inside Organizations. They represent departments, sub-teams, or major initiatives.*
+- **Example:** `College of Engineering`, `Marketing Department`, or `Website Redesign`
+- **Action:** Create a Project inside your Organization to group related work.
+
+### 3️⃣ Tasks (The Action Items)
+*Tasks live inside Projects. This is where the actual work happens, discussions take place, and files are shared.*
+- **Example:** `CS101 Intro Class`, `Q3 Budget Planning`, or `Fix Login Bug`
+- **Action:** Add tasks, set priorities, upload attachments, and move them across the Kanban board!
+
+---
+
+## 🚀 Getting Started
 
 Before you begin, ensure you have the following installed:
 
