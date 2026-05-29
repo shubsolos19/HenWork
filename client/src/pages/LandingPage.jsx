@@ -7,6 +7,7 @@ import { Layers, Kanban, Paperclip, Clock } from 'lucide-react';
 import NoiseCard from '@/components/ui/noise-card';
 import LoveReact from '@/components/ui/LoveReact';
 import { Highlighter } from "@/components/ui/highlighter";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 
 export default function LandingPage() {
   const { scrollY } = useScroll();
@@ -149,9 +150,20 @@ export default function LandingPage() {
                 <LoveReact size={56} color="rgb(34, 197, 94)" />
                 <LoveReact size={40} color="rgb(139, 92, 246)" />
               </div>
-              <p className="mt-4 font-serif text-4xl leading-tight text-[#1a1a1a] sm:text-5xl">
-                Everything you need,<br className="sm:hidden" /> nothing you don't.
-              </p>
+              <div className="mt-4 flex justify-center">
+                <TypewriterEffectSmooth 
+                  words={[
+                    { text: "Everything", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "you", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "need,", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "nothing", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "you", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "don't.", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" }
+                  ]}
+                  className="my-0"
+                  cursorClassName="bg-[#1a1a1a]"
+                />
+              </div>
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#1a1a1a]/70">
                 No noise.{" "}
                 <Highlighter action="highlight" color="#fef08a" isView={true} padding={4} animationDuration={600}>
