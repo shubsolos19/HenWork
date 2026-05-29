@@ -146,22 +146,22 @@ export default function LandingPage() {
           <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-3xl text-center flex flex-col items-center justify-center">
               <div className="mb-2 flex items-center justify-center gap-4">
-                <LoveReact size={40} color="rgb(255, 91, 137)" />
-                <LoveReact size={56} color="rgb(34, 197, 94)" />
+                <LoveReact size={40} color="rgb(34, 197, 94)" />
+                <LoveReact size={56} color="rgb(255, 91, 137)" />
                 <LoveReact size={40} color="rgb(139, 92, 246)" />
               </div>
               <div className="mt-4 flex justify-center">
-                <TypewriterEffectSmooth 
+                <TypewriterEffectSmooth
                   words={[
-                    { text: "Everything", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "Everything", className: "font-serif text-4xl sm:text-5xl text-[#ff8989] dark:text-[#ff8989]" },
                     { text: "you", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
                     { text: "need,", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
-                    { text: "nothing", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "nothing", className: "font-serif text-4xl sm:text-5xl text-[#2B7FFF] dark:text-[#2B7FFF]" },
                     { text: "you", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
                     { text: "don't.", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" }
                   ]}
                   className="my-0"
-                  cursorClassName="bg-[#1a1a1a]"
+                  cursorClassName="bg-[#2B7FFF]"
                 />
               </div>
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#1a1a1a]/70">
