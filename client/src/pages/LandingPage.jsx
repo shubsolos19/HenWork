@@ -111,10 +111,10 @@ export default function LandingPage() {
               <h1 className="font-serif text-5xl leading-[1.05] text-[#1a1a1a] sm:text-6xl md:text-7xl animate-fade-in">
                 Team work, finally
                 <br />
-                at a calmer pace
+                at calmer pace
               </h1>
               <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-[#1a1a1a]/80 animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Organize your team, projects, and tasks in one beautiful workspace
+                Organize your team in one beautiful workspace
                 <br className="hidden sm:block" /> built for clarity, not clutter
               </p>
               <div className="mt-10 flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
