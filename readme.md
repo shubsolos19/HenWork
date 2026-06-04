@@ -33,6 +33,37 @@
 
 TaskManager is a **production-ready, multi-tenant task management platform** designed for modern agile teams. It combines a powerful Kanban-based workflow engine with real-time collaboration, strict privacy controls, and a clean, intuitive UI — giving your team everything it needs to ship faster.
 
+### 📂 Folder Structure
+
+```HenWork
+├── client/                     # Frontend React Application
+│   ├── public/                 # Static assets (images, icons)
+│   ├── src/                    # Source code for React app
+│   │   ├── assets/             # Media and styling assets
+│   │   ├── components/         # Reusable UI components
+│   │   ├── config/             # Frontend configurations
+│   │   ├── context/            # React Context providers (Auth, etc.)
+│   │   ├── hooks/              # Custom React Hooks
+│   │   ├── lib/                # Utility libraries (Supabase, API)
+│   │   ├── pages/              # Application views/pages
+│   │   └── services/           # Service layer for external APIs
+│   ├── index.html              # Main HTML entry point
+│   └── package.json            # Frontend dependencies
+├── src/                        # Backend Express Application
+│   ├── config/                 # Backend configurations (CORS, Supabase)
+│   ├── controllers/            # Request handlers for routes
+│   ├── middleware/             # Express middlewares (Auth, Rate Limiter)
+│   ├── routes/                 # API endpoint definitions
+│   ├── services/               # Core business logic and database interactions
+│   └── utils/                  # Helper functions and response formatters
+├── scripts/                    # Utility and setup scripts
+│   ├── setup_avatars.js
+│   └── setup_storage_policies.js
+├── HenWork_Project_Report.md   # Comprehensive project report
+├── package.json                # Root dependencies and scripts
+└── readme.md                   # Project documentation
+```
+
 ---
 
 ## 🌟 Features & Rules
