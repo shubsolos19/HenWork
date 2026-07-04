@@ -8,6 +8,8 @@ import NoiseCard from '@/components/ui/noise-card';
 import LoveReact from '@/components/ui/LoveReact';
 import { Highlighter } from "@/components/ui/highlighter";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { ScaleInText } from "@/components/ui/ScaleInText";
+import { SlideInText } from "@/components/ui/SlideInText";
 
 export default function LandingPage() {
   const { scrollY } = useScroll();
@@ -108,23 +110,23 @@ export default function LandingPage() {
             </header>
 
             <section className="mx-auto max-w-5xl px-6 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] text-center">
-              <h1 className="font-serif text-5xl leading-[1.05] text-[#1a1a1a] sm:text-6xl md:text-7xl animate-fade-in">
-                Team work, finally
-                <br />
-                at calmer pace
-              </h1>
-              <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-[#1a1a1a]/80 animate-fade-in" style={{ animationDelay: '100ms' }}>
-                Organize your team in one beautiful workspace
-                <br className="hidden sm:block" /> built for clarity, not clutter
-              </p>
-              <div className="mt-10 flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
+              <div className="-translate-y-8 sm:-translate-y-16">
+                <ScaleInText text={"Teamwork\nat natures pace"} />
+                <SlideInText text="A peaceful workspace built for focus" className="mx-auto mt-6 sm:mt-8 max-w-xl text-lg sm:text-xl md:text-2xl leading-relaxed text-[#1a1a1a]/80" baseDelay={1.2} />
+              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.2, duration: 0.5 }}
+                className="mt-10 flex justify-center"
+              >
                 <Link
                   to="/signup"
                   className="rounded-md bg-[#1a1a1a] px-8 py-3.5 text-base font-medium text-[#fdfaf6] shadow-lg transition hover:-translate-y-0.5"
                 >
                   Create your workspace
                 </Link>
-              </div>
+              </motion.div>
             </section>
           </motion.div>
         </div>
@@ -153,12 +155,12 @@ export default function LandingPage() {
               <div className="mt-4 flex justify-center">
                 <TypewriterEffectSmooth
                   words={[
-                    { text: "Everything", className: "font-serif text-4xl sm:text-5xl text-[#ff8989] dark:text-[#ff8989]" },
-                    { text: "you", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
-                    { text: "need,", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
-                    { text: "nothing", className: "font-serif text-4xl sm:text-5xl text-[#2B7FFF] dark:text-[#2B7FFF]" },
-                    { text: "you", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
-                    { text: "don't.", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" }
+                    { text: "Tend", className: "font-serif text-4xl sm:text-5xl text-[#ff8989] dark:text-[#ff8989]" },
+                    { text: "your", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "work", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "like", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "a", className: "font-serif text-4xl sm:text-5xl text-[#1a1a1a] dark:text-[#1a1a1a]" },
+                    { text: "garden", className: "font-serif text-4xl sm:text-5xl text-[#2B7FFF] dark:text-[#2B7FFF]" }
                   ]}
                   className="my-0"
                   cursorClassName="bg-[#2B7FFF]"
@@ -166,15 +168,15 @@ export default function LandingPage() {
               </div>
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#1a1a1a]/70">
                 No noise.{" "}
-                <Highlighter action="highlight" color="#fef08a" isView={true} padding={4} animationDuration={600}>
+                <Highlighter action="highlight" color="#fef08a" isView={true} padding={4} delay={3000} animationDuration={600}>
                   No distraction.
                 </Highlighter>{" "}
                 Just clear task management built to help your{" "}
-                <Highlighter action="highlight" color="#fbcfe8" isView={true} padding={4} animationDuration={600}>
+                <Highlighter action="highlight" color="#fbcfe8" isView={true} padding={4} delay={3600} animationDuration={600}>
                   team build
                 </Highlighter>{" "}
                 momentum at a{" "}
-                <Highlighter action="underline" color="#2c4e3f" strokeWidth={2} isView={true} padding={2} delay={650} animationDuration={600}>
+                <Highlighter action="underline" color="#2c4e3f" strokeWidth={2} isView={true} padding={2} delay={4200} animationDuration={600}>
                   calmer pace.
                 </Highlighter>
               </p>

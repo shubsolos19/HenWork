@@ -80,6 +80,8 @@ export const TypewriterEffect = ({
   );
 };
 
+let hasPlayedTypewriter = false;
+
 export const TypewriterEffectSmooth = ({
   words,
   className,
@@ -117,15 +119,19 @@ export const TypewriterEffectSmooth = ({
       <motion.div
         className="overflow-hidden pb-2"
         initial={{
-          width: "0%",
+          width: hasPlayedTypewriter ? "fit-content" : "0%",
         }}
         whileInView={{
           width: "fit-content",
         }}
+        viewport={{ once: true }}
+        onAnimationComplete={() => {
+          hasPlayedTypewriter = true;
+        }}
         transition={{
           duration: 2,
           ease: "linear",
-          delay: 1,
+          delay: hasPlayedTypewriter ? 0 : 1,
         }}>
         <div
           className="text-xs sm:text-base md:text-xl lg:text:3xl xl:text-5xl font-bold"
