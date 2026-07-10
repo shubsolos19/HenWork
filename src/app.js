@@ -13,6 +13,10 @@ const routes = require('./routes');
 
 const app = express();
 
+// ── Trust Proxy ──────────────────────────────────────
+// Required for express-rate-limit to see real client IPs behind Render's load balancer
+app.set('trust proxy', 1);
+
 // ── Security headers ─────────────────────────────────
 app.use(helmet());
 
@@ -26,20 +30,20 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 // ── Request logging ──────────────────────────────────
 app.use(requestLogger);
 
-// ── Rate limiting ────────────────────────────────────
-app.use('/api', globalLimiter);
-
 // ── Health check ─────────────────────────────────────
+// Must be above rate limiter so uptime monitors don't trigger/exhaust it
 app.get('/api/health', (_req, res) => {
   res.status(200).json({
     success: true,
     data: {
       status: 'healthy',
       timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
     },
   });
 });
+
+// ── Rate limiting ────────────────────────────────────
+app.use('/api', globalLimiter);
 
 // ── API routes ───────────────────────────────────────
 app.use('/api', routes);
